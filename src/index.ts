@@ -37,9 +37,9 @@ export async function activate(context: ExtensionContext): Promise<void> {
     return;
   }
 
-  module = config.get<string>('path', 'node_modules/intelephense');
+  module = context.asAbsolutePath('node_modules/intelephense');
   if (!existsSync(module)) {
-    window.showMessage(`intelephense module doesn't exist, please reinstall coc-intelephense`, 'error');
+    window.showMessage(`intelephense module doesn't exist, please reinstall coc-intelephense"`, 'error');
     return;
   }
 
