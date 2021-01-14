@@ -47,7 +47,7 @@
       "type": "object",
       "title": "coc-intelephense configuration",
       "properties": {
-        "intelephense.enabled": {
+        "intelephense.enable": {
           "type": "boolean",
           "default": true,
           "description": "Enable coc-intelephense extension"
