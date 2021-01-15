@@ -56,7 +56,7 @@
         "intelephense.path": {
           "type": "string",
           "default": "",
-          "description": "Path to intelephense module, you can use a custom version of intelephense by modifying this setting to include the full path."
+          "description": "Absolute path to intelephense module. If there is no setting, the built-in module will be used."
         },
         "intelephense.compatibility.correctForBaseClassStaticUnionTypes": {
           "type": "boolean",

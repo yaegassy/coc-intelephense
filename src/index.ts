@@ -25,8 +25,6 @@ let extensionContext: ExtensionContext;
 let clientDisposable: Disposable;
 let languageClient: LanguageClient;
 
-let module: string;
-
 export async function activate(context: ExtensionContext): Promise<void> {
   extensionContext = context;
 
@@ -37,7 +35,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     return;
   }
 
-  module = context.asAbsolutePath('node_modules/intelephense');
+  const module = context.asAbsolutePath('node_modules/intelephense');
   if (!existsSync(module)) {
     window.showMessage(`intelephense module doesn't exist, please reinstall coc-intelephense"`, 'error');
     return;
@@ -55,14 +53,19 @@ export async function activate(context: ExtensionContext): Promise<void> {
 }
 
 function createClient(context: ExtensionContext, clearCache: boolean) {
+  const intelephenseConfig = workspace.getConfiguration('intelephense');
+  const runtime = intelephenseConfig.get('runtime') as string | undefined;
+  const memory = Math.floor(Number(intelephenseConfig.get('maxMemory')));
+
+  let module = intelephenseConfig.get('path') as string | undefined;
+  if (!module) {
+    module = context.asAbsolutePath('node_modules/intelephense');
+  }
+
   const serverOptions: NodeModule = {
     module,
     transport: TransportKind.ipc,
   };
-
-  const intelephenseConfig = workspace.getConfiguration('intelephense');
-  const runtime = intelephenseConfig.get('runtime') as string | undefined;
-  const memory = Math.floor(Number(intelephenseConfig.get('maxMemory')));
 
   if (runtime) {
     serverOptions.runtime = runtime;
