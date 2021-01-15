@@ -1,5 +1,11 @@
 # coc-intelephense
 
+PHP language server extension using intelephense for [coc.nvim](https://github.com/neoclide/coc.nvim).
+
+## Install
+
+> TODO
+
 ## Configuration options
 
 - `intelephense.enable`: Enable coc-intelephense extension, default `true`
