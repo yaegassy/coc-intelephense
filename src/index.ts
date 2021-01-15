@@ -60,6 +60,19 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
     transport: TransportKind.ipc,
   };
 
+  const intelephenseConfig = workspace.getConfiguration('intelephense');
+  const runtime = intelephenseConfig.get('runtime') as string | undefined;
+  const memory = Math.floor(Number(intelephenseConfig.get('maxMemory')));
+
+  if (runtime) {
+    serverOptions.runtime = runtime;
+  }
+
+  if (memory && memory > 256) {
+    const maxOldSpaceSize = '--max-old-space-size=' + memory.toString();
+    serverOptions.options = { execArgv: [maxOldSpaceSize] };
+  }
+
   const clientOptions: LanguageClientOptions = {
     documentSelector: [
       { language: LanguageID, scheme: 'file' },
