@@ -13,6 +13,7 @@
     "coc": "^0.0.80"
   },
   "scripts": {
+    "snippets": "curl -o snippets/php.code-snippets https://raw.githubusercontent.com/microsoft/vscode/master/extensions/php/snippets/php.code-snippets",
     "lint": "eslint src --ext ts",
     "clean": "rimraf lib",
     "watch": "webpack --watch",
@@ -716,7 +717,13 @@
           "scope": "window"
         }
       }
-    }
+    },
+    "snippets": [
+      {
+        "language": "php",
+        "path": "./snippets/php.code-snippets"
+      }
+    ]
   },
   "dependencies": {
     "intelephense": "^1.6.2"
