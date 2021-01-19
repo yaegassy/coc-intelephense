@@ -1,10 +1,19 @@
 # coc-intelephense
 
+> fork from a [vscode-intelephense](https://github.com/bmewburn/vscode-intelephense)
+
 PHP language server extension using intelephense for [coc.nvim](https://github.com/neoclide/coc.nvim).
 
 ## Install
 
-> TODO
+For example, [vim-plug](https://github.com/junegunn/vim-plug) users:
+
+```vim
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
+```
+
+> TODO: Publish to the npm registry
 
 ## Configuration options
 
@@ -13,9 +22,9 @@ PHP language server extension using intelephense for [coc.nvim](https://github.c
 
 Other settings can be changed in the same way as "configuration" of [vscode-intelephense](https://github.com/bmewburn/vscode-intelephense).
 
-## Development
+## License
 
-Run `yarn build` or `yarn watch`
+MIT
 
 ----
 
