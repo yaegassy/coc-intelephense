@@ -2,7 +2,7 @@
 
 > fork from a [vscode-intelephense](https://github.com/bmewburn/vscode-intelephense)
 
-PHP language server extension using intelephense for [coc.nvim](https://github.com/neoclide/coc.nvim).
+[coc.nvim](https://github.com/neoclide/coc.nvim) extension for [intelephense](https://intelephense.com/) (PHP language server)
 
 ## Install
 
@@ -21,6 +21,12 @@ Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
 - `intelephense.path`: Absolute path to intelephense module. If there is no setting, the built-in module will be used. e.g. `/path/to/node_modules/intelephense`. default: ""
 
 Other settings can be changed in the same way as "configuration" of [vscode-intelephense](https://github.com/bmewburn/vscode-intelephense).
+
+## Snippets support
+
+It supports built-in php snippet for VSCode.
+
+To use it, you need to install [coc-snippets](https://github.com/neoclide/coc-snippets).
 
 ## License
 
