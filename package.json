@@ -1,16 +1,23 @@
 {
   "name": "coc-intelephense",
-  "version": "0.0.0-development",
-  "description": "",
-  "author": "yaegassy <yaegassy@users.noreply.github.com>",
+  "version": "0.1.0",
+  "description": "intelephense",
+  "author": "yaegassy <yosstools@gmail.com>",
   "license": "MIT",
   "main": "lib/index.js",
   "keywords": [
     "coc.nvim",
-    "intelephense"
+    "php",
+    "intelephense",
+    "vim",
+    "neovim"
   ],
   "engines": {
     "coc": "^0.0.80"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yaegassy/coc-intelephense"
   },
   "scripts": {
     "snippets": "curl -o snippets/php.code-snippets https://raw.githubusercontent.com/microsoft/vscode-php/main/snippets/php.code-snippets",
