@@ -56,6 +56,7 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
   const intelephenseConfig = workspace.getConfiguration('intelephense');
   const runtime = intelephenseConfig.get('runtime') as string | undefined;
   const memory = Math.floor(Number(intelephenseConfig.get('maxMemory')));
+  const licenceKey = intelephenseConfig.get('licenceKey') as string | undefined;
 
   let module = intelephenseConfig.get('path') as string | undefined;
   if (!module) {
@@ -85,6 +86,7 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
       globalStoragePath: context.storagePath,
       storagePath: context.storagePath,
       clearCache: clearCache,
+      licenceKey: licenceKey,
     },
   };
 

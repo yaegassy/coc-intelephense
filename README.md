@@ -22,6 +22,25 @@ Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
 
 Other settings can be changed in the same way as "configuration" of [vscode-intelephense](https://github.com/bmewburn/vscode-intelephense).
 
+## Enabling the PREMIUM feature
+
+Prepare a `license.txt` file containing the license key and place it in a designated location.
+
+```sh
+$ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
+/Users/username/intelephense/licence.txt
+```
+
+**[DEPRECATED]:** Or set `intelephense.licenceKey` in "coc-settings.json"
+
+```jsonc
+{
+  // ...snip
+  "intelephense.licenceKey": "LICENSEKEYSAMPLE",
+  // ...snip
+}
+```
+
 ## Snippets support
 
 It supports built-in php snippet for VSCode.

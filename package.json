@@ -571,6 +571,7 @@
         },
         "intelephense.licenceKey": {
           "type": "string",
+          "description": "DEPRECATED. Don't use this.",
           "default": ""
         },
         "intelephense.telemetry.enabled": {
