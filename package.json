@@ -1,5 +1,5 @@
 {
-  "name": "@yaegassy/coc-intelephense",
+  "name": "coc-intelephense",
   "version": "0.2.0",
   "description": "intelephense extension for coc.nvim",
   "author": "yaegassy <yosstools@gmail.com>",
@@ -14,9 +14,6 @@
   ],
   "engines": {
     "coc": "^0.0.80"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "repository": {
     "type": "git",
