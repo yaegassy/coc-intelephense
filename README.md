@@ -6,10 +6,8 @@
 
 ## Install
 
-For example, [vim-plug](https://github.com/junegunn/vim-plug) users:
-
 ```vim
-Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
+:CocInstall @yaegassy/coc-intelephense
 ```
 
 ## Configuration options
