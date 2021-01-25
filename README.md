@@ -9,11 +9,8 @@
 For example, [vim-plug](https://github.com/junegunn/vim-plug) users:
 
 ```vim
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
 ```
-
-> TODO: Publish to the npm registry
 
 ## Configuration options
 
