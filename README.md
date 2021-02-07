@@ -20,7 +20,7 @@ Other settings can be changed in the same way as "configuration" of [vscode-inte
 
 ## Enabling the PREMIUM feature
 
-Prepare a `license.txt` file containing the license key and place it in a designated location.
+Prepare a `licence.txt` file containing the licence key and place it in a designated location.
 
 ```sh
 $ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
@@ -32,7 +32,7 @@ $ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
 ```jsonc
 {
   // ...snip
-  "intelephense.licenceKey": "LICENSEKEYSAMPLE",
+  "intelephense.licenceKey": "LICENCEKEYSAMPLE",
   // ...snip
 }
 ```
