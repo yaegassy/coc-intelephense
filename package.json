@@ -73,6 +73,11 @@
           "default": false,
           "description": "Disable completion only."
         },
+        "intelephense.progress.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable progress window for indexing, If false, display with echo messages."
+        },
         "intelephense.compatibility.correctForBaseClassStaticUnionTypes": {
           "type": "boolean",
           "default": true,

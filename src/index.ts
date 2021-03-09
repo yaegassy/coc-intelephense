@@ -95,17 +95,7 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
   const languageClient = new LanguageClient('intelephense', 'intelephense', serverOptions, clientOptions);
 
   languageClient.onReady().then(() => {
-    let startedTime: Date;
-
-    languageClient.onNotification(INDEXING_STARTED_NOTIFICATION.method, () => {
-      startedTime = new Date();
-      window.showMessage('intelephense indexing ...');
-    });
-
-    languageClient.onNotification(INDEXING_ENDED_NOTIFICATION.method, () => {
-      const usedTime: number = Math.abs(new Date().getTime() - startedTime.getTime());
-      window.showMessage('Indexed php files, times: ' + usedTime + 'ms');
-    });
+    registerNotificationListeners();
   });
 
   return languageClient;
@@ -124,4 +114,53 @@ function indexWorkspace() {
 
 function cancelIndexing() {
   languageClient.sendRequest(CANCEL_INDEXING_REQUEST.method);
+}
+
+// MEMO: support progress window for indexing
+function registerNotificationListeners() {
+  const intelephenseConfig = workspace.getConfiguration('intelephense');
+  const progressEnable = intelephenseConfig.get<boolean>('progress.enable');
+
+  let resolveIndexingPromise: () => void;
+
+  if (progressEnable) {
+    languageClient.onNotification(INDEXING_STARTED_NOTIFICATION.method, () => {
+      displayInitIndexProgress(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        new Promise<void>((resolve, reject) => {
+          resolveIndexingPromise = () => {
+            resolve();
+          };
+        })
+      );
+    });
+
+    languageClient.onNotification(INDEXING_ENDED_NOTIFICATION.method, () => {
+      if (resolveIndexingPromise) {
+        resolveIndexingPromise();
+      }
+    });
+  } else {
+    languageClient.onNotification(INDEXING_STARTED_NOTIFICATION.method, () => {
+      window.showMessage('intelephense indexing ...');
+    });
+
+    languageClient.onNotification(INDEXING_ENDED_NOTIFICATION.method, () => {
+      if (resolveIndexingPromise) {
+        resolveIndexingPromise();
+      }
+      window.showMessage('intelephense running!');
+    });
+  }
+}
+
+// MEMO: support progress window for indexing
+async function displayInitIndexProgress<T = void>(promise: Promise<T>) {
+  return window.withProgress(
+    {
+      title: 'intelephense indexing ...',
+      cancellable: true,
+    },
+    () => promise
+  );
 }
