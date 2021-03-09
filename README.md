@@ -15,7 +15,7 @@
 - `intelephense.enable`: Enable coc-intelephense extension, default `true`
 - `intelephense.path`: Absolute path to intelephense module. If there is no setting, the built-in module will be used. e.g. `/path/to/node_modules/intelephense`. default: ""
 - `intelephense.disableCompletion`: Disable completion only, default: `false`
-- `intelephense.progress.enable`: Enable progress window for indexing, If false, display with echo messages, default: `true`
+- `intelephense.progress.enable`: Enable progress window for indexing, If false, display with echo messages, default: `true` [DEMO](https://github.com/yaegassy/coc-intelephense/pull/2)
 
 Other settings can be changed in the same way as "configuration" of [vscode-intelephense](https://github.com/bmewburn/vscode-intelephense).
 
