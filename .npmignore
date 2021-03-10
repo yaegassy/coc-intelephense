@@ -5,9 +5,9 @@ tsconfig.json
 .tags
 .DS_Store
 webpack.config.js
+esbuild.js
 yarn.lock
 yarn-error.log
 .github
 .eslintrc.js
 .prettierrc
-.eslintrc.js
