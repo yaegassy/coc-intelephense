@@ -1,6 +1,6 @@
 # coc-intelephense
 
-> fork from a [vscode-intelephense](https://github.com/bmewburn/vscode-intelephense)
+> fork from a [bmewburn/vscode-intelephense](https://github.com/bmewburn/vscode-intelephense) | [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
 
 [coc.nvim](https://github.com/neoclide/coc.nvim) extension for [intelephense](https://intelephense.com/) (PHP language server)
 
