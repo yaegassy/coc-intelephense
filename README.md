@@ -17,7 +17,9 @@
 - `intelephense.disableCompletion`: Disable completion only, default: `false`
 - `intelephense.progress.enable`: Enable progress window for indexing, If false, display with echo messages, default: `true` [DEMO](https://github.com/yaegassy/coc-intelephense/pull/2)
 
-Other settings can be changed in the same way as "configuration" of [vscode-intelephense](https://github.com/bmewburn/vscode-intelephense).
+Other settings can be changed in the same way as "configuration" of vscode-intelephense.
+
+Check the "configuration" in [package.json](https://github.com/yaegassy/coc-intelephense/blob/master/package.json).
 
 ## Enabling the PREMIUM feature
 
