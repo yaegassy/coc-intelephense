@@ -132,6 +132,7 @@
               "amqp",
               "apache",
               "apcu",
+              "ast",
               "bcmath",
               "blackfire",
               "bz2",
@@ -140,6 +141,7 @@
               "com_dotnet",
               "Core",
               "couchbase",
+              "couchbase_v3",
               "crypto",
               "ctype",
               "cubrid",
@@ -147,6 +149,7 @@
               "date",
               "dba",
               "decimal",
+              "dio",
               "dom",
               "ds",
               "enchant",
@@ -185,6 +188,7 @@
               "leveldb",
               "libevent",
               "libsodium",
+              "libvirt-php",
               "libxml",
               "lua",
               "LuaSandbox",
@@ -298,7 +302,8 @@
               "zip",
               "zlib",
               "zmq",
-              "zookeeper"
+              "zookeeper",
+              "zstd"
             ]
           },
           "default": [
