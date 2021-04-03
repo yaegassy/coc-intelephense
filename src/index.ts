@@ -73,7 +73,7 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
     serverOptions.runtime = runtime;
   }
 
-  if (memory && memory > 256) {
+  if (memory && memory >= 256) {
     const maxOldSpaceSize = '--max-old-space-size=' + memory.toString();
     serverOptions.options = { execArgv: [maxOldSpaceSize] };
   }
