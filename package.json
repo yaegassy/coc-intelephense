@@ -756,6 +756,18 @@
         }
       }
     },
+    "commands": [
+      {
+        "command": "intelephense.index.workspace",
+        "title": "Index workspace",
+        "category": "Intelephense"
+      },
+      {
+        "command": "intelephense.cancel.indexing",
+        "title": "Cancel indexing",
+        "category": "Intelephense"
+      }
+    ],
     "snippets": [
       {
         "language": "php",

@@ -83,6 +83,11 @@ Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
 - `intelephense.phpdoc.useFullyQualifiedNames`: Fully qualified names will be used for types when true. When false short type names will be used and imported where appropriate. Overrides intelephense.completion.insertUseDeclaration, default: `true`
 - `intelephense.trace.server`: Traces the communication between VSCode and the intelephense language server, valid option `"off", "messages", "verbose"`, default: `"off"`
 
+## Commands
+
+- `intelephense.index.workspace`: Index workspace
+- `intelephense.cancel.indexing`: Cancel indexing
+
 ## Enabling the PREMIUM feature
 
 Prepare a `licence.txt` file containing the licence key and place it in a designated location.
