@@ -6,8 +6,18 @@
 
 ## Install
 
+**CocInstall**:
+
 ```vim
 :CocInstall @yaegassy/coc-intelephense
+```
+
+> scoped packages
+
+**vim-plug**:
+
+```vim
+Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
 ```
 
 ## Configuration options
@@ -45,6 +55,10 @@ $ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
 It supports built-in php snippet for VSCode.
 
 To use it, you need to install [coc-snippets](https://github.com/neoclide/coc-snippets).
+
+## Thanks
+
+- [bmewburn/vscode-intelephense](https://github.com/bmewburn/vscode-intelephense)
 
 ## License
 
