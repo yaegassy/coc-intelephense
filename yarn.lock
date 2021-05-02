@@ -1137,10 +1137,10 @@ ini@^1.3.4:
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.8.tgz#a29da425b48806f34767a4efce397269af28432c"
   integrity sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==
 
-intelephense@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/intelephense/-/intelephense-1.7.0.tgz#52c442b77a5fed54079e12554a23879db2da1a53"
-  integrity sha512-kVH6EMqRFuTwRN4+IhXr+UDuXu9mk/bzxn7JCL1iJ9eQHVP2G69P6Ti+hksuaw5zUXJUNOlOVhzTovsV0mZ8SA==
+intelephense@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/intelephense/-/intelephense-1.7.1.tgz#d3b6ae304952b7bb01fcd25b1c7ac753493318b4"
+  integrity sha512-fIAeUVrsGs2/yX/GopLwXIw17t3aekM1KrOJ7r9xJhA1VlGoR+YtIFxdXLcOnC1oRRdBkEz46xZEHZh5W+3vwQ==
   dependencies:
     "@bmewburn/js-beautify" "~1.13.0"
     "@bmewburn/turndown" "~5.0.3"
