@@ -10,9 +10,11 @@ import {
   TransportKind,
   window,
   workspace,
+  languages,
 } from 'coc.nvim';
 
 import { existsSync } from 'fs';
+import { IntelephenseCodeActionProvider } from './actions';
 
 const LanguageID = 'php';
 const INDEXING_STARTED_NOTIFICATION = new NotificationType('indexingStarted');
@@ -50,6 +52,12 @@ export async function activate(context: ExtensionContext): Promise<void> {
   );
 
   clientDisposable = languageClient.start();
+
+  /** **CUSTOM** Add code action by client side */
+  const codeActionProvider = new IntelephenseCodeActionProvider(languageClient.outputChannel);
+  context.subscriptions.push(
+    languages.registerCodeActionProvider([{ language: LanguageID, scheme: 'file' }], codeActionProvider, 'intelephense')
+  );
 }
 
 function createClient(context: ExtensionContext, clearCache: boolean) {

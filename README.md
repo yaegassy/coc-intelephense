@@ -88,6 +88,11 @@ Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
 - `intelephense.index.workspace`: Index workspace
 - `intelephense.cancel.indexing`: Cancel indexing
 
+## Code Actions
+
+- `Add PHPDoc for 'xxxx'`: Server(intelephense) side feature
+- `Open 'php.net' for 'xxxx'`: Client(coc-intelephense) side feature
+
 ## Enabling the PREMIUM feature
 
 Prepare a `licence.txt` file containing the licence key and place it in a designated location.
