@@ -55,7 +55,7 @@ export class IntelephenseCodeActionProvider implements CodeActionProvider {
   private async _getWordAtCursorPosition(document: TextDocument, doc: Document) {
     const cursorPosition = await window.getCursorPosition();
 
-    const wordRange = doc.getWordRangeAtPosition(cursorPosition);
+    const wordRange = doc.getWordRangeAtPosition(cursorPosition, '$');
     if (!wordRange) return null;
 
     const text = document.getText(wordRange) || '';
