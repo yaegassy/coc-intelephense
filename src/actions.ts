@@ -21,7 +21,7 @@ export class IntelephenseCodeActionProvider implements CodeActionProvider {
 
     const codeActions: CodeAction[] = [];
 
-    // Line & Cursol & Selected | Open 'php.net' for XXXX
+    /** Line & Cursol & Selected | Open 'php.net' for XXXX */
     if (
       // Line
       this.lineRange(range) ||
