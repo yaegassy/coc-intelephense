@@ -21,7 +21,13 @@ export class IntelephenseCodeActionProvider implements CodeActionProvider {
 
     const codeActions: CodeAction[] = [];
 
-    if (range.start.line === range.end.line) {
+    /** Line & Cursol & Selected | Open 'php.net' for XXXX */
+    if (
+      // Line
+      this.lineRange(range) ||
+      // Cursol & Selected
+      range.start.line === range.end.line
+    ) {
       const text = await this._getWordAtCursorPosition(document, doc);
 
       if (text) {
@@ -56,5 +62,12 @@ export class IntelephenseCodeActionProvider implements CodeActionProvider {
     if (!text) return null;
 
     return text;
+  }
+
+  private lineRange(r: Range): boolean {
+    return (
+      (r.start.line + 1 === r.end.line && r.start.character === 0 && r.end.character === 0) ||
+      (r.start.line === r.end.line && r.start.character === 0)
+    );
   }
 }
