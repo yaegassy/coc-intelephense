@@ -91,6 +91,7 @@ Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
 ## Code Actions
 
 - `Add PHPDoc for 'xxxx'`: Server(intelephense) side feature
+- `use Namespace/xxx`: Server(intelephense) side feature
 - `Open 'php.net' for 'xxxx'`: Client(coc-intelephense) side feature | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/6)
 
 ## Enabling the PREMIUM feature
