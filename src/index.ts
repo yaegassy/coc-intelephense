@@ -33,9 +33,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   const config = workspace.getConfiguration('intelephense');
 
   const isEnable = config.get<boolean>('enable', true);
-  if (!isEnable) {
-    return;
-  }
+  if (!isEnable) return;
 
   const module = context.asAbsolutePath('node_modules/intelephense');
   if (!existsSync(module)) {
@@ -53,7 +51,17 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   clientDisposable = languageClient.start();
 
-  /** **CUSTOM** Add code action by client side */
+  // Add setlocal iskeyword
+  const { document } = await workspace.getCurrentState();
+  if (document.languageId === 'php') {
+    try {
+      await workspace.nvim.command('setlocal iskeyword+=$');
+    } catch {
+      // noop
+    }
+  }
+
+  // Add code action by "client" side
   const codeActionProvider = new IntelephenseCodeActionProvider(languageClient.outputChannel);
   context.subscriptions.push(
     languages.registerCodeActionProvider([{ language: LanguageID, scheme: 'file' }], codeActionProvider, 'intelephense')
