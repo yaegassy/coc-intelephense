@@ -92,6 +92,14 @@ Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
 
 ## Code Actions
 
+**Example key mapping (Code Action related)**:
+
+```vim
+nmap <silent> ga <Plug>(coc-codeaction-line)
+```
+
+**Actions**:
+
 - `Add PHPDoc for 'xxxx'`: Server(intelephense) side feature
 - `use Namespace/xxx`: Server(intelephense) side feature
 - `Open 'php.net' for 'xxxx'`: Client(coc-intelephense) side feature | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/6)
