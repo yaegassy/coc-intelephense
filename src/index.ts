@@ -15,6 +15,7 @@ import {
 
 import { existsSync } from 'fs';
 import { IntelephenseCodeActionProvider } from './actions';
+import { IntelephenseSnippetsCompletionProvider } from './completion/IntelephenseSnippetsCompletion';
 
 const LanguageID = 'php';
 const INDEXING_STARTED_NOTIFICATION = new NotificationType('indexingStarted');
@@ -30,9 +31,9 @@ let languageClient: LanguageClient;
 export async function activate(context: ExtensionContext): Promise<void> {
   extensionContext = context;
 
-  const config = workspace.getConfiguration('intelephense');
+  const extConfig = workspace.getConfiguration('intelephense');
 
-  const isEnable = config.get<boolean>('enable', true);
+  const isEnable = extConfig.get<boolean>('enable', true);
   if (!isEnable) return;
 
   const module = context.asAbsolutePath('node_modules/intelephense');
@@ -59,6 +60,19 @@ export async function activate(context: ExtensionContext): Promise<void> {
     } catch {
       // noop
     }
+  }
+
+  // Add snippets completion by "client" side
+  const isEnableClientSnippetsCompletion = extConfig.get<boolean>('client.disableSnippetsCompletion', false);
+  if (!isEnableClientSnippetsCompletion) {
+    context.subscriptions.push(
+      languages.registerCompletionItemProvider(
+        'intelephense-snippets',
+        'ISnippets',
+        ['php'],
+        new IntelephenseSnippetsCompletionProvider(context)
+      )
+    );
   }
 
   // Add code action by "client" side
