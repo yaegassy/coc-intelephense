@@ -27,6 +27,8 @@ Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
 - `intelephense.enable`: Enable coc-intelephense extension, default `true`
 - `intelephense.path`: Absolute path to intelephense module. If there is no setting, the built-in module will be used. e.g. `/path/to/node_modules/intelephense`. default: ""
 - `intelephense.server.disableCompletion`: Disable completion only (server), default: `false`
+- `intelephense.client.disableSnippetsCompletion`: Disable snippets completion only (client), default: `false`
+- `intelephense.client.snippetsCompletionExclude`: Exclude specific prefix in snippet completion, e.g. `["class", "fun"]`, default: `[]`
 - `intelephense.progress.enable`: Enable progress window for indexing, If false, display with echo messages, default: `true` [DEMO](https://github.com/yaegassy/coc-intelephense/pull/2)
 
 **Same configuration as vscode-intelephense**:

@@ -71,6 +71,16 @@
           "default": false,
           "description": "Disable completion only (server)."
         },
+        "intelephense.client.disableSnippetsCompletion": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable snippets completion only (client)."
+        },
+        "intelephense.client.snippetsCompletionExclude": {
+          "type": "array",
+          "default": [],
+          "description": "Exclude specific prefix in snippet completion"
+        },
         "intelephense.progress.enable": {
           "type": "boolean",
           "default": true,
