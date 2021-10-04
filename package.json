@@ -66,10 +66,10 @@
           "default": "",
           "description": "Absolute path to intelephense module. If there is no setting, the built-in module will be used."
         },
-        "intelephense.disableCompletion": {
+        "intelephense.server.disableCompletion": {
           "type": "boolean",
           "default": false,
-          "description": "Disable completion only."
+          "description": "Disable completion only (server)."
         },
         "intelephense.progress.enable": {
           "type": "boolean",

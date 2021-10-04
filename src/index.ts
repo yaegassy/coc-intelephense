@@ -73,7 +73,7 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
   const runtime = intelephenseConfig.get('runtime') as string | undefined;
   const memory = Math.floor(Number(intelephenseConfig.get('maxMemory')));
   const licenceKey = intelephenseConfig.get('licenceKey') as string | undefined;
-  const disableCompletion = intelephenseConfig.get<boolean>('disableCompletion') || false;
+  const serverDisableCompletion = intelephenseConfig.get<boolean>('server.disableCompletion') || false;
 
   let module = intelephenseConfig.get('path') as string | undefined;
   if (!module) {
@@ -105,7 +105,7 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
       clearCache: clearCache,
       licenceKey: licenceKey,
     },
-    disableCompletion: disableCompletion,
+    disableCompletion: serverDisableCompletion,
   };
 
   const languageClient = new LanguageClient('intelephense', 'intelephense', serverOptions, clientOptions);
