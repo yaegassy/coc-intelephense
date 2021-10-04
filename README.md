@@ -113,12 +113,6 @@ $ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
 }
 ```
 
-## Snippets support
-
-It supports built-in php snippet for VSCode.
-
-To use it, you need to install [coc-snippets](https://github.com/neoclide/coc-snippets).
-
 ## Thanks
 
 - [bmewburn/vscode-intelephense](https://github.com/bmewburn/vscode-intelephense)

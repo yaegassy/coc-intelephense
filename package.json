@@ -767,12 +767,6 @@
         "title": "Cancel indexing",
         "category": "Intelephense"
       }
-    ],
-    "snippets": [
-      {
-        "language": "php",
-        "path": "./snippets/php.code-snippets"
-      }
     ]
   },
   "dependencies": {
