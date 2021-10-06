@@ -17,7 +17,7 @@ import { existsSync } from 'fs';
 import { IntelephenseCodeActionProvider } from './actions';
 import { IntelephenseSnippetsCompletionProvider } from './completion/IntelephenseSnippetsCompletion';
 
-const LanguageID = 'php';
+const PHP_LANGUAGE_ID = 'php';
 const INDEXING_STARTED_NOTIFICATION = new NotificationType('indexingStarted');
 const INDEXING_ENDED_NOTIFICATION = new NotificationType('indexingEnded');
 const CANCEL_INDEXING_REQUEST = new RequestType('cancelIndexing');
@@ -78,7 +78,11 @@ export async function activate(context: ExtensionContext): Promise<void> {
   // Add code action by "client" side
   const codeActionProvider = new IntelephenseCodeActionProvider(languageClient.outputChannel);
   context.subscriptions.push(
-    languages.registerCodeActionProvider([{ language: LanguageID, scheme: 'file' }], codeActionProvider, 'intelephense')
+    languages.registerCodeActionProvider(
+      [{ language: PHP_LANGUAGE_ID, scheme: 'file' }],
+      codeActionProvider,
+      'intelephense'
+    )
   );
 }
 
@@ -121,8 +125,8 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
 
   const clientOptions: LanguageClientOptions = {
     documentSelector: [
-      { language: LanguageID, scheme: 'file' },
-      { language: LanguageID, scheme: 'untitled' },
+      { language: PHP_LANGUAGE_ID, scheme: 'file' },
+      { language: PHP_LANGUAGE_ID, scheme: 'untitled' },
     ],
     initializationOptions: {
       globalStoragePath: context.storagePath,
