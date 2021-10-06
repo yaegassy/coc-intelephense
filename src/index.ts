@@ -94,6 +94,13 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
   const serverDisableCompletion = intelephenseConfig.get<boolean>('server.disableCompletion') || false;
 
   let module = intelephenseConfig.get('path') as string | undefined;
+  if (module) {
+    workspace.expand(module);
+    if (!existsSync(module)) {
+      module = undefined;
+    }
+  }
+
   if (!module) {
     module = context.asAbsolutePath('node_modules/intelephense');
   }

@@ -64,7 +64,7 @@
         "intelephense.path": {
           "type": "string",
           "default": "",
-          "description": "Absolute path to intelephense module. If there is no setting, the built-in module will be used."
+          "description": "Path to intelephense module. ~ and $HOME, etc. can also be used. If there is no setting, the built-in module will be used."
         },
         "intelephense.server.disableCompletion": {
           "type": "boolean",
