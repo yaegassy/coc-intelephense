@@ -4,9 +4,9 @@ import {
   ExtensionContext,
   LanguageClient,
   LanguageClientOptions,
-  NodeModule,
   NotificationType,
   RequestType,
+  ServerOptions,
   TransportKind,
   window,
   workspace,
@@ -94,18 +94,29 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
     module = context.asAbsolutePath('node_modules/intelephense');
   }
 
-  const serverOptions: NodeModule = {
-    module,
-    transport: TransportKind.ipc,
+  const debugOptions = {
+    execArgv: ['--nolazy', '--inspect=6039', '--trace-warnings', '--preserve-symlinks'],
+    detached: true,
+  };
+
+  const serverOptions: ServerOptions = {
+    run: { module: module, transport: TransportKind.ipc },
+    debug: { module: module, transport: TransportKind.ipc, options: debugOptions },
   };
 
   if (runtime) {
-    serverOptions.runtime = runtime;
+    serverOptions.run.runtime = runtime;
+    serverOptions.debug.runtime = runtime;
   }
 
   if (memory && memory >= 256) {
     const maxOldSpaceSize = '--max-old-space-size=' + memory.toString();
-    serverOptions.options = { execArgv: [maxOldSpaceSize] };
+    serverOptions.run.options = { execArgv: [maxOldSpaceSize] };
+    if (serverOptions.debug.options) {
+      if (serverOptions.debug.options.execArgv) {
+        serverOptions.debug.options.execArgv.push(maxOldSpaceSize);
+      }
+    }
   }
 
   const clientOptions: LanguageClientOptions = {
