@@ -95,7 +95,7 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
 
   let module = intelephenseConfig.get('path') as string | undefined;
   if (module) {
-    workspace.expand(module);
+    module = workspace.expand(module);
     if (!existsSync(module)) {
       module = undefined;
     }
