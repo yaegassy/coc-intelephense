@@ -71,6 +71,11 @@
           "default": false,
           "description": "Disable completion only (server)."
         },
+        "intelephense.server.disableDefinition": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable definition only (server)."
+        },
         "intelephense.client.disableSnippetsCompletion": {
           "type": "boolean",
           "default": false,

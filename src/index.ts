@@ -1,12 +1,16 @@
 import {
+  CancellationToken,
   commands,
   Disposable,
   ExtensionContext,
   LanguageClient,
   LanguageClientOptions,
   NotificationType,
+  Position,
+  ProvideDefinitionSignature,
   RequestType,
   ServerOptions,
+  TextDocument,
   TransportKind,
   window,
   workspace,
@@ -92,6 +96,7 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
   const memory = Math.floor(Number(intelephenseConfig.get('maxMemory')));
   const licenceKey = intelephenseConfig.get('licenceKey') as string | undefined;
   const serverDisableCompletion = intelephenseConfig.get<boolean>('server.disableCompletion') || false;
+  const serverDisableDefinition = intelephenseConfig.get<boolean>('server.disableDefinition') || false;
 
   let module = intelephenseConfig.get('path') as string | undefined;
   if (module) {
@@ -142,6 +147,17 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
       licenceKey: licenceKey,
     },
     disableCompletion: serverDisableCompletion,
+    middleware: {
+      provideDefinition: async (
+        document: TextDocument,
+        position: Position,
+        token: CancellationToken,
+        next: ProvideDefinitionSignature
+      ) => {
+        if (serverDisableDefinition) return;
+        return await next(document, position, token);
+      },
+    },
   };
 
   const languageClient = new LanguageClient('intelephense', 'intelephense', serverOptions, clientOptions);
