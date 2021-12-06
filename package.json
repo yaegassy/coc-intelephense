@@ -785,6 +785,6 @@
     ]
   },
   "dependencies": {
-    "intelephense": "^1.7.1"
+    "intelephense": "^1.8.0"
   }
 }
