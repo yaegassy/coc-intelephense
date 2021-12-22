@@ -25,12 +25,15 @@ Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
 **For original feature of coc-intelephese**:
 
 - `intelephense.enable`: Enable coc-intelephense extension, default `true`
-- `intelephense.path`: Path to intelephense module. ~ and $HOME, etc. can also be used. If there is no setting, the built-in module will be used. e.g. `/path/to/node_modules/intelephense`. default: ""
-- `intelephense.server.disableCompletion`: Disable completion only (server), default: `false`
-- `intelephense.server.disableDefinition`: Disable definition only (server), default: `false`
+- `intelephense.path`: Path to intelephense module. `~` and `$HOME`, etc. can also be used. If there is no setting, the built-in module will be used. e.g. `/path/to/node_modules/intelephense`. default: `""`
+- `intelephense.client.diagnosticsIgnoreErrorFeature`: Whether to enable the PHPDoc tag (`// @intelephense-ignore-line`, `/** @intelephense-ignore-next-line */`) feature and ignore errors, default: `false`
+  - This feature is a proprietary implementation of `coc-intelephense`. This feature will be removed when the dedicated feature is added in the upstream's `vscode-intelephense` or `intelephense` language server.
+  - I made it an ignore comment like `phpstan`, Please refer to this page for usage. <https://phpstan.org/user-guide/ignoring-errors#ignoring-in-code-using-phpdocs>
 - `intelephense.client.disableSnippetsCompletion`: Disable snippets completion only (client), default: `false`
 - `intelephense.client.snippetsCompletionExclude`: Exclude specific prefix in snippet completion, e.g. `["class", "fun"]`, default: `[]`
-- `intelephense.progress.enable`: Enable progress window for indexing, If false, display with echo messages, default: `true` [DEMO](https://github.com/yaegassy/coc-intelephense/pull/2)
+- `intelephense.server.disableCompletion`: Disable completion only (server), default: `false`
+- `intelephense.server.disableDefinition`: Disable definition only (server), default: `false`
+- `intelephense.progress.enable`: Enable progress window for indexing, If false, display with echo messages, default: `true` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/2)
 
 **Same configuration as vscode-intelephense**:
 
@@ -99,11 +102,18 @@ Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
 nmap <silent> ga <Plug>(coc-codeaction-line)
 ```
 
-**Actions**:
+**Code Actions (Client side)**:
 
-- `Add PHPDoc for 'xxxx'`: Server(intelephense) side feature
-- `use Namespace/xxx`: Server(intelephense) side feature
-- `Open 'php.net' for 'xxxx'`: Client(coc-intelephense) side feature | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/6)
+- `Open 'php.net' for 'xxxx'` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/6)
+- `Add @intelephense-ignore-line`
+- `Add @intelephense-ignore-next-line`
+
+**Code Actions (Server side)**:
+
+- `Add PHPDoc for 'xxxx'`
+- `use Namespace/xxx`
+- and more...
+  - Other code actions provided by the intelephehse language server
 
 ## Enabling the PREMIUM feature
 
