@@ -26,7 +26,7 @@ Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
 
 - `intelephense.enable`: Enable coc-intelephense extension, default `true`
 - `intelephense.path`: Path to intelephense module. `~` and `$HOME`, etc. can also be used. If there is no setting, the built-in module will be used. e.g. `/path/to/node_modules/intelephense`. default: `""`
-- `intelephense.client.diagnosticsIgnoreErrorFeature`: Whether to enable the PHPDoc tag (`// @intelephense-ignore-line`, `/** @intelephense-ignore-next-line */`) feature and ignore errors, default: `false`
+- `intelephense.client.diagnosticsIgnoreErrorFeature`: Whether to enable the PHPDoc tag (`// @intelephense-ignore-line`, `/** @intelephense-ignore-next-line */`) feature and ignore errors, default: `false` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/16)
   - This feature is a proprietary implementation of `coc-intelephense`. This feature will be removed when the dedicated feature is added in the upstream's `vscode-intelephense` or `intelephense` language server.
   - I made it an ignore comment like `phpstan`, Please refer to this page for usage. <https://phpstan.org/user-guide/ignoring-errors#ignoring-in-code-using-phpdocs>
 - `intelephense.client.disableSnippetsCompletion`: Disable snippets completion only (client), default: `false`
@@ -105,8 +105,8 @@ nmap <silent> ga <Plug>(coc-codeaction-line)
 **Code Actions (Client side)**:
 
 - `Open 'php.net' for 'xxxx'` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/6)
-- `Add @intelephense-ignore-line`
-- `Add @intelephense-ignore-next-line`
+- `Add @intelephense-ignore-line` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/16)
+- `Add @intelephense-ignore-next-line` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/16)
 
 **Code Actions (Server side)**:
 
