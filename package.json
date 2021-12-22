@@ -66,15 +66,10 @@
           "default": "",
           "description": "Path to intelephense module. ~ and $HOME, etc. can also be used. If there is no setting, the built-in module will be used."
         },
-        "intelephense.server.disableCompletion": {
+        "intelephense.client.diagnosticsIgnoreErrorFeature": {
           "type": "boolean",
           "default": false,
-          "description": "Disable completion only (server)."
-        },
-        "intelephense.server.disableDefinition": {
-          "type": "boolean",
-          "default": false,
-          "description": "Disable definition only (server)."
+          "description": "Whether to enable the PHPDoc tag (`@intelephense-ignore-line`, `@intelephense-ignore-next-line`) feature and ignore errors."
         },
         "intelephense.client.disableSnippetsCompletion": {
           "type": "boolean",
@@ -85,6 +80,16 @@
           "type": "array",
           "default": [],
           "description": "Exclude specific prefix in snippet completion"
+        },
+        "intelephense.server.disableCompletion": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable completion only (server)."
+        },
+        "intelephense.server.disableDefinition": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable definition only (server)."
         },
         "intelephense.progress.enable": {
           "type": "boolean",

@@ -1,12 +1,15 @@
 import {
-  TextDocument,
   CodeAction,
+  CodeActionContext,
   CodeActionProvider,
-  Range,
-  workspace,
-  OutputChannel,
-  window,
   Document,
+  OutputChannel,
+  Position,
+  Range,
+  TextDocument,
+  TextEdit,
+  window,
+  workspace,
 } from 'coc.nvim';
 
 export class IntelephenseCodeActionProvider implements CodeActionProvider {
@@ -16,7 +19,7 @@ export class IntelephenseCodeActionProvider implements CodeActionProvider {
     this.outputChannel = outputChannel;
   }
 
-  public async provideCodeActions(document: TextDocument, range: Range) {
+  public async provideCodeActions(document: TextDocument, range: Range, context: CodeActionContext) {
     const doc = workspace.getDocument(document.uri);
 
     const codeActions: CodeAction[] = [];
@@ -46,6 +49,63 @@ export class IntelephenseCodeActionProvider implements CodeActionProvider {
         };
 
         codeActions.push(action);
+      }
+    }
+
+    if (workspace.getConfiguration('intelephense').get('client.diagnosticsIgnoreErrorFeature')) {
+      /** Add intelephense ignore comment */
+      if (this.lineRange(range) && context.diagnostics.length > 0) {
+        let existsIntelephenseDiagnostics = false;
+        context.diagnostics.forEach((d) => {
+          if (d.source === 'intelephense') {
+            existsIntelephenseDiagnostics = true;
+          }
+        });
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const line = doc.getline(range.start.line);
+
+        const thisLineFullLength = doc.getline(range.start.line).length;
+        const thisLineTrimLength = doc.getline(range.start.line).trim().length;
+        const ignoreLineLength = thisLineFullLength - thisLineTrimLength;
+
+        let ignoreLineNewText = '/** @intelephense-ignore-next-line */\n';
+        if (ignoreLineLength > 0) {
+          const addIndentSpace = ' '.repeat(ignoreLineLength);
+          ignoreLineNewText = '/** @intelephense-ignore-next-line */\n' + addIndentSpace;
+        }
+
+        let thisLineContent = doc.getline(range.start.line);
+        thisLineContent = thisLineContent.trim();
+
+        // Add @intelephense-ignore-next-line
+        if (!thisLineContent.startsWith('/**') && !thisLineContent.startsWith('*') && existsIntelephenseDiagnostics) {
+          const edit = TextEdit.insert(Position.create(range.start.line, ignoreLineLength), ignoreLineNewText);
+          codeActions.push({
+            title: 'Add @intelephense-ignore-next-line',
+            edit: {
+              changes: {
+                [doc.uri]: [edit],
+              },
+            },
+          });
+        }
+
+        // Add @intelephense-ignore-line
+        if (!thisLineContent.startsWith('/**') && !thisLineContent.startsWith('*') && existsIntelephenseDiagnostics) {
+          const edit = TextEdit.replace(
+            range,
+            `${line} // @intelephense-ignore-line${range.start.line + 1 === range.end.line ? '\n' : ''}`
+          );
+          codeActions.push({
+            title: 'Add @intelephense-ignore-line',
+            edit: {
+              changes: {
+                [doc.uri]: [edit],
+              },
+            },
+          });
+        }
       }
     }
 

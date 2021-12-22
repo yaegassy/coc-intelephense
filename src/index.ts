@@ -1,8 +1,10 @@
 import {
   CancellationToken,
   commands,
+  Diagnostic,
   Disposable,
   ExtensionContext,
+  HandleDiagnosticsSignature,
   LanguageClient,
   LanguageClientOptions,
   NotificationType,
@@ -157,6 +159,7 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
         if (serverDisableDefinition) return;
         return await next(document, position, token);
       },
+      handleDiagnostics: getConfigDiagnosticsIgnoreErrorFeature() ? handleDiagnostics : undefined,
     },
   };
 
@@ -231,4 +234,25 @@ async function displayInitIndexProgress<T = void>(promise: Promise<T>) {
     },
     () => promise
   );
+}
+
+async function handleDiagnostics(uri: string, diagnostics: Diagnostic[], next: HandleDiagnosticsSignature) {
+  const doc = await workspace.document;
+  next(
+    uri,
+    diagnostics
+      .filter((d) => {
+        const curLine = doc.getline(d.range.start.line);
+        return curLine.indexOf('@intelephense-ignore-line') === -1;
+      })
+      .filter((d) => {
+        const len = doc.getLines().length;
+        const prevLine = len > 1 ? doc.getline(d.range.start.line - 1) : '';
+        return prevLine.indexOf('@intelephense-ignore-next-line') === -1;
+      })
+  );
+}
+
+function getConfigDiagnosticsIgnoreErrorFeature() {
+  return workspace.getConfiguration('intelephense').get<boolean>('client.diagnosticsIgnoreErrorFeature', false);
 }
