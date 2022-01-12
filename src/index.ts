@@ -236,8 +236,8 @@ async function displayInitIndexProgress<T = void>(promise: Promise<T>) {
   );
 }
 
-async function handleDiagnostics(uri: string, diagnostics: Diagnostic[], next: HandleDiagnosticsSignature) {
-  const doc = await workspace.document;
+function handleDiagnostics(uri: string, diagnostics: Diagnostic[], next: HandleDiagnosticsSignature) {
+  const doc = workspace.getDocument(uri);
   next(
     uri,
     diagnostics
