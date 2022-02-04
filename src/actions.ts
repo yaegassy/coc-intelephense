@@ -34,7 +34,7 @@ export class IntelephenseCodeActionProvider implements CodeActionProvider {
       const text = await this._getWordAtCursorPosition(document, doc);
 
       if (text) {
-        const url = 'https://www.php.net/' + escape(text);
+        const url = 'https://www.php.net/' + encodeURIComponent(text);
 
         const title = `Open 'php.net' for '${text}'`;
         const command = {
