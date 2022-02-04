@@ -97,7 +97,6 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
   const runtime = intelephenseConfig.get('runtime') as string | undefined;
   const memory = Math.floor(Number(intelephenseConfig.get('maxMemory')));
   const licenceKey = intelephenseConfig.get('licenceKey') as string | undefined;
-  const serverDisableCompletion = intelephenseConfig.get<boolean>('server.disableCompletion') || false;
   const serverDisableDefinition = intelephenseConfig.get<boolean>('server.disableDefinition') || false;
 
   let module = intelephenseConfig.get('path') as string | undefined;
@@ -148,7 +147,7 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
       clearCache: clearCache,
       licenceKey: licenceKey,
     },
-    disableCompletion: serverDisableCompletion,
+    disabledFeatures: getLanguageClientDisabledFeatures(),
     middleware: {
       provideDefinition: async (
         document: TextDocument,
@@ -157,6 +156,7 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
         next: ProvideDefinitionSignature
       ) => {
         if (serverDisableDefinition) return;
+        //@ts-ignore
         return await next(document, position, token);
       },
       handleDiagnostics: getConfigDiagnosticsIgnoreErrorFeature() ? handleDiagnostics : undefined,
@@ -251,6 +251,16 @@ function handleDiagnostics(uri: string, diagnostics: Diagnostic[], next: HandleD
         return prevLine.indexOf('@intelephense-ignore-next-line') === -1;
       })
   );
+}
+
+function getLanguageClientDisabledFeatures() {
+  const r: string[] = [];
+  if (getConfigServerDisableCompletion()) r.push('completion');
+  return r;
+}
+
+function getConfigServerDisableCompletion() {
+  return workspace.getConfiguration('intelephense').get<boolean>('server.disableCompletion', false);
 }
 
 function getConfigDiagnosticsIgnoreErrorFeature() {
