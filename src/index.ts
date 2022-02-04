@@ -7,12 +7,12 @@ import {
   HandleDiagnosticsSignature,
   LanguageClient,
   LanguageClientOptions,
+  LinesTextDocument,
   NotificationType,
   Position,
   ProvideDefinitionSignature,
   RequestType,
   ServerOptions,
-  TextDocument,
   TransportKind,
   window,
   workspace,
@@ -97,7 +97,6 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
   const runtime = intelephenseConfig.get('runtime') as string | undefined;
   const memory = Math.floor(Number(intelephenseConfig.get('maxMemory')));
   const licenceKey = intelephenseConfig.get('licenceKey') as string | undefined;
-  const serverDisableDefinition = intelephenseConfig.get<boolean>('server.disableDefinition') || false;
 
   let module = intelephenseConfig.get('path') as string | undefined;
   if (module) {
@@ -150,13 +149,12 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
     disabledFeatures: getLanguageClientDisabledFeatures(),
     middleware: {
       provideDefinition: async (
-        document: TextDocument,
+        document: LinesTextDocument,
         position: Position,
         token: CancellationToken,
         next: ProvideDefinitionSignature
       ) => {
-        if (serverDisableDefinition) return;
-        //@ts-ignore
+        if (getConfigServerDisableDefinition()) return;
         return await next(document, position, token);
       },
       handleDiagnostics: getConfigDiagnosticsIgnoreErrorFeature() ? handleDiagnostics : undefined,
@@ -261,6 +259,10 @@ function getLanguageClientDisabledFeatures() {
 
 function getConfigServerDisableCompletion() {
   return workspace.getConfiguration('intelephense').get<boolean>('server.disableCompletion', false);
+}
+
+function getConfigServerDisableDefinition() {
+  return workspace.getConfiguration('intelephense').get<boolean>('server.disableDefinition', false);
 }
 
 function getConfigDiagnosticsIgnoreErrorFeature() {
