@@ -22,7 +22,6 @@ import {
 import { existsSync } from 'fs';
 import { IntelephenseCodeActionProvider } from './actions';
 import { IntelephenseSnippetsCompletionProvider } from './completion/IntelephenseSnippetsCompletion';
-import { IntelephenseForceCompletionProvider } from './completion/IntelephenseForceCompletion';
 
 const PHP_LANGUAGE_ID = 'php';
 const INDEXING_STARTED_NOTIFICATION = new NotificationType('indexingStarted');
