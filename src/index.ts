@@ -22,6 +22,7 @@ import {
 import { existsSync } from 'fs';
 import { IntelephenseCodeActionProvider } from './actions';
 import { IntelephenseSnippetsCompletionProvider } from './completion/IntelephenseSnippetsCompletion';
+import { IntelephenseForceCompletionProvider } from './completion/IntelephenseForceCompletion';
 
 const PHP_LANGUAGE_ID = 'php';
 const INDEXING_STARTED_NOTIFICATION = new NotificationType('indexingStarted');
@@ -76,7 +77,9 @@ export async function activate(context: ExtensionContext): Promise<void> {
         'intelephense-snippets',
         'ISnippets',
         ['php'],
-        new IntelephenseSnippetsCompletionProvider(context)
+        new IntelephenseSnippetsCompletionProvider(context),
+        [],
+        99
       )
     );
   }

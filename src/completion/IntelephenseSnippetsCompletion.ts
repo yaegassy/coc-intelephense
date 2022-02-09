@@ -8,6 +8,7 @@ import {
   ExtensionContext,
   InsertTextFormat,
   Position,
+  Range,
   TextDocument,
   workspace,
 } from 'coc.nvim';
@@ -84,11 +85,9 @@ export class IntelephenseSnippetsCompletionProvider implements CompletionItemPro
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     context: CompletionContext
   ): Promise<CompletionItem[] | CompletionList> {
-    const doc = workspace.getDocument(document.uri);
-    if (!doc) return [];
-
+    const line = document.getText(Range.create(position.line, 0, position.line, position.character)).trim();
+    if (line.endsWith('->') || line.endsWith('::')) return [];
     const completionList = this.getSnippetsCompletionItems(this.snippetsFilePath);
-
     return completionList;
   }
 
