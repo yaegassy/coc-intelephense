@@ -74,7 +74,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     context.subscriptions.push(
       languages.registerCompletionItemProvider(
         'intelephense-snippets',
-        'ISnippets',
+        'intelephense',
         ['php'],
         new IntelephenseSnippetsCompletionProvider(context),
         [],
