@@ -149,6 +149,8 @@ nnoremap <leader>te :call CocAction('runCommand', 'intelephense.phpunit.singleTe
 
 Test file for PHPUnit, allowing execution of a single test method. CodeLens appears at the top of the test method.
 
+- [DEMO](https://github.com/yaegassy/coc-intelephense/pull/20)
+
 **coc-settings.json**:
 
 By default, `codeLens.enable` is set to `false`, which disables it.
