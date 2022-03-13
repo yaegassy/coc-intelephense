@@ -90,6 +90,31 @@
           "default": false,
           "description": "Disable definition only (server)."
         },
+        "intelephense.phpunit.disableCodeLens": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable code lens only (client)."
+        },
+        "intelephense.phpunit.codeLensTitle": {
+          "type": "string",
+          "default": ">> [Run PHPUnit]",
+          "description": "CodeLens title. Can be changed to any display."
+        },
+        "intelephense.phpunit.path": {
+          "type": "string",
+          "default": "",
+          "description": "Path to phpunit command. If there is no setting, the vendor/bin/phpunit will be used."
+        },
+        "intelephense.phpunit.colors": {
+          "type": "boolean",
+          "default": false,
+          "description": "Use colors in output (--colors)."
+        },
+        "intelephense.phpunit.debug": {
+          "type": "boolean",
+          "default": false,
+          "description": "Display debugging information (--debug)."
+        },
         "intelephense.progress.enable": {
           "type": "boolean",
           "default": true,
@@ -785,10 +810,26 @@
         "command": "intelephense.cancel.indexing",
         "title": "Cancel indexing",
         "category": "Intelephense"
+      },
+      {
+        "command": "intelephense.phpunit.projectTest",
+        "title": "Run PHPUnit for current project",
+        "category": "Intelephense"
+      },
+      {
+        "command": "intelephense.phpunit.fileTest",
+        "title": "Run PHPUnit for current file",
+        "category": "Intelephense"
+      },
+      {
+        "command": "intelephense.phpunit.singleTest",
+        "title": "Run PHPUnit for single (nearest) test",
+        "category": "Intelephense"
       }
     ]
   },
   "dependencies": {
-    "intelephense": "^1.8.2"
+    "intelephense": "^1.8.2",
+    "php-parser": "^3.1.0-beta.5"
   }
 }

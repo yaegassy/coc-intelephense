@@ -1,6 +1,6 @@
 # coc-intelephense
 
-> fork from a [bmewburn/vscode-intelephense](https://github.com/bmewburn/vscode-intelephense) | [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
+> fork from a [bmewburn/vscode-intelephense](https://github.com/bmewburn/vscode-intelephense) | [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client) and more feature.
 
 [coc.nvim](https://github.com/neoclide/coc.nvim) extension for [intelephense](https://intelephense.com/) (PHP language server)
 
@@ -20,6 +20,25 @@
 Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
 ```
 
+## Enabling the PREMIUM feature
+
+Prepare a `licence.txt` file containing the licence key and place it in a designated location.
+
+```sh
+$ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
+/Users/username/intelephense/licence.txt
+```
+
+**[DEPRECATED]:** Or set `intelephense.licenceKey` in "coc-settings.json"
+
+```jsonc
+{
+  // ...snip
+  "intelephense.licenceKey": "LICENCEKEYSAMPLE",
+  // ...snip
+}
+```
+
 ## Configuration options
 
 **For original feature of coc-intelephese**:
@@ -33,6 +52,11 @@ Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
 - `intelephense.client.snippetsCompletionExclude`: Exclude specific prefix in snippet completion, e.g. `["class", "fun"]`, default: `[]`
 - `intelephense.server.disableCompletion`: Disable completion only (server), default: `false`
 - `intelephense.server.disableDefinition`: Disable definition only (server), default: `false`
+- `intelephense.phpunit.disableCodeLens`: Disable code lens only (client), default: `false`
+- `intelephense.phpunit.codeLensTitle`: CodeLens title. Can be changed to any display, default: `">> [Run PHPUnit]"`
+- `intelephense.phpunit.path`: Path to phpunit command. If there is no setting, the vendor/bin/phpunit will be used, default: `""`
+- `intelephense.phpunit.colors`: Use colors in output (--colors), default: `false`
+- `intelephense.phpunit.debug`: Display debugging information (--debug), default: `false`
 - `intelephense.progress.enable`: Enable progress window for indexing, If false, display with echo messages, default: `true` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/2)
 
 **Same configuration as vscode-intelephense**:
@@ -91,8 +115,63 @@ Plug 'yaegassy/coc-intelephense', {'do': 'yarn install --frozen-lockfile'}
 
 ## Commands
 
+**Command List**:
+
+> :CocCommand [CommandName]
+>
+> **e.g.**:
+> :CocCommand intelephense.phpunit.projectTest
+
 - `intelephense.index.workspace`: Index workspace
 - `intelephense.cancel.indexing`: Cancel indexing
+- `intelephense.phpunit.projectTest`: Run PHPUnit for current project
+- `intelephense.phpunit.fileTest`: Run PHPUnit for current file
+- `intelephense.phpunit.singleTest`: Run PHPUnit for single (nearest) test
+
+**Example of Vim command and key mapping**:
+
+Vim commands can be defined and executed or key mappings can be set and used.
+
+```vim
+" Run PHPUnit for current project
+command! -nargs=0 PHPUnit :call CocAction('runCommand', 'intelephense.phpunit.projectTest')
+
+" Run PHPUnit for current file
+command! -nargs=0 PHPUnitCurrent :call  CocAction('runCommand', 'intelephense.phpunit.fileTest', ['%'])
+
+" Run PHPUnit for single (nearest) test
+nnoremap <leader>te :call CocAction('runCommand', 'intelephense.phpunit.singleTest')<CR>
+```
+
+## CodeLens (Neovim only)
+
+**Feature**:
+
+Test file for PHPUnit, allowing execution of a single test method. CodeLens appears at the top of the test method.
+
+**coc-settings.json**:
+
+By default, `codeLens.enable` is set to `false`, which disables it.
+
+Change the setting to `true` to enable it.
+
+```jsonc
+{
+  "codeLens.enable": true
+}
+```
+
+**Example key mapping (CodeLens related)**:
+
+```vim
+nmap <silent> gl <Plug>(coc-codelens-action)
+```
+
+**Misc**:
+
+"CodeLens" does not work with "Vim8" due to coc.nvim specifications.
+
+`intelephense.phpunit.singleTest` commands are available, so please use them.
 
 ## Code Actions
 
@@ -114,25 +193,6 @@ nmap <silent> ga <Plug>(coc-codeaction-line)
 - `use Namespace/xxx`
 - and more...
   - Other code actions provided by the intelephehse language server
-
-## Enabling the PREMIUM feature
-
-Prepare a `licence.txt` file containing the licence key and place it in a designated location.
-
-```sh
-$ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
-/Users/username/intelephense/licence.txt
-```
-
-**[DEPRECATED]:** Or set `intelephense.licenceKey` in "coc-settings.json"
-
-```jsonc
-{
-  // ...snip
-  "intelephense.licenceKey": "LICENCEKEYSAMPLE",
-  // ...snip
-}
-```
 
 ## Thanks
 

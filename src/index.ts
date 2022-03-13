@@ -20,8 +20,10 @@ import {
 } from 'coc.nvim';
 
 import { existsSync } from 'fs';
-import { IntelephenseCodeActionProvider } from './actions';
 import { IntelephenseSnippetsCompletionProvider } from './completion/IntelephenseSnippetsCompletion';
+import { IntelephenseCodeActionProvider } from './actions';
+import { IntelephenseCodeLensProvider } from './lenses';
+import { fileTestCommand, singleTestCommand, projectTestCommand } from './commands/phpunit';
 
 const PHP_LANGUAGE_ID = 'php';
 const INDEXING_STARTED_NOTIFICATION = new NotificationType('indexingStarted');
@@ -83,12 +85,28 @@ export async function activate(context: ExtensionContext): Promise<void> {
     );
   }
 
+  // Add commands by "client" side
+  context.subscriptions.push(
+    commands.registerCommand('intelephense.phpunit.projectTest', projectTestCommand()),
+    commands.registerCommand('intelephense.phpunit.fileTest', fileTestCommand()),
+    commands.registerCommand('intelephense.phpunit.singleTest', singleTestCommand())
+  );
+
+  // Add code lens by "client" side
+  if (!getConfigPhpUnitDisableCodeLens()) {
+    context.subscriptions.push(
+      languages.registerCodeLensProvider(
+        [{ language: PHP_LANGUAGE_ID, scheme: 'file' }],
+        new IntelephenseCodeLensProvider()
+      )
+    );
+  }
+
   // Add code action by "client" side
-  const codeActionProvider = new IntelephenseCodeActionProvider(languageClient.outputChannel);
   context.subscriptions.push(
     languages.registerCodeActionProvider(
       [{ language: PHP_LANGUAGE_ID, scheme: 'file' }],
-      codeActionProvider,
+      new IntelephenseCodeActionProvider(languageClient.outputChannel),
       'intelephense'
     )
   );
@@ -269,4 +287,8 @@ function getConfigServerDisableDefinition() {
 
 function getConfigDiagnosticsIgnoreErrorFeature() {
   return workspace.getConfiguration('intelephense').get<boolean>('client.diagnosticsIgnoreErrorFeature', false);
+}
+
+function getConfigPhpUnitDisableCodeLens() {
+  return workspace.getConfiguration('intelephense').get<boolean>('phpunit.disableCodeLens', false);
 }
