@@ -137,7 +137,7 @@ Vim commands can be defined and executed or key mappings can be set and used.
 command! -nargs=0 PHPUnit :call CocAction('runCommand', 'intelephense.phpunit.projectTest')
 
 " Run PHPUnit for current file
-command! -nargs=0 PHPUnitCurrent :call  CocAction('runCommand', 'intelephense.phpunit.projectTest', ['%'])
+command! -nargs=0 PHPUnitCurrent :call  CocAction('runCommand', 'intelephense.phpunit.fileTest', ['%'])
 
 " Run PHPUnit for single (nearest) test
 nnoremap <leader>te :call CocAction('runCommand', 'intelephense.phpunit.singleTest')<CR>
