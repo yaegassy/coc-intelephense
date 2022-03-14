@@ -8,7 +8,7 @@ let terminal: Terminal | undefined;
 
 function getPhpUnitPath() {
   let cmdPath = '';
-  const phpUnitPath = workspace.getConfiguration('intelephense').get<string>('phpunit.phpunit');
+  const phpUnitPath = workspace.getConfiguration('intelephense').get<string>('phpunit.path');
   const vendorPhpUnitPath = path.join(workspace.root, 'vendor', 'bin', 'phpunit');
 
   if (phpUnitPath && fs.existsSync(phpUnitPath)) {
