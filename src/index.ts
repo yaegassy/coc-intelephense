@@ -44,6 +44,25 @@ export async function activate(context: ExtensionContext): Promise<void> {
   const isEnable = extConfig.get<boolean>('enable', true);
   if (!isEnable) return;
 
+  // Add iskeyword
+  const { document } = await workspace.getCurrentState();
+  if (document.languageId === 'php') {
+    try {
+      await workspace.nvim.command('setlocal iskeyword+=$');
+
+      workspace.registerAutocmd({
+        event: 'FileType',
+        pattern: 'php',
+        request: true,
+        callback: async () => {
+          await workspace.nvim.command('setlocal iskeyword+=$');
+        },
+      });
+    } catch {
+      // noop
+    }
+  }
+
   const module = context.asAbsolutePath('node_modules/intelephense');
   if (!existsSync(module)) {
     window.showMessage(`intelephense module doesn't exist, please reinstall coc-intelephense"`, 'error');
@@ -59,16 +78,6 @@ export async function activate(context: ExtensionContext): Promise<void> {
   );
 
   clientDisposable = languageClient.start();
-
-  // Add setlocal iskeyword
-  const { document } = await workspace.getCurrentState();
-  if (document.languageId === 'php') {
-    try {
-      await workspace.nvim.command('setlocal iskeyword+=$');
-    } catch {
-      // noop
-    }
-  }
 
   // Add snippets completion by "client" side
   const isEnableClientSnippetsCompletion = extConfig.get<boolean>('client.disableSnippetsCompletion', false);
