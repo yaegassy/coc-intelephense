@@ -85,8 +85,17 @@ export class IntelephenseSnippetsCompletionProvider implements CompletionItemPro
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     context: CompletionContext
   ): Promise<CompletionItem[] | CompletionList> {
-    const line = document.getText(Range.create(position.line, 0, position.line, position.character)).trim();
-    if (line.endsWith('->') || line.endsWith('::')) return [];
+    const doc = workspace.getDocument(document.uri);
+    if (!doc) return [];
+
+    const wordRange = doc.getWordRangeAtPosition(Position.create(position.line, position.character - 1), '>:"\'');
+    if (!wordRange) return [];
+
+    const text = document.getText(wordRange) || '';
+    if (!text) return [];
+
+    if (text.match(/[>:"']/)) return [];
+
     const completionList = this.getSnippetsCompletionItems(this.snippetsFilePath);
     return completionList;
   }
