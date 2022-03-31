@@ -51,6 +51,14 @@
     "onLanguage:php"
   ],
   "contributes": {
+    "rootPatterns": [
+      {
+        "filetype": "php",
+        "patterns": [
+          "artisan"
+        ]
+      }
+    ],
     "configuration": {
       "type": "object",
       "title": "coc-intelephense configuration",
