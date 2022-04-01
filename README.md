@@ -2,7 +2,7 @@
 
 > fork from a [bmewburn/vscode-intelephense](https://github.com/bmewburn/vscode-intelephense) | [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client) and more feature.
 
-[coc.nvim](https://github.com/neoclide/coc.nvim) extension for [intelephense](https://intelephense.com/) (PHP language server)
+[intelephense](https://intelephense.com/) (PHP language server) extension for [coc.nvim](https://github.com/neoclide/coc.nvim). intelephense's various LSP features and this extension's additional features are available.
 
 ## Install
 
@@ -195,6 +195,24 @@ nmap <silent> ga <Plug>(coc-codeaction-line)
 - `use Namespace/xxx`
 - and more...
   - Other code actions provided by the intelephehse language server
+
+## TIPS
+
+### workspaceFolders
+
+Depending on the project like mono repo or how Vim/Neovim is started, `workspaceFolders` may not be recognized correctly.
+
+To make coc.nvim recognize `workspaceFolders` correctly, you can set `b:coc_root_patterns` in .vimrc/init.vim
+
+**Example**:
+
+```vim
+  au FileType php let b:coc_root_patterns = ['.git', '.env', 'composer.json', 'artisan']
+```
+
+For more information, check this coc.nvim's wiki.
+
+- <https://github.com/neoclide/coc.nvim/wiki/Using-workspaceFolders>
 
 ## Thanks
 
