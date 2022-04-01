@@ -43,6 +43,9 @@ async function runComposer(composerPath: string, args: string[]) {
   }
 
   if (terminal) {
+    if (terminal.bufnr) {
+      await workspace.nvim.command(`bd! ${terminal.bufnr}`);
+    }
     terminal.dispose();
     terminal = undefined;
   }
