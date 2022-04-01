@@ -126,7 +126,7 @@
         },
         "intelephense.phpunit.disableCodeLens": {
           "type": "boolean",
-          "default": true,
+          "default": false,
           "description": "Disable code lens only (client)."
         },
         "intelephense.phpunit.codeLensTitle": {
