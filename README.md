@@ -52,6 +52,9 @@ $ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
 - `intelephense.client.snippetsCompletionExclude`: Exclude specific prefix in snippet completion, e.g. `["class", "fun"]`, default: `[]`
 - `intelephense.server.disableCompletion`: Disable completion only (server), default: `false`
 - `intelephense.server.disableDefinition`: Disable definition only (server), default: `false`
+- `intelephense.composer.path`: Path to composer command. default: `composer`
+- `intelephense.composer.runCommandList`: Set the subcommand of the composer you want to execute, default: `["dump-autoload", "clear-cache", "install", "update"]`
+- `intelephense.composer.runCommandPlusList`: Set the subcommand of the composer you want to execute. Additional strings can be entered and executed in the subcommand. default: `["require", "require --dev", "remove", "remove --dev", "update"]`
 - `intelephense.phpunit.disableCodeLens`: Disable code lens only (client), default: `false`
 - `intelephense.phpunit.codeLensTitle`: CodeLens title. Can be changed to any display, default: `">> [Run PHPUnit]"`
 - `intelephense.phpunit.path`: Path to phpunit command. If there is no setting, the vendor/bin/phpunit will be used, default: `""`
@@ -119,11 +122,14 @@ $ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
 
 > :CocCommand [CommandName]
 >
-> **e.g.**:
-> :CocCommand intelephense.phpunit.projectTest
+> **e.g.** :CocCommand intelephense.phpunit.projectTest
 
 - `intelephense.index.workspace`: Index workspace
 - `intelephense.cancel.indexing`: Cancel indexing
+- `intelephense.composer.runCommand`: Run selected composer command
+- `intelephense.composer.runCommandPlus`: Enter and run additional strings to the selected composer commands
+- `intelephense.composer.runScriptsCommand`: Run selected composer script
+  - Select and run the script defined in the "scripts section" of `composer.json`. The `pre-...` and `post-...` event scripts are excluded from the list.
 - `intelephense.phpunit.projectTest`: Run PHPUnit for current project
 - `intelephense.phpunit.fileTest`: Run PHPUnit for current file
 - `intelephense.phpunit.singleTest`: Run PHPUnit for single (nearest) test

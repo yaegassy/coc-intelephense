@@ -98,6 +98,32 @@
           "default": false,
           "description": "Disable definition only (server)."
         },
+        "intelephense.composer.path": {
+          "type": "string",
+          "default": "composer",
+          "description": "Path to composer command."
+        },
+        "intelephense.composer.runCommandList": {
+          "type": "array",
+          "default": [
+            "dump-autoload",
+            "clear-cache",
+            "install",
+            "update"
+          ],
+          "description": "Set the subcommand of the composer you want to execute."
+        },
+        "intelephense.composer.runCommandPlusList": {
+          "type": "array",
+          "default": [
+            "require",
+            "require --dev",
+            "remove",
+            "remove --dev",
+            "update"
+          ],
+          "description": "Set the subcommand of the composer you want to execute. Additional strings can be entered and executed in the subcommand."
+        },
         "intelephense.phpunit.disableCodeLens": {
           "type": "boolean",
           "default": false,
@@ -817,6 +843,21 @@
       {
         "command": "intelephense.cancel.indexing",
         "title": "Cancel indexing",
+        "category": "Intelephense"
+      },
+      {
+        "command": "intelephense.composer.runCommand",
+        "title": "Run selected composer command",
+        "category": "Intelephense"
+      },
+      {
+        "command": "intelephense.composer.runCommandPlus",
+        "title": "Enter and run additional strings to the selected composer command",
+        "category": "Intelephense"
+      },
+      {
+        "command": "intelephense.composer.runScriptsCommand",
+        "title": "Run selected composer script",
         "category": "Intelephense"
       },
       {
