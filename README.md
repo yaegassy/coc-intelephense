@@ -127,9 +127,12 @@ $ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
 - `intelephense.index.workspace`: Index workspace
 - `intelephense.cancel.indexing`: Cancel indexing
 - `intelephense.composer.runCommand`: Run selected composer command
+  - [DEMO](https://github.com/yaegassy/coc-intelephense/pull/23#issuecomment-1085413528)
 - `intelephense.composer.runCommandPlus`: Enter and run additional strings to the selected composer commands
+  - [DEMO](https://github.com/yaegassy/coc-intelephense/pull/23#issuecomment-1085413960)
 - `intelephense.composer.runScriptsCommand`: Run selected composer script
   - Select and run the script defined in the "scripts section" of `composer.json`. The `pre-...` and `post-...` event scripts are excluded from the list.
+  - [DEMO](https://github.com/yaegassy/coc-intelephense/pull/23#issuecomment-1085414532)
 - `intelephense.phpunit.projectTest`: Run PHPUnit for current project
 - `intelephense.phpunit.fileTest`: Run PHPUnit for current file
 - `intelephense.phpunit.singleTest`: Run PHPUnit for single (nearest) test
