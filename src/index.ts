@@ -23,6 +23,7 @@ import { existsSync } from 'fs';
 import { IntelephenseSnippetsCompletionProvider } from './completion/IntelephenseSnippetsCompletion';
 import { IntelephenseCodeActionProvider } from './actions';
 import { IntelephenseCodeLensProvider } from './lenses';
+import { runCommandCommand, runCommandPlusCommand, runScriptsCommand } from './commands/composer';
 import { fileTestCommand, singleTestCommand, projectTestCommand } from './commands/phpunit';
 
 const PHP_LANGUAGE_ID = 'php';
@@ -98,7 +99,10 @@ export async function activate(context: ExtensionContext): Promise<void> {
   context.subscriptions.push(
     commands.registerCommand('intelephense.phpunit.projectTest', projectTestCommand()),
     commands.registerCommand('intelephense.phpunit.fileTest', fileTestCommand()),
-    commands.registerCommand('intelephense.phpunit.singleTest', singleTestCommand())
+    commands.registerCommand('intelephense.phpunit.singleTest', singleTestCommand()),
+    commands.registerCommand('intelephense.composer.runCommand', runCommandCommand()),
+    commands.registerCommand('intelephense.composer.runCommandPlus', runCommandPlusCommand()),
+    commands.registerCommand('intelephense.composer.runScriptsCommand', runScriptsCommand())
   );
 
   // Add code lens by "client" side
