@@ -2,6 +2,7 @@ import {
   CancellationToken,
   CodeLens,
   CodeLensProvider,
+  events,
   LinesTextDocument,
   Position,
   Range,
@@ -21,8 +22,10 @@ export class IntelephenseCodeLensProvider implements CodeLensProvider {
     }
 
     const codeLensTitle = workspace.getConfiguration('intelephense').get('phpunit.codeLensTitle', '>> [RUN PHPUnit]');
-
     const codeLenses: CodeLens[] = [];
+
+    // do not process codelens when in insert mode
+    if (events.insertMode) return codeLenses;
 
     const methods = await getMethods(document);
     const testMethods = getTestMethods(methods);
