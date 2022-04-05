@@ -7,24 +7,26 @@ import {
   HandleDiagnosticsSignature,
   LanguageClient,
   LanguageClientOptions,
+  languages,
   LinesTextDocument,
   NotificationType,
   Position,
   ProvideDefinitionSignature,
+  Range,
   RequestType,
   ServerOptions,
+  snippetManager,
   TransportKind,
   window,
   workspace,
-  languages,
 } from 'coc.nvim';
 
 import { existsSync } from 'fs';
-import { IntelephenseSnippetsCompletionProvider } from './completion/IntelephenseSnippetsCompletion';
 import { IntelephenseCodeActionProvider } from './actions';
-import { IntelephenseCodeLensProvider } from './lenses';
 import { runCommandCommand, runCommandPlusCommand, runScriptsCommand } from './commands/composer';
-import { fileTestCommand, singleTestCommand, projectTestCommand } from './commands/phpunit';
+import { fileTestCommand, projectTestCommand, singleTestCommand } from './commands/phpunit';
+import { IntelephenseSnippetsCompletionProvider } from './completion/IntelephenseSnippetsCompletion';
+import { IntelephenseCodeLensProvider } from './lenses';
 
 const PHP_LANGUAGE_ID = 'php';
 const INDEXING_STARTED_NOTIFICATION = new NotificationType('indexingStarted');
@@ -123,6 +125,61 @@ export async function activate(context: ExtensionContext): Promise<void> {
       'intelephense'
     )
   );
+
+  // intelephense.completion.autoCloseDocCommentDoSugesst feature
+  if (getConfigAutoCloseDocCommentDoSugesst()) {
+    workspace.onDidChangeTextDocument(
+      (e) => {
+        setTimeout(() => {
+          if (!e.textDocument.uri.endsWith('.php')) return;
+          if (e.contentChanges[0].text === '\n') return;
+          if (e.contentChanges[0].range.start.line !== e.contentChanges[0].range.end.line) return;
+
+          let nextLine = '';
+          try {
+            nextLine = e.originalLines[e.contentChanges[0].range.start.line + 1].trim();
+          } catch (e) {
+            // noop
+          }
+
+          const currentLine = e.originalLines[e.contentChanges[0].range.start.line].trim();
+          if (currentLine.endsWith('*/') || nextLine.endsWith('*/')) return;
+
+          if (
+            (e.contentChanges[0].text === '*' && currentLine === '/*') ||
+            // In the case of fast input, the contentChanges text character is 2 characters.
+            (e.contentChanges[0].text === '**' && currentLine === '/')
+          ) {
+            let addRangeCharacter = 0;
+            if (e.contentChanges[0].text === '*') {
+              addRangeCharacter = 1;
+            } else if (e.contentChanges[0].text === '**') {
+              addRangeCharacter = 2;
+            }
+
+            snippetManager.insertSnippet(
+              '${0} */',
+              true,
+              Range.create(
+                Position.create(
+                  e.contentChanges[0].range.start.line,
+                  e.contentChanges[0].range.start.character + addRangeCharacter
+                ),
+                Position.create(
+                  e.contentChanges[0].range.start.line,
+                  e.contentChanges[0].range.start.character + addRangeCharacter
+                )
+              )
+            );
+
+            commands.executeCommand('editor.action.triggerSuggest');
+          }
+        }, 50);
+      },
+      null,
+      context.subscriptions
+    );
+  }
 }
 
 function createClient(context: ExtensionContext, clearCache: boolean) {
@@ -300,6 +357,10 @@ function getConfigServerDisableDefinition() {
 
 function getConfigDiagnosticsIgnoreErrorFeature() {
   return workspace.getConfiguration('intelephense').get<boolean>('client.diagnosticsIgnoreErrorFeature', false);
+}
+
+function getConfigAutoCloseDocCommentDoSugesst() {
+  return workspace.getConfiguration('intelephense').get<boolean>('client.autoCloseDocCommentDoSugesst', true);
 }
 
 function getConfigPhpUnitDisableCodeLens() {

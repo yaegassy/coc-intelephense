@@ -48,6 +48,7 @@ $ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
 - `intelephense.client.diagnosticsIgnoreErrorFeature`: Whether to enable the PHPDoc tag (`// @intelephense-ignore-line`, `/** @intelephense-ignore-next-line */`) feature and ignore errors, default: `false` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/16)
   - This feature is a proprietary implementation of `coc-intelephense`. This feature will be removed when the dedicated feature is added in the upstream's `vscode-intelephense` or `intelephense` language server.
   - I made it an ignore comment like `phpstan`, Please refer to this page for usage. <https://phpstan.org/user-guide/ignoring-errors#ignoring-in-code-using-phpdocs>
+- `intelephense.client.autoCloseDocCommentDoSugesst`: When `/**` is entered, `*/` is automatically inserted (`/**| */`). Then, continue, automatically triggers completion of PHPDoc comments, default: `true`
 - `intelephense.client.disableSnippetsCompletion`: Disable snippets completion only (client), default: `false`
 - `intelephense.client.snippetsCompletionExclude`: Exclude specific prefix in snippet completion, e.g. `["class", "fun"]`, default: `[]`
 - `intelephense.server.disableCompletion`: Disable completion only (server), default: `false`
