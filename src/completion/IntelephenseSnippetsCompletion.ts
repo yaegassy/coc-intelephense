@@ -8,7 +8,6 @@ import {
   ExtensionContext,
   InsertTextFormat,
   Position,
-  Range,
   TextDocument,
   workspace,
 } from 'coc.nvim';

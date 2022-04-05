@@ -17,6 +17,7 @@ async function getComposerPath() {
 
 async function existsComposer(composerPath: string) {
   return new Promise<boolean>((resolve) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     cp.exec(`${composerPath} --version`, (err, stdout, stderr) => {
       if (stdout.length > 0) {
         resolve(true);
@@ -112,8 +113,6 @@ export function runScriptsCommand() {
     const composerPath = await getComposerPath();
     const args: string[] = [];
 
-    const existsComposerJsonFile = existsComposerJson();
-
     if (!existsComposerJson()) {
       window.showErrorMessage(`composer.json not found!`);
       return;
@@ -121,7 +120,7 @@ export function runScriptsCommand() {
 
     const composerJson = JSON.parse(fs.readFileSync(path.join(workspace.root, 'composer.json'), 'utf8'));
 
-    let scriptsList: string[] = [];
+    const scriptsList: string[] = [];
 
     Object.keys(composerJson).map((key) => {
       if (key === 'scripts') {
