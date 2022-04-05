@@ -78,6 +78,11 @@
           "default": false,
           "description": "Whether to enable the PHPDoc tag (`@intelephense-ignore-line`, `@intelephense-ignore-next-line`) feature and ignore errors."
         },
+        "intelephense.client.autoCloseDocCommentDoSugesst": {
+          "type": "boolean",
+          "default": true,
+          "description": "When `/**` is entered, `*/` is automatically inserted (`/**| */`). Then, continue, automatically triggers completion of PHPDoc comments."
+        },
         "intelephense.client.disableSnippetsCompletion": {
           "type": "boolean",
           "default": false,
