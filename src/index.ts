@@ -126,7 +126,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     )
   );
 
-  // intelephense.completion.autoCloseDocCommentDoSugesst feature
+  // intelephense.client.autoCloseDocCommentDoSugesst feature
   if (getConfigAutoCloseDocCommentDoSugesst()) {
     workspace.onDidChangeTextDocument(
       (e) => {
