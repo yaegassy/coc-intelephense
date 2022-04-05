@@ -127,7 +127,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   );
 
   // intelephense.client.autoCloseDocCommentDoSugesst feature
-  if (getConfigAutoCloseDocCommentDoSugesst()) {
+  if (getConfigAutoCloseDocCommentDoSuggest()) {
     workspace.onDidChangeTextDocument(
       (e) => {
         setTimeout(() => {
@@ -359,8 +359,8 @@ function getConfigDiagnosticsIgnoreErrorFeature() {
   return workspace.getConfiguration('intelephense').get<boolean>('client.diagnosticsIgnoreErrorFeature', false);
 }
 
-function getConfigAutoCloseDocCommentDoSugesst() {
-  return workspace.getConfiguration('intelephense').get<boolean>('client.autoCloseDocCommentDoSugesst', true);
+function getConfigAutoCloseDocCommentDoSuggest() {
+  return workspace.getConfiguration('intelephense').get<boolean>('client.autoCloseDocCommentDoSuggest', true);
 }
 
 function getConfigPhpUnitDisableCodeLens() {
