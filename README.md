@@ -138,7 +138,7 @@ $ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
 - `intelephense.phpunit.projectTest`: Run PHPUnit for current project
 - `intelephense.phpunit.fileTest`: Run PHPUnit for current file
 - `intelephense.phpunit.singleTest`: Run PHPUnit for single (nearest) test
-- `intelephense.artisan.runCommand`: Run Artisan command
+- `intelephense.artisan.runCommand`: Run Artisan command | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/25)
 
 **Example of Vim command and key mapping**:
 
