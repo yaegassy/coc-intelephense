@@ -28,6 +28,8 @@ import { fileTestCommand, projectTestCommand, singleTestCommand } from './comman
 import { IntelephenseSnippetsCompletionProvider } from './completion/IntelephenseSnippetsCompletion';
 import { IntelephenseCodeLensProvider } from './lenses';
 
+import * as artisan from './commands/artisan';
+
 const PHP_LANGUAGE_ID = 'php';
 const INDEXING_STARTED_NOTIFICATION = new NotificationType('indexingStarted');
 const INDEXING_ENDED_NOTIFICATION = new NotificationType('indexingEnded');
@@ -106,6 +108,8 @@ export async function activate(context: ExtensionContext): Promise<void> {
     commands.registerCommand('intelephense.composer.runCommandPlus', runCommandPlusCommand()),
     commands.registerCommand('intelephense.composer.runScriptsCommand', runScriptsCommand())
   );
+
+  artisan.activate(context);
 
   // Add code lens by "client" side
   if (!getConfigPhpUnitDisableCodeLens()) {

@@ -154,6 +154,11 @@
           "default": false,
           "description": "Display debugging information (--debug)."
         },
+        "intelephense.artisan.enableSplitRight": {
+          "type": "boolean",
+          "default": false,
+          "description": "Use vertical belowright for artisan terminal window."
+        },
         "intelephense.progress.enable": {
           "type": "boolean",
           "default": true,
@@ -878,6 +883,11 @@
       {
         "command": "intelephense.phpunit.singleTest",
         "title": "Run PHPUnit for single (nearest) test",
+        "category": "Intelephense"
+      },
+      {
+        "command": "intelephense.artisan.runCommand",
+        "title": "Run Artisan command",
         "category": "Intelephense"
       }
     ]
