@@ -61,6 +61,7 @@ $ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
 - `intelephense.phpunit.path`: Path to phpunit command. If there is no setting, the vendor/bin/phpunit will be used, default: `""`
 - `intelephense.phpunit.colors`: Use colors in output (--colors), default: `false`
 - `intelephense.phpunit.debug`: Display debugging information (--debug), default: `false`
+- `intelephense.artisan.enableSplitRight`: Use vertical belowright for artisan terminal window, default: `false`
 - `intelephense.progress.enable`: Enable progress window for indexing, If false, display with echo messages, default: `true` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/2)
 
 **Same configuration as vscode-intelephense**:
@@ -137,6 +138,7 @@ $ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
 - `intelephense.phpunit.projectTest`: Run PHPUnit for current project
 - `intelephense.phpunit.fileTest`: Run PHPUnit for current file
 - `intelephense.phpunit.singleTest`: Run PHPUnit for single (nearest) test
+- `intelephense.artisan.runCommand`: Run Artisan command
 
 **Example of Vim command and key mapping**:
 
