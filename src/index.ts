@@ -147,7 +147,13 @@ export async function activate(context: ExtensionContext): Promise<void> {
             // noop
           }
 
-          const currentLine = e.originalLines[e.contentChanges[0].range.start.line].trim();
+          let currentLine = '';
+          try {
+            currentLine = e.originalLines[e.contentChanges[0].range.start.line].trim();
+          } catch (e) {
+            // noop
+          }
+
           if (currentLine.endsWith('*/') || nextLine.endsWith('*/')) return;
 
           if (
