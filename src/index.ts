@@ -136,6 +136,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
       (e) => {
         setTimeout(() => {
           if (!e.textDocument.uri.endsWith('.php')) return;
+          if (!e.contentChanges[0]) return;
           if (e.contentChanges[0].text === '\n') return;
           if (e.contentChanges[0].range.start.line !== e.contentChanges[0].range.end.line) return;
 
