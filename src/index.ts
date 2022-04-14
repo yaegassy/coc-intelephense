@@ -20,15 +20,15 @@ import {
   window,
   workspace,
 } from 'coc.nvim';
-
 import { existsSync } from 'fs';
 import { IntelephenseCodeActionProvider } from './actions';
-import { IntelephenseSnippetsCompletionProvider } from './completion/IntelephenseSnippetsCompletion';
-import { PHPUnitCodeLensProvider } from './lens/PHPUnitCodeLensProvider';
-
-import * as composer from './commands/composer';
-import * as phpunit from './commands/phpunit';
 import * as artisan from './commands/artisan';
+import * as composer from './commands/composer';
+import * as pest from './commands/pest';
+import * as phpunit from './commands/phpunit';
+import { IntelephenseSnippetsCompletionProvider } from './completion/IntelephenseSnippetsCompletion';
+import { PestCodeLensProvider } from './lens/PestCodeLensProvider';
+import { PHPUnitCodeLensProvider } from './lens/PHPUnitCodeLensProvider';
 
 const PHP_LANGUAGE_ID = 'php';
 const INDEXING_STARTED_NOTIFICATION = new NotificationType('indexingStarted');
@@ -101,19 +101,24 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   // Add commands by "client" side
   composer.activate(context);
-  phpunit.activate(context);
   artisan.activate(context);
+  phpunit.activate(context);
+  pest.activate(context);
 
   // Add code lens by "client" side
   if (!getConfigDisableCodeLens()) {
     const useCodelensProvider = getConfigCodelensProvider();
-
     if (useCodelensProvider === 'phpunit') {
       context.subscriptions.push(
         languages.registerCodeLensProvider(
           [{ language: PHP_LANGUAGE_ID, scheme: 'file' }],
           new PHPUnitCodeLensProvider()
         )
+      );
+    }
+    if (useCodelensProvider === 'pest') {
+      context.subscriptions.push(
+        languages.registerCodeLensProvider([{ language: PHP_LANGUAGE_ID, scheme: 'file' }], new PestCodeLensProvider())
       );
     }
   }

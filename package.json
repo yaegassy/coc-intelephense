@@ -148,6 +148,11 @@
           "default": false,
           "description": "Use vertical belowright for composer terminal window."
         },
+        "intelephense.artisan.enableSplitRight": {
+          "type": "boolean",
+          "default": false,
+          "description": "Use vertical belowright for artisan terminal window."
+        },
         "intelephense.phpunit.path": {
           "type": "string",
           "default": "",
@@ -173,10 +178,25 @@
           "default": false,
           "description": "Use vertical belowright for phpunit terminal window."
         },
-        "intelephense.artisan.enableSplitRight": {
+        "intelephense.pest.path": {
+          "type": "string",
+          "default": "",
+          "description": "Path to Pest command. If there is no setting, the vendor/bin/pest will be used."
+        },
+        "intelephense.pest.doNotCacheResult": {
+          "type": "boolean",
+          "default": true,
+          "description": "Do not write test results to cache file (--do-not-cache-result)."
+        },
+        "intelephense.pest.codeLensTitle": {
+          "type": "string",
+          "default": ">> [Run Pest]",
+          "description": "CodeLens title. Can be changed to any display."
+        },
+        "intelephense.pest.enableSplitRight": {
           "type": "boolean",
           "default": false,
-          "description": "Use vertical belowright for artisan terminal window."
+          "description": "Use vertical belowright for pest terminal window."
         },
         "intelephense.progress.enable": {
           "type": "boolean",
@@ -890,6 +910,11 @@
         "category": "Intelephense"
       },
       {
+        "command": "intelephense.artisan.runCommand",
+        "title": "Run Artisan command",
+        "category": "Intelephense"
+      },
+      {
         "command": "intelephense.phpunit.projectTest",
         "title": "Run PHPUnit for current project",
         "category": "Intelephense"
@@ -905,8 +930,18 @@
         "category": "Intelephense"
       },
       {
-        "command": "intelephense.artisan.runCommand",
-        "title": "Run Artisan command",
+        "command": "intelephense.pest.projectTest",
+        "title": "Run Pest for current project",
+        "category": "Intelephense"
+      },
+      {
+        "command": "intelephense.pest.fileTest",
+        "title": "Run Pest for current file",
+        "category": "Intelephense"
+      },
+      {
+        "command": "intelephense.pest.singleTest",
+        "title": "Run Pest for single (nearest) test",
         "category": "Intelephense"
       }
     ]
