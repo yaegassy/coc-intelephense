@@ -61,7 +61,7 @@ async function runComposer(composerPath: string, args: string[]) {
   if (enableSplitRight) await workspace.nvim.command(`vert bel sb ${terminal.bufnr}`);
 }
 
-export function runCommandCommand() {
+export function runComposerCommandCommand() {
   return async () => {
     const composerPath = await getComposerPath();
     const args: string[] = [];
@@ -83,7 +83,7 @@ export function runCommandCommand() {
   };
 }
 
-export function runCommandPlusCommand() {
+export function runComposerCommandPlusCommand() {
   return async () => {
     const composerPath = await getComposerPath();
     const args: string[] = [];
@@ -113,7 +113,7 @@ export function runCommandPlusCommand() {
   };
 }
 
-export function runScriptsCommand() {
+export function runComposerScriptsCommand() {
   return async () => {
     const composerPath = await getComposerPath();
     const args: string[] = [];

@@ -23,7 +23,11 @@ import {
 
 import { existsSync } from 'fs';
 import { IntelephenseCodeActionProvider } from './actions';
-import { runCommandCommand, runCommandPlusCommand, runScriptsCommand } from './commands/composer';
+import {
+  runComposerCommandCommand,
+  runComposerCommandPlusCommand,
+  runComposerScriptsCommand,
+} from './commands/composer';
 import { fileTestCommand, projectTestCommand, singleTestCommand } from './commands/phpunit';
 import { IntelephenseSnippetsCompletionProvider } from './completion/IntelephenseSnippetsCompletion';
 import { IntelephenseCodeLensProvider } from './lenses';
@@ -101,12 +105,12 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   // Add commands by "client" side
   context.subscriptions.push(
+    commands.registerCommand('intelephense.composer.runCommand', runComposerCommandCommand()),
+    commands.registerCommand('intelephense.composer.runCommandPlus', runComposerCommandPlusCommand()),
+    commands.registerCommand('intelephense.composer.runScriptsCommand', runComposerScriptsCommand()),
     commands.registerCommand('intelephense.phpunit.projectTest', projectTestCommand()),
     commands.registerCommand('intelephense.phpunit.fileTest', fileTestCommand()),
-    commands.registerCommand('intelephense.phpunit.singleTest', singleTestCommand()),
-    commands.registerCommand('intelephense.composer.runCommand', runCommandCommand()),
-    commands.registerCommand('intelephense.composer.runCommandPlus', runCommandPlusCommand()),
-    commands.registerCommand('intelephense.composer.runScriptsCommand', runScriptsCommand())
+    commands.registerCommand('intelephense.phpunit.singleTest', singleTestCommand())
   );
 
   artisan.activate(context);
