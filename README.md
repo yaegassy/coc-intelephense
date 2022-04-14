@@ -162,7 +162,7 @@ nnoremap <silent> <C-p> :<C-u>CocCommand<CR>
 command! -nargs=0 PHPUnit :call CocAction('runCommand', 'intelephense.phpunit.projectTest')
 
 " Run PHPUnit for current file
-command! -nargs=0 PHPUnitCurrent :call  CocAction('runCommand', 'intelephense.phpunit.fileTest', ['%'])
+command! -nargs=0 PHPUnitCurrent :call CocAction('runCommand', 'intelephense.phpunit.fileTest', ['%'])
 
 " Run PHPUnit for single (nearest) test
 nnoremap <leader>te :call CocAction('runCommand', 'intelephense.phpunit.singleTest')<CR>
@@ -172,7 +172,7 @@ nnoremap <leader>te :call CocAction('runCommand', 'intelephense.phpunit.singleTe
 
 **Feature**:
 
-Test file for PHPUnit, allowing execution of a single test method. CodeLens appears at the top of the test method.
+Test file for "PHPUnit" or "Pest", allowing execution of a single test method. CodeLens appears at the top of the test method.
 
 - [DEMO](https://github.com/yaegassy/coc-intelephense/pull/20)
 
@@ -185,6 +185,14 @@ Change the setting to `true` to enable it.
 ```jsonc
 {
   "codeLens.enable": true
+}
+```
+
+If you want to use "Pest", change the `intelephense.client.codelensProvider` setting to `pest` (default: `phpunit`).
+
+```jsonc
+{
+  "intelephense.client.codelensProvider": "pest"
 }
 ```
 
