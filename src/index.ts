@@ -23,11 +23,11 @@ import {
 
 import { existsSync } from 'fs';
 import { IntelephenseCodeActionProvider } from './actions';
-import { phpunitFileTestCommand, phpunitProjectTestCommand, phpunitSingleTestCommand } from './commands/phpunit';
 import { IntelephenseSnippetsCompletionProvider } from './completion/IntelephenseSnippetsCompletion';
 import { PHPUnitCodeLensProvider } from './lens/PHPUnitCodeLensProvider';
 
 import * as composer from './commands/composer';
+import * as phpunit from './commands/phpunit';
 import * as artisan from './commands/artisan';
 
 const PHP_LANGUAGE_ID = 'php';
@@ -100,13 +100,8 @@ export async function activate(context: ExtensionContext): Promise<void> {
   }
 
   // Add commands by "client" side
-  context.subscriptions.push(
-    commands.registerCommand('intelephense.phpunit.projectTest', phpunitProjectTestCommand()),
-    commands.registerCommand('intelephense.phpunit.fileTest', phpunitFileTestCommand()),
-    commands.registerCommand('intelephense.phpunit.singleTest', phpunitSingleTestCommand())
-  );
-
   composer.activate(context);
+  phpunit.activate(context);
   artisan.activate(context);
 
   // Add code lens by "client" side

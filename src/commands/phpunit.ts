@@ -1,10 +1,18 @@
-import { Terminal, Uri, window, workspace } from 'coc.nvim';
+import { commands, ExtensionContext, Terminal, Uri, window, workspace } from 'coc.nvim';
 
 import path from 'path';
 import fs from 'fs';
 import { getMethods, getTestName } from '../parsers';
 
 let terminal: Terminal | undefined;
+
+export function activate(context: ExtensionContext) {
+  context.subscriptions.push(
+    commands.registerCommand('intelephense.phpunit.projectTest', phpunitProjectTestCommand()),
+    commands.registerCommand('intelephense.phpunit.fileTest', phpunitFileTestCommand()),
+    commands.registerCommand('intelephense.phpunit.singleTest', phpunitSingleTestCommand())
+  );
+}
 
 function getPhpUnitPath() {
   let cmdPath = '';
