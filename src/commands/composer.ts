@@ -1,10 +1,18 @@
-import { Terminal, window, workspace } from 'coc.nvim';
+import { commands, ExtensionContext, Terminal, window, workspace } from 'coc.nvim';
 
 import cp from 'child_process';
 import fs from 'fs';
 import path from 'path';
 
 let terminal: Terminal | undefined;
+
+export function activate(context: ExtensionContext) {
+  context.subscriptions.push(
+    commands.registerCommand('intelephense.composer.runCommand', runComposerCommandCommand()),
+    commands.registerCommand('intelephense.composer.runCommandPlus', runComposerCommandPlusCommand()),
+    commands.registerCommand('intelephense.composer.runScriptsCommand', runComposerScriptsCommand())
+  );
+}
 
 async function getComposerPath() {
   let cmdPath = '';
