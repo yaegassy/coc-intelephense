@@ -1,6 +1,6 @@
 {
   "name": "@yaegassy/coc-intelephense",
-  "version": "0.17.4",
+  "version": "0.18.0",
   "description": "intelephense extension for coc.nvim",
   "author": "yaegassy <yosstools@gmail.com>",
   "license": "MIT",
