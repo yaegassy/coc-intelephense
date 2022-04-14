@@ -174,7 +174,8 @@ nnoremap <leader>te :call CocAction('runCommand', 'intelephense.phpunit.singleTe
 
 Test file for "PHPUnit" or "Pest", allowing execution of a single test method. CodeLens appears at the top of the test method.
 
-- [DEMO](https://github.com/yaegassy/coc-intelephense/pull/20)
+- [PHPUnit DEMO](https://github.com/yaegassy/coc-intelephense/pull/20)
+- [Pest DEMO](https://github.com/yaegassy/coc-intelephense/pull/26#issuecomment-1099097009)
 
 **coc-settings.json**:
 
