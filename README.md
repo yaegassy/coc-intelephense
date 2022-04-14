@@ -59,12 +59,16 @@ $ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
 - `intelephense.composer.runCommandList`: Set the subcommand of the composer you want to execute, default: `["dump-autoload", "clear-cache", "install", "update"]`
 - `intelephense.composer.runCommandPlusList`: Set the subcommand of the composer you want to execute. Additional strings can be entered and executed in the subcommand. default: `["require", "require --dev", "remove", "remove --dev", "update"]`
 - `intelephense.composer.enableSplitRight`: Use vertical belowright for composer terminal window, default: `false`
+- `intelephense.artisan.enableSplitRight`: Use vertical belowright for artisan terminal window, default: `false`
 - `intelephense.phpunit.path`: Path to phpunit command. If there is no setting, the vendor/bin/phpunit will be used, default: `""`
 - `intelephense.phpunit.colors`: Use colors in output (--colors), default: `false`
 - `intelephense.phpunit.debug`: Display debugging information (--debug), default: `false`
 - `intelephense.phpunit.codeLensTitle`: CodeLens title. Can be changed to any display, default: `">> [Run PHPUnit]"`
 - `intelephense.phpunit.enableSplitRight`: Use vertical belowright for phpunit terminal window, default: `false`
-- `intelephense.artisan.enableSplitRight`: Use vertical belowright for artisan terminal window, default: `false`
+- `intelephense.pest.path`: Path to Pest command. If there is no setting, the vendor/bin/pest will be used, default: `""`
+- `intelephense.pest.doNotCacheResult`: Do not write test results to cache file (--do-not-cache-result), default: `true`
+- `intelephense.pest.codeLensTitle`: CodeLens title. Can be changed to any display, default: `">> [Run Pest]"`
+- `intelephense.pest.enableSplitRight`: Use vertical belowright for pest terminal window, default: `false`
 - `intelephense.progress.enable`: Enable progress window for indexing, If false, display with echo messages, default: `true` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/2)
 
 **Same configuration as vscode-intelephense**:
@@ -138,16 +142,22 @@ $ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
 - `intelephense.composer.runScriptsCommand`: Run selected composer script
   - Select and run the script defined in the "scripts section" of `composer.json`. The `pre-...` and `post-...` event scripts are excluded from the list.
   - [DEMO](https://github.com/yaegassy/coc-intelephense/pull/23#issuecomment-1085414532)
+- `intelephense.artisan.runCommand`: Run Artisan command | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/25)
 - `intelephense.phpunit.projectTest`: Run PHPUnit for current project
 - `intelephense.phpunit.fileTest`: Run PHPUnit for current file
 - `intelephense.phpunit.singleTest`: Run PHPUnit for single (nearest) test
-- `intelephense.artisan.runCommand`: Run Artisan command | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/25)
+- `intelephense.pest.projectTest`: Run Pest for current project
+- `intelephense.pest.fileTest`: Run Pest for current file
+- `intelephense.pest.singleTest`: Run Pest for single (nearest) test
 
 **Example of Vim command and key mapping**:
 
 Vim commands can be defined and executed or key mappings can be set and used.
 
 ```vim
+" Quickly view a list of all coc.nvim commands
+nnoremap <silent> <C-p> :<C-u>CocCommand<CR>
+
 " Run PHPUnit for current project
 command! -nargs=0 PHPUnit :call CocAction('runCommand', 'intelephense.phpunit.projectTest')
 
@@ -188,7 +198,7 @@ nmap <silent> gl <Plug>(coc-codelens-action)
 
 "CodeLens" does not work with "Vim8" due to coc.nvim specifications.
 
-`intelephense.phpunit.singleTest` commands are available, so please use them.
+`intelephense.phpunit.singleTest` command and `intelephense.pest.singleTest` command are available, so please use them.
 
 ## Code Actions
 
