@@ -10,9 +10,9 @@ import {
   workspace,
 } from 'coc.nvim';
 
-import { getMethods, getTestMethods } from './parsers';
+import { getMethods, getTestMethods } from '../parsers';
 
-export class IntelephenseCodeLensProvider implements CodeLensProvider {
+export class PHPUnitCodeLensProvider implements CodeLensProvider {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async provideCodeLenses(document: LinesTextDocument, token: CancellationToken) {
     const filePath = Uri.parse(document.uri).fsPath;

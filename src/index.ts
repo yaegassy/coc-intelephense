@@ -30,7 +30,7 @@ import {
 } from './commands/composer';
 import { phpunitFileTestCommand, phpunitProjectTestCommand, phpunitSingleTestCommand } from './commands/phpunit';
 import { IntelephenseSnippetsCompletionProvider } from './completion/IntelephenseSnippetsCompletion';
-import { IntelephenseCodeLensProvider } from './lenses';
+import { PHPUnitCodeLensProvider } from './lens/PHPUnitCodeLensProvider';
 
 import * as artisan from './commands/artisan';
 
@@ -116,13 +116,17 @@ export async function activate(context: ExtensionContext): Promise<void> {
   artisan.activate(context);
 
   // Add code lens by "client" side
-  if (!getConfigPhpUnitDisableCodeLens()) {
-    context.subscriptions.push(
-      languages.registerCodeLensProvider(
-        [{ language: PHP_LANGUAGE_ID, scheme: 'file' }],
-        new IntelephenseCodeLensProvider()
-      )
-    );
+  if (!getConfigDisableCodeLens()) {
+    const useCodelensProvider = getConfigCodelensProvider();
+
+    if (useCodelensProvider === 'phpunit') {
+      context.subscriptions.push(
+        languages.registerCodeLensProvider(
+          [{ language: PHP_LANGUAGE_ID, scheme: 'file' }],
+          new PHPUnitCodeLensProvider()
+        )
+      );
+    }
   }
 
   // Add code action by "client" side
@@ -378,6 +382,10 @@ function getConfigAutoCloseDocCommentDoSuggest() {
   return workspace.getConfiguration('intelephense').get<boolean>('client.autoCloseDocCommentDoSuggest', true);
 }
 
-function getConfigPhpUnitDisableCodeLens() {
-  return workspace.getConfiguration('intelephense').get<boolean>('phpunit.disableCodeLens', false);
+function getConfigDisableCodeLens() {
+  return workspace.getConfiguration('intelephense').get<boolean>('client.disableCodeLens', false);
+}
+
+function getConfigCodelensProvider() {
+  return workspace.getConfiguration('intelephense').get<string>('client.codelensProvider', 'phpunit');
 }

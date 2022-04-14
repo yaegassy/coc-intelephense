@@ -93,6 +93,20 @@
           "default": [],
           "description": "Exclude specific prefix in snippet completion"
         },
+        "intelephense.client.disableCodeLens": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable code lens only (client)."
+        },
+        "intelephense.client.codelensProvider": {
+          "type": "string",
+          "default": "phpunit",
+          "description": "Provider for CodeLens. Possible options include 'phpunit' and 'pest'",
+          "enum": [
+            "phpunit",
+            "pest"
+          ]
+        },
         "intelephense.server.disableCompletion": {
           "type": "boolean",
           "default": false,
@@ -134,16 +148,6 @@
           "default": false,
           "description": "Use vertical belowright for composer terminal window."
         },
-        "intelephense.phpunit.disableCodeLens": {
-          "type": "boolean",
-          "default": false,
-          "description": "Disable code lens only (client)."
-        },
-        "intelephense.phpunit.codeLensTitle": {
-          "type": "string",
-          "default": ">> [Run PHPUnit]",
-          "description": "CodeLens title. Can be changed to any display."
-        },
         "intelephense.phpunit.path": {
           "type": "string",
           "default": "",
@@ -158,6 +162,11 @@
           "type": "boolean",
           "default": false,
           "description": "Display debugging information (--debug)."
+        },
+        "intelephense.phpunit.codeLensTitle": {
+          "type": "string",
+          "default": ">> [Run PHPUnit]",
+          "description": "CodeLens title. Can be changed to any display."
         },
         "intelephense.phpunit.enableSplitRight": {
           "type": "boolean",

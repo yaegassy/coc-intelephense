@@ -51,17 +51,18 @@ $ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
 - `intelephense.client.autoCloseDocCommentDoSuggest`: When `/**` is entered, `*/` is automatically inserted (`/**| */`). Then, continue, automatically triggers completion of PHPDoc comments, default: `true` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/24#issuecomment-1088219510)
 - `intelephense.client.disableSnippetsCompletion`: Disable snippets completion only (client), default: `false`
 - `intelephense.client.snippetsCompletionExclude`: Exclude specific prefix in snippet completion, e.g. `["class", "fun"]`, default: `[]`
+- `intelephense.client.disableCodeLens`: Disable code lens only (client), default: `false`
+- `intelephense.client.codelensProvider`: Provider for CodeLens. Possible options include `phpunit` and `pest`, default: `"phpunit"`
 - `intelephense.server.disableCompletion`: Disable completion only (server), default: `false`
 - `intelephense.server.disableDefinition`: Disable definition only (server), default: `false`
 - `intelephense.composer.path`: Path to composer command. default: `composer`
 - `intelephense.composer.runCommandList`: Set the subcommand of the composer you want to execute, default: `["dump-autoload", "clear-cache", "install", "update"]`
 - `intelephense.composer.runCommandPlusList`: Set the subcommand of the composer you want to execute. Additional strings can be entered and executed in the subcommand. default: `["require", "require --dev", "remove", "remove --dev", "update"]`
 - `intelephense.composer.enableSplitRight`: Use vertical belowright for composer terminal window, default: `false`
-- `intelephense.phpunit.disableCodeLens`: Disable code lens only (client), default: `false`
-- `intelephense.phpunit.codeLensTitle`: CodeLens title. Can be changed to any display, default: `">> [Run PHPUnit]"`
 - `intelephense.phpunit.path`: Path to phpunit command. If there is no setting, the vendor/bin/phpunit will be used, default: `""`
 - `intelephense.phpunit.colors`: Use colors in output (--colors), default: `false`
 - `intelephense.phpunit.debug`: Display debugging information (--debug), default: `false`
+- `intelephense.phpunit.codeLensTitle`: CodeLens title. Can be changed to any display, default: `">> [Run PHPUnit]"`
 - `intelephense.phpunit.enableSplitRight`: Use vertical belowright for phpunit terminal window, default: `false`
 - `intelephense.artisan.enableSplitRight`: Use vertical belowright for artisan terminal window, default: `false`
 - `intelephense.progress.enable`: Enable progress window for indexing, If false, display with echo messages, default: `true` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/2)
