@@ -44,17 +44,15 @@ export async function getMethods(document: LinesTextDocument) {
             }
           }
         });
-      } else if ('class') {
-        if (node.kind === 'class') {
-          if ('body' in node) {
-            const subNode = node['body'] as Node[];
-            subNode.forEach((node) => {
-              const methodData = getMethodDataByClassBodyAst(node);
-              if (methodData) {
-                methods.push(methodData);
-              }
-            });
-          }
+      } else if (node.kind === 'class') {
+        if ('body' in node) {
+          const subNode = node['body'] as Node[];
+          subNode.forEach((node) => {
+            const methodData = getMethodDataByClassBodyAst(node);
+            if (methodData) {
+              methods.push(methodData);
+            }
+          });
         }
       }
     });
