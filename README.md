@@ -56,11 +56,13 @@ $ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
 - `intelephense.composer.path`: Path to composer command. default: `composer`
 - `intelephense.composer.runCommandList`: Set the subcommand of the composer you want to execute, default: `["dump-autoload", "clear-cache", "install", "update"]`
 - `intelephense.composer.runCommandPlusList`: Set the subcommand of the composer you want to execute. Additional strings can be entered and executed in the subcommand. default: `["require", "require --dev", "remove", "remove --dev", "update"]`
+- `intelephense.composer.enableSplitRight`: Use vertical belowright for composer terminal window, default: `false`
 - `intelephense.phpunit.disableCodeLens`: Disable code lens only (client), default: `false`
 - `intelephense.phpunit.codeLensTitle`: CodeLens title. Can be changed to any display, default: `">> [Run PHPUnit]"`
 - `intelephense.phpunit.path`: Path to phpunit command. If there is no setting, the vendor/bin/phpunit will be used, default: `""`
 - `intelephense.phpunit.colors`: Use colors in output (--colors), default: `false`
 - `intelephense.phpunit.debug`: Display debugging information (--debug), default: `false`
+- `intelephense.phpunit.enableSplitRight`: Use vertical belowright for phpunit terminal window, default: `false`
 - `intelephense.artisan.enableSplitRight`: Use vertical belowright for artisan terminal window, default: `false`
 - `intelephense.progress.enable`: Enable progress window for indexing, If false, display with echo messages, default: `true` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/2)
 

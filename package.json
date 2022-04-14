@@ -129,6 +129,11 @@
           ],
           "description": "Set the subcommand of the composer you want to execute. Additional strings can be entered and executed in the subcommand."
         },
+        "intelephense.composer.enableSplitRight": {
+          "type": "boolean",
+          "default": false,
+          "description": "Use vertical belowright for composer terminal window."
+        },
         "intelephense.phpunit.disableCodeLens": {
           "type": "boolean",
           "default": false,
@@ -153,6 +158,11 @@
           "type": "boolean",
           "default": false,
           "description": "Display debugging information (--debug)."
+        },
+        "intelephense.phpunit.enableSplitRight": {
+          "type": "boolean",
+          "default": false,
+          "description": "Use vertical belowright for phpunit terminal window."
         },
         "intelephense.artisan.enableSplitRight": {
           "type": "boolean",

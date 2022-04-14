@@ -53,7 +53,12 @@ async function runComposer(composerPath: string, args: string[]) {
 
   terminal = await window.createTerminal({ name: 'composer', cwd: workspace.root });
   terminal.sendText(`${composerPath} ${args.join(' ')}`);
+
+  const enableSplitRight = workspace.getConfiguration('intelephense').get('composer.enableSplitRight', false);
+
+  if (enableSplitRight) terminal.hide();
   await workspace.nvim.command('stopinsert');
+  if (enableSplitRight) await workspace.nvim.command(`vert bel sb ${terminal.bufnr}`);
 }
 
 export function runCommandCommand() {

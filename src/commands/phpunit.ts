@@ -52,7 +52,11 @@ async function runPhpUnit(filePath?: string, testName?: string) {
       terminal.sendText(`${phpunitBin}`);
     }
 
+    const enableSplitRight = workspace.getConfiguration('intelephense').get('phpunit.enableSplitRight', false);
+
+    if (enableSplitRight) terminal.hide();
     await workspace.nvim.command('stopinsert');
+    if (enableSplitRight) await workspace.nvim.command(`vert bel sb ${terminal.bufnr}`);
   } else {
     return window.showErrorMessage('phpunit not found!');
   }
