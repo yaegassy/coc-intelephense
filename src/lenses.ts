@@ -27,22 +27,26 @@ export class IntelephenseCodeLensProvider implements CodeLensProvider {
     // do not process codelens when in insert mode
     if (events.insertMode) return codeLenses;
 
-    const methods = await getMethods(document);
-    const testMethods = getTestMethods(methods);
+    try {
+      const methods = await getMethods(document);
+      const testMethods = getTestMethods(methods);
 
-    testMethods.forEach((m) => {
-      if (m.startLine && m.endLine) {
-        const lens: CodeLens = {
-          range: Range.create(Position.create(m.startLine - 1, 0), Position.create(m.endLine, 0)),
-          command: {
-            title: codeLensTitle,
-            command: 'intelephense.phpunit.singleTest',
-          },
-        };
+      testMethods.forEach((m) => {
+        if (m.startLine && m.endLine) {
+          const lens: CodeLens = {
+            range: Range.create(Position.create(m.startLine - 1, 0), Position.create(m.endLine, 0)),
+            command: {
+              title: codeLensTitle,
+              command: 'intelephense.phpunit.singleTest',
+            },
+          };
 
-        codeLenses.push(lens);
-      }
-    });
+          codeLenses.push(lens);
+        }
+      });
+    } catch (e) {
+      // noop
+    }
 
     // For some reason, the virtual text does not disappear even when the
     // number of code lens goes from 1 to 0.

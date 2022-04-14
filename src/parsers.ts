@@ -26,9 +26,9 @@ export async function getMethods(document: LinesTextDocument) {
   const methods: MethodType[] = [];
 
   try {
-    const parsed = parserEngine.parseEval(code.replace('<?php', '').replace('?>', ''));
+    const ast = parserEngine.parseEval(code.replace('<?php', '').replace('?>', ''));
 
-    parsed.children.forEach((node) => {
+    ast.children.forEach((node) => {
       if ('children' in node) {
         const subNode = node['children'] as Node[];
         subNode.forEach((node) => {
@@ -36,33 +36,26 @@ export async function getMethods(document: LinesTextDocument) {
             if ('body' in node) {
               const subNode = node['body'] as Node[];
               subNode.forEach((node) => {
-                if (node.kind === 'method') {
-                  if ('loc' in node) {
-                    const name = node['name']['name'] as string;
-                    const startLine = node['loc'] ? node['loc']['start']['line'] : 0;
-                    const endLine = node['loc'] ? node['loc']['end']['line'] : 0;
-                    const comments: string[] = [];
-                    if ('leadingComments' in node) {
-                      const leadingComments = node['leadingComments'] as Comment[];
-                      leadingComments.forEach((n) => {
-                        comments.push(n.value);
-                      });
-                    }
-
-                    const methodData: MethodType = {
-                      name,
-                      startLine,
-                      endLine,
-                      comments,
-                    };
-
-                    methods.push(methodData);
-                  }
+                const methodData = getMethodDataByClassBodyAst(node);
+                if (methodData) {
+                  methods.push(methodData);
                 }
               });
             }
           }
         });
+      } else if ('class') {
+        if (node.kind === 'class') {
+          if ('body' in node) {
+            const subNode = node['body'] as Node[];
+            subNode.forEach((node) => {
+              const methodData = getMethodDataByClassBodyAst(node);
+              if (methodData) {
+                methods.push(methodData);
+              }
+            });
+          }
+        }
       }
     });
   } catch (e) {
@@ -70,6 +63,30 @@ export async function getMethods(document: LinesTextDocument) {
   }
 
   return methods;
+}
+
+function getMethodDataByClassBodyAst(node: Node) {
+  if (node.kind === 'method') {
+    if ('loc' in node) {
+      const name = node['name']['name'] as string;
+      const startLine = node['loc'] ? node['loc']['start']['line'] : 0;
+      const endLine = node['loc'] ? node['loc']['end']['line'] : 0;
+      const comments: string[] = [];
+      if ('leadingComments' in node) {
+        const leadingComments = node['leadingComments'] as Comment[];
+        leadingComments.forEach((n) => {
+          comments.push(n.value);
+        });
+      }
+      const methodData: MethodType = {
+        name,
+        startLine,
+        endLine,
+        comments,
+      };
+      return methodData;
+    }
+  }
 }
 
 export function getTestMethods(methods: MethodType[]) {
