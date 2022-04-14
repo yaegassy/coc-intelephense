@@ -28,7 +28,7 @@ import {
   runComposerCommandPlusCommand,
   runComposerScriptsCommand,
 } from './commands/composer';
-import { fileTestCommand, projectTestCommand, singleTestCommand } from './commands/phpunit';
+import { phpunitFileTestCommand, phpunitProjectTestCommand, phpunitSingleTestCommand } from './commands/phpunit';
 import { IntelephenseSnippetsCompletionProvider } from './completion/IntelephenseSnippetsCompletion';
 import { IntelephenseCodeLensProvider } from './lenses';
 
@@ -108,9 +108,9 @@ export async function activate(context: ExtensionContext): Promise<void> {
     commands.registerCommand('intelephense.composer.runCommand', runComposerCommandCommand()),
     commands.registerCommand('intelephense.composer.runCommandPlus', runComposerCommandPlusCommand()),
     commands.registerCommand('intelephense.composer.runScriptsCommand', runComposerScriptsCommand()),
-    commands.registerCommand('intelephense.phpunit.projectTest', projectTestCommand()),
-    commands.registerCommand('intelephense.phpunit.fileTest', fileTestCommand()),
-    commands.registerCommand('intelephense.phpunit.singleTest', singleTestCommand())
+    commands.registerCommand('intelephense.phpunit.projectTest', phpunitProjectTestCommand()),
+    commands.registerCommand('intelephense.phpunit.fileTest', phpunitFileTestCommand()),
+    commands.registerCommand('intelephense.phpunit.singleTest', phpunitSingleTestCommand())
   );
 
   artisan.activate(context);

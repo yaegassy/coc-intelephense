@@ -62,7 +62,7 @@ async function runPhpUnit(filePath?: string, testName?: string) {
   }
 }
 
-export function projectTestCommand() {
+export function phpunitProjectTestCommand() {
   return async () => {
     const { document } = await workspace.getCurrentState();
     const filePath = Uri.parse(document.uri).fsPath;
@@ -75,7 +75,7 @@ export function projectTestCommand() {
   };
 }
 
-export function fileTestCommand() {
+export function phpunitFileTestCommand() {
   return async () => {
     const { document } = await workspace.getCurrentState();
     const filePath = Uri.parse(document.uri).fsPath;
@@ -88,7 +88,7 @@ export function fileTestCommand() {
   };
 }
 
-export function singleTestCommand() {
+export function phpunitSingleTestCommand() {
   return async () => {
     const { document, position } = await workspace.getCurrentState();
     const filePath = Uri.parse(document.uri).fsPath;
