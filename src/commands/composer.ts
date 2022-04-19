@@ -66,7 +66,10 @@ async function runComposer(composerPath: string, args: string[]) {
 
   if (enableSplitRight) terminal.hide();
   await workspace.nvim.command('stopinsert');
-  if (enableSplitRight) await workspace.nvim.command(`vert bel sb ${terminal.bufnr}`);
+  if (enableSplitRight) {
+    await workspace.nvim.command(`vert bel sb ${terminal.bufnr}`);
+    await workspace.nvim.command(`wincmd p`);
+  }
 }
 
 export function runComposerCommandCommand() {
