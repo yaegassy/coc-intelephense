@@ -144,6 +144,7 @@ $ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
   - Select and run the script defined in the "scripts section" of `composer.json`. The `pre-...` and `post-...` event scripts are excluded from the list.
   - [DEMO](https://github.com/yaegassy/coc-intelephense/pull/23#issuecomment-1085414532)
 - `intelephense.artisan.runCommand`: Run Artisan command | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/25)
+- `intelephense.symfony.runCommand`: Run Symfony command
 - `intelephense.phpunit.projectTest`: Run PHPUnit for current project
 - `intelephense.phpunit.fileTest`: Run PHPUnit for current file
 - `intelephense.phpunit.singleTest`: Run PHPUnit for single (nearest) test
