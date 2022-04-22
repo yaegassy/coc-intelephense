@@ -18,24 +18,25 @@ import path from 'path';
 
 let terminal: Terminal | undefined;
 
-type ArtisanListJsonType = {
+type SymfonyConsoleListJsonType = {
   application: {
     name: string;
     version: string;
   };
-  commands: ArtisanListCommandsJsonType[];
+  commands: SymfonyConsoleListCommandsJsonType[];
   namespaces: {
     id: string;
     commands: string[];
   };
 };
 
-type ArtisanListCommandsJsonType = {
+type SymfonyConsoleListCommandsJsonType = {
   name: string;
   description: string;
 };
 
 export function activate(context: ExtensionContext) {
+  listManager.registerList(new SymfonyList(workspace.nvim));
   listManager.registerList(new ArtisanList(workspace.nvim));
 
   context.subscriptions.push(
@@ -43,26 +44,31 @@ export function activate(context: ExtensionContext) {
       workspace.nvim.command(`CocList artisan`);
     })
   );
+  context.subscriptions.push(
+    commands.registerCommand('intelephense.symfony.runCommand', () => {
+      workspace.nvim.command(`CocList symfony`);
+    })
+  );
 }
 
-async function getArtisanPath() {
+async function getSymfonyConsolePath(entryPoint: string) {
   let cmdPath = '';
-  const artisanPath = path.join(workspace.root, 'artisan');
-  if (fs.existsSync(artisanPath)) {
-    cmdPath = artisanPath;
+  const symfonyPath = path.join(workspace.root, entryPoint);
+  if (fs.existsSync(symfonyPath)) {
+    cmdPath = symfonyPath;
   }
   return cmdPath;
 }
 
-async function getArtisanListCommandsJson(artisanPath: string) {
+async function getSymfonyConsoleListCommandsJson(symfonyConsolePath: string) {
   return new Promise<string[]>((resolve) => {
-    cp.exec(`${artisanPath} list --format json`, (err, stdout, stderr) => {
+    cp.exec(`${symfonyConsolePath} list --format json`, (err, stdout, stderr) => {
       if (err || stderr) resolve([]);
 
       if (stdout.length > 0) {
         try {
-          const artisanListJson = JSON.parse(stdout) as ArtisanListJsonType;
-          const names = artisanListJson.commands.map((c) => c.name);
+          const symfonyConsoleListJson = JSON.parse(stdout) as SymfonyConsoleListJsonType;
+          const names = symfonyConsoleListJson.commands.map((c) => c.name);
           resolve(names);
         } catch (e) {
           resolve([]);
@@ -74,10 +80,9 @@ async function getArtisanListCommandsJson(artisanPath: string) {
   });
 }
 
-async function runArtisan(commandName: string) {
-  const artisanPath = await getArtisanPath();
-  if (!artisanPath) {
-    window.showErrorMessage(`artisan command not found!`);
+async function runSymfonyConsole(commandName: string, entryPoint: string, baseCommandName: string) {
+  const symfonyConsolePath = await getSymfonyConsolePath(entryPoint);
+  if (!symfonyConsolePath) {
     return;
   }
 
@@ -92,7 +97,7 @@ async function runArtisan(commandName: string) {
   }
 
   const args: string[] = [];
-  args.push(artisanPath);
+  args.push(symfonyConsolePath);
   args.push(commandName);
   if (input) args.push(input);
 
@@ -104,10 +109,10 @@ async function runArtisan(commandName: string) {
     terminal = undefined;
   }
 
-  terminal = await window.createTerminal({ name: 'artisan', cwd: workspace.root });
+  terminal = await window.createTerminal({ name: baseCommandName, cwd: workspace.root });
   terminal.sendText(`php ${args.join(' ')}`);
 
-  const enableSplitRight = workspace.getConfiguration('intelephense').get('artisan.enableSplitRight', false);
+  const enableSplitRight = workspace.getConfiguration('intelephense').get(baseCommandName + '.enableSplitRight', false);
 
   if (enableSplitRight) terminal.hide();
   await workspace.nvim.command('stopinsert');
@@ -117,29 +122,42 @@ async function runArtisan(commandName: string) {
   }
 }
 
-export class ArtisanList extends BasicList {
-  public readonly name = 'artisan';
-  public readonly description = 'artisan for coc-intelephense';
+export abstract class SymfonyConsoleList extends BasicList {
+  public name = 'symfony_console';
+  public description = 'symfony_console for coc-intelephense';
   public readonly defaultAction = 'execute';
   public actions: ListAction[] = [];
+  public entryPoint = 'path/to/sf_console';
 
   constructor(nvim: Neovim) {
     super(nvim);
 
     this.addAction('execute', (item: ListItem) => {
-      runArtisan(item.label);
+      runSymfonyConsole(item.label, this.entryPoint, this.name);
     });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async loadItems(context: ListContext): Promise<ListItem[]> {
     const listItems: ListItem[] = [];
-    const artisanPath = await getArtisanPath();
-    if (!artisanPath) {
+    const symfonyConsolePath = await getSymfonyConsolePath(this.entryPoint);
+    if (!symfonyConsolePath) {
       return listItems;
     }
-    const commands = await getArtisanListCommandsJson(artisanPath);
+    const commands = await getSymfonyConsoleListCommandsJson(symfonyConsolePath);
     commands.forEach((c) => listItems.push({ label: c }));
     return listItems;
   }
+}
+
+export class ArtisanList extends SymfonyConsoleList {
+  public readonly name = 'artisan';
+  public readonly description = 'artisan for coc-intelephense';
+  public readonly entryPoint = 'artisan';
+}
+
+export class SymfonyList extends SymfonyConsoleList {
+  public readonly name = 'symfony';
+  public readonly description = 'symfony for coc-intelephense';
+  public readonly entryPoint = 'bin/console';
 }
