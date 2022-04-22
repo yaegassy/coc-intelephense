@@ -22,7 +22,7 @@ import {
 } from 'coc.nvim';
 import { existsSync } from 'fs';
 import { IntelephenseCodeActionProvider } from './actions';
-import * as artisan from './commands/artisan';
+import * as symfonyConsole from './commands/symfony_console';
 import * as composer from './commands/composer';
 import * as pest from './commands/pest';
 import * as phpunit from './commands/phpunit';
@@ -101,7 +101,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   // Add commands by "client" side
   composer.activate(context);
-  artisan.activate(context);
+  symfonyConsole.activate(context);
   phpunit.activate(context);
   pest.activate(context);
 
