@@ -39,6 +39,10 @@ $ node -e "console.log(os.homedir() + '/intelephense/licence.txt')"
 }
 ```
 
+For more information, please check this link.
+
+- <https://intelephense.com/faq.html>
+
 ## Configuration options
 
 **For original feature of coc-intelephese**:
