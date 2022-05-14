@@ -286,6 +286,7 @@ function indexWorkspace() {
 
 function cancelIndexing() {
   languageClient.sendRequest(CANCEL_INDEXING_REQUEST.method);
+  window.showWarningMessage('intelephense indexing has been canceled!');
 }
 
 // MEMO: support progress window for indexing
@@ -326,14 +327,20 @@ function registerNotificationListeners() {
   }
 }
 
-// MEMO: support progress window for indexing
 async function displayInitIndexProgress<T = void>(promise: Promise<T>) {
   return window.withProgress(
     {
       title: 'intelephense indexing ...',
       cancellable: true,
     },
-    () => promise
+    (progress, token) => {
+      // mouse option is required to cancel
+      // e.g. :set mouse=n
+      token.onCancellationRequested(() => {
+        cancelIndexing();
+      });
+      return promise;
+    }
   );
 }
 
