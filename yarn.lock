@@ -410,10 +410,10 @@ cls-hooked@^4.2.2:
     emitter-listener "^1.0.1"
     semver "^5.4.1"
 
-coc.nvim@^0.0.81-next.22:
-  version "0.0.81-next.22"
-  resolved "https://registry.yarnpkg.com/coc.nvim/-/coc.nvim-0.0.81-next.22.tgz#f1a29aace24f64a6d5514bab52d888fce9c016cf"
-  integrity sha512-vsIGQaqplpN0GUvvqqXKcfgrF5qn5p3S9LlYd+wGKqjfAolJFGxW6ii3HDnlKcIZasBaXvAErtYwd3VKRCK6Cg==
+coc.nvim@^0.0.81-next.29:
+  version "0.0.81-next.29"
+  resolved "https://registry.yarnpkg.com/coc.nvim/-/coc.nvim-0.0.81-next.29.tgz#7d47d1e50713ba4886222ea0362f445d00b3d4ea"
+  integrity sha512-SeK0QVvIavVt20UtnMoL0d4bY+m5OgMeo6ws2IyA/jggMYHWPhgSVr9a5CRefH5jCDstsrgsqY85aheujlGt+A==
 
 color-convert@^2.0.1:
   version "2.0.1"
