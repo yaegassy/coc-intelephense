@@ -1446,10 +1446,10 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
-php-parser@^3.1.0-beta.6:
-  version "3.1.0-beta.6"
-  resolved "https://registry.yarnpkg.com/php-parser/-/php-parser-3.1.0-beta.6.tgz#58fd50f83e63001cde6f67998ea853bc0b2ae068"
-  integrity sha512-JGVwF9kZcYjlECRHmo3wc5QLRWMcn9BIUhlYlRun9wEAAnX7vdS4KeTvjG6G64Lra+ltwdmWSR+09zoRkXuUUA==
+php-parser@^3.1.0-beta.7:
+  version "3.1.0-beta.7"
+  resolved "https://registry.yarnpkg.com/php-parser/-/php-parser-3.1.0-beta.7.tgz#8df7d100a547b128e573a60980e332cd6e7a1e71"
+  integrity sha512-d0Ic+st1I5ZxQ6sSv79dtWNTK4oT35JxA0G2yb/A4Kyi82TwUEEeCkyQu7GZ2tDP2QIVVuJoABLR2mXJXU9+wQ==
 
 picomatch@^2.0.5, picomatch@^2.2.1:
   version "2.2.2"
