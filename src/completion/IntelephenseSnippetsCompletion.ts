@@ -30,7 +30,7 @@ export class IntelephenseSnippetsCompletionProvider implements CompletionItemPro
 
   constructor(context: ExtensionContext) {
     this._context = context;
-    this.snippetsFilePath = path.join(this._context.extensionPath, 'snippets', 'php.code-snippets');
+    this.snippetsFilePath = path.join(this._context.extensionPath, 'data', 'snippets', 'php.code-snippets');
     this.excludeSnippetsKeys = workspace
       .getConfiguration('intelephense')
       .get<string[]>('client.snippetsCompletionExclude', []);

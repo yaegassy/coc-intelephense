@@ -23,7 +23,7 @@
     "access": "public"
   },
   "scripts": {
-    "snippets": "curl -o snippets/php.code-snippets https://raw.githubusercontent.com/microsoft/vscode/master/extensions/php/snippets/php.code-snippets",
+    "snippets": "curl -o data/snippets/php.code-snippets https://raw.githubusercontent.com/microsoft/vscode/master/extensions/php/snippets/php.code-snippets",
     "lint": "eslint src --ext ts",
     "clean": "rimraf lib",
     "watch": "node esbuild.js --watch",
