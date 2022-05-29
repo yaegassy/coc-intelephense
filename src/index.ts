@@ -27,8 +27,8 @@ import * as composer from './commands/composer';
 import * as pest from './commands/pest';
 import * as phpunit from './commands/phpunit';
 import { IntelephenseSnippetsCompletionProvider } from './completion/IntelephenseSnippetsCompletion';
-import { PestCodeLensProvider } from './lens/PestCodeLensProvider';
-import { PHPUnitCodeLensProvider } from './lens/PHPUnitCodeLensProvider';
+import { PestCodeLensProvider } from './lenses/PestCodeLensProvider';
+import { PHPUnitCodeLensProvider } from './lenses/PHPUnitCodeLensProvider';
 
 const PHP_LANGUAGE_ID = 'php';
 const INDEXING_STARTED_NOTIFICATION = new NotificationType('indexingStarted');
