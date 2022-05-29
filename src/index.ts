@@ -28,7 +28,7 @@ import * as pest from './commands/pest';
 import * as phpunit from './commands/phpunit';
 import { SnippetsCompletionProvider } from './completions/snippets';
 import { PestCodeLensProvider } from './lenses/PestCodeLensProvider';
-import { PHPUnitCodeLensProvider } from './lenses/PHPUnitCodeLensProvider';
+import { PHPUnitCodeLensProvider } from './lenses/phpunit';
 
 const PHP_LANGUAGE_ID = 'php';
 const INDEXING_STARTED_NOTIFICATION = new NotificationType('indexingStarted');
