@@ -9,7 +9,7 @@ import {
   Uri,
   workspace,
 } from 'coc.nvim';
-import { getMethods, getPestTestData, getTestMethods } from '../parsers';
+import { getMethods, getPestTestData, getTestMethods } from '../parser/unittest';
 
 export class PestCodeLensProvider implements CodeLensProvider {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
