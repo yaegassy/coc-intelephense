@@ -23,7 +23,7 @@ type SnippetsJsonType = {
   };
 };
 
-export class IntelephenseSnippetsCompletionProvider implements CompletionItemProvider {
+export class SnippetsCompletionProvider implements CompletionItemProvider {
   private _context: ExtensionContext;
   private snippetsFilePath: string;
   private excludeSnippetsKeys: string[];

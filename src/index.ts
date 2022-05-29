@@ -26,7 +26,7 @@ import * as symfonyConsole from './commands/symfonyConsole';
 import * as composer from './commands/composer';
 import * as pest from './commands/pest';
 import * as phpunit from './commands/phpunit';
-import { IntelephenseSnippetsCompletionProvider } from './completions/IntelephenseSnippetsCompletion';
+import { SnippetsCompletionProvider } from './completions/snippets';
 import { PestCodeLensProvider } from './lenses/PestCodeLensProvider';
 import { PHPUnitCodeLensProvider } from './lenses/PHPUnitCodeLensProvider';
 
@@ -92,7 +92,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
         'intelephense-snippets',
         'intelephense',
         ['php'],
-        new IntelephenseSnippetsCompletionProvider(context),
+        new SnippetsCompletionProvider(context),
         [],
         99
       )
