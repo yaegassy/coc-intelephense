@@ -10,7 +10,7 @@ import {
   workspace,
 } from 'coc.nvim';
 
-import { getMethods, getTestMethods } from '../parsers';
+import { getMethods, getTestMethods } from '../parser/unittest';
 
 export class PHPUnitCodeLensProvider implements CodeLensProvider {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

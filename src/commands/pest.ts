@@ -2,7 +2,7 @@ import { commands, ExtensionContext, Terminal, Uri, window, workspace } from 'co
 
 import path from 'path';
 import fs from 'fs';
-import { getPestTestData, getMethods, getTestName, getTestNameByPestTestData } from '../parsers';
+import { getPestTestData, getMethods, getTestName, getTestNameByPestTestData } from '../parser/unittest';
 
 let terminal: Terminal | undefined;
 
