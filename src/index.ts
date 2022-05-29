@@ -27,7 +27,7 @@ import * as composer from './commands/composer';
 import * as pest from './commands/pest';
 import * as phpunit from './commands/phpunit';
 import { SnippetsCompletionProvider } from './completions/snippets';
-import { PestCodeLensProvider } from './lenses/PestCodeLensProvider';
+import { PestCodeLensProvider } from './lenses/pest';
 import { PHPUnitCodeLensProvider } from './lenses/phpunit';
 
 const PHP_LANGUAGE_ID = 'php';
