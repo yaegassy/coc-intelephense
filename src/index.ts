@@ -26,7 +26,7 @@ import * as symfonyConsole from './commands/symfonyConsole';
 import * as composer from './commands/composer';
 import * as pest from './commands/pest';
 import * as phpunit from './commands/phpunit';
-import { IntelephenseSnippetsCompletionProvider } from './completion/IntelephenseSnippetsCompletion';
+import { IntelephenseSnippetsCompletionProvider } from './completions/IntelephenseSnippetsCompletion';
 import { PestCodeLensProvider } from './lenses/PestCodeLensProvider';
 import { PHPUnitCodeLensProvider } from './lenses/PHPUnitCodeLensProvider';
 
