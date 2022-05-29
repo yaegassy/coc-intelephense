@@ -28,7 +28,7 @@ export class IntelephenseCodeActionProvider implements CodeActionProvider {
     if (
       // Line
       this.lineRange(range) ||
-      // Cursol & Selected
+      // Cursol & Selected at current line
       range.start.line === range.end.line
     ) {
       const text = await this._getWordAtCursorPosition(document, doc);
