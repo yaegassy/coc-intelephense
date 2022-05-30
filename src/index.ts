@@ -19,6 +19,7 @@ import {
 } from 'coc.nvim';
 import fs from 'fs';
 import * as ignoreCommentCodeActionFeature from './actions/ignoreComment';
+import * as getterSetterCodeActionFeature from './actions/getterSetter';
 import * as openPHPNetCodeActionFeature from './actions/openPHPNet';
 import * as composerCommandFeature from './commands/composer';
 import * as pestCommandFeature from './commands/pest';
@@ -101,6 +102,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   // Add code action by "client" side
   openPHPNetCodeActionFeature.activate(context);
   ignoreCommentCodeActionFeature.activate(context);
+  getterSetterCodeActionFeature.activate(context);
 }
 
 function createClient(context: ExtensionContext, clearCache: boolean) {

@@ -230,6 +230,9 @@ nmap <silent> gA <Plug>(coc-codeaction)
 - `Open 'php.net' for 'xxxx'` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/6)
 - `Add @intelephense-ignore-line` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/16)
 - `Add @intelephense-ignore-next-line` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/16)
+- `Insert PHP Getter` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/33#issuecomment-1140683583)
+- `Insert PHP Setter` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/33#issuecomment-1140684502)
+- `Insert PHP Getter & Setter` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/33#issuecomment-1140685034)
 
 **Code Actions (Server side)**:
 

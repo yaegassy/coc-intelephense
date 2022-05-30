@@ -11,3 +11,5 @@ yarn-error.log
 .github
 .eslintrc.js
 .prettierrc
+coverage
+_ref
