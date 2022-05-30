@@ -79,12 +79,19 @@ export function isClassRegion(code: string, startLine: number, endLine: number) 
   return flag;
 }
 
-function matchVarType(docLine: string, variable?: string) {
+// TODO: Adding Test and Simplifying
+export function matchVarType(docLine: string, variable?: string) {
   let varType: string | null = null;
 
   const patterns = [
-    `@var\\s+(\\S+)\\s+(\\\$${variable})\\s+(.*)$`,
+    `@var\\s+(\\S+)\\s+(\\\$${variable})\\s+.*$`,
     `@var\\s+(\\S+)\\s+(\\\$${variable})$`,
+    // @var array<int, string> $sample ...
+    `@var\\s+([\\w<,\\s\\\]+[>]+)\\s+(\\\$${variable})\\s+.*$`,
+    // @var array<int, string> $sample
+    `@var\\s+([\\w<,\\s\\\]+[>]+)\\s+(\\\$${variable})$`,
+    // @var array<int, string>
+    `@var\\s+([\\w<,\\s\\\]+[>]+)$`,
     `@var\\s+(\\S+)$`,
   ];
 
