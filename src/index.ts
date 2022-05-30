@@ -7,28 +7,27 @@ import {
   HandleDiagnosticsSignature,
   LanguageClient,
   LanguageClientOptions,
-  languages,
   LinesTextDocument,
   NotificationType,
   Position,
   ProvideDefinitionSignature,
-  Range,
   RequestType,
   ServerOptions,
-  snippetManager,
   TransportKind,
   window,
   workspace,
 } from 'coc.nvim';
-import { existsSync } from 'fs';
-import { IntelephenseCodeActionProvider } from './actions';
-import * as symfonyConsole from './commands/symfonyConsole';
-import * as composer from './commands/composer';
-import * as pest from './commands/pest';
-import * as phpunit from './commands/phpunit';
-import { SnippetsCompletionProvider } from './completions/snippets';
-import { PestCodeLensProvider } from './lenses/pest';
-import { PHPUnitCodeLensProvider } from './lenses/phpunit';
+import fs from 'fs';
+import * as ignoreCommentCodeActionFeature from './actions/ignoreComment';
+import * as openPHPNetCodeActionFeature from './actions/openPHPNet';
+import * as composerCommandFeature from './commands/composer';
+import * as pestCommandFeature from './commands/pest';
+import * as phpunitCommandFeature from './commands/phpunit';
+import * as symfonyConsoleCommandFeature from './commands/symfonyConsole';
+import * as autoCloseDocCommentDoSugesstCompletionFeature from './completions/autoCloseDocCommentDoSugesst';
+import * as snippetsCompletionFeature from './completions/snippets';
+import * as pestCodeLensFeature from './lenses/pest';
+import * as phpunitCodeLensFeature from './lenses/phpunit';
 
 const PHP_LANGUAGE_ID = 'php';
 const INDEXING_STARTED_NOTIFICATION = new NotificationType('indexingStarted');
@@ -69,7 +68,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   }
 
   const module = context.asAbsolutePath('node_modules/intelephense');
-  if (!existsSync(module)) {
+  if (!fs.existsSync(module)) {
     window.showMessage(`intelephense module doesn't exist, please reinstall coc-intelephense"`, 'error');
     return;
   }
@@ -85,114 +84,23 @@ export async function activate(context: ExtensionContext): Promise<void> {
   clientDisposable = languageClient.start();
 
   // Add snippets completion by "client" side
-  const isEnableClientSnippetsCompletion = extConfig.get<boolean>('client.disableSnippetsCompletion', false);
-  if (!isEnableClientSnippetsCompletion) {
-    context.subscriptions.push(
-      languages.registerCompletionItemProvider(
-        'intelephense-snippets',
-        'intelephense',
-        ['php'],
-        new SnippetsCompletionProvider(context),
-        [],
-        99
-      )
-    );
-  }
+  snippetsCompletionFeature.activate(context);
+  // Add auto close doc comment do sugesst completion by "client" side
+  autoCloseDocCommentDoSugesstCompletionFeature.activate(context);
 
   // Add commands by "client" side
-  composer.activate(context);
-  symfonyConsole.activate(context);
-  phpunit.activate(context);
-  pest.activate(context);
+  composerCommandFeature.activate(context);
+  symfonyConsoleCommandFeature.activate(context);
+  phpunitCommandFeature.activate(context);
+  pestCommandFeature.activate(context);
 
   // Add code lens by "client" side
-  if (!getConfigDisableCodeLens()) {
-    const useCodelensProvider = getConfigCodelensProvider();
-    if (useCodelensProvider === 'phpunit') {
-      context.subscriptions.push(
-        languages.registerCodeLensProvider(
-          [{ language: PHP_LANGUAGE_ID, scheme: 'file' }],
-          new PHPUnitCodeLensProvider()
-        )
-      );
-    }
-    if (useCodelensProvider === 'pest') {
-      context.subscriptions.push(
-        languages.registerCodeLensProvider([{ language: PHP_LANGUAGE_ID, scheme: 'file' }], new PestCodeLensProvider())
-      );
-    }
-  }
+  phpunitCodeLensFeature.activate(context);
+  pestCodeLensFeature.activate(context);
 
   // Add code action by "client" side
-  context.subscriptions.push(
-    languages.registerCodeActionProvider(
-      [{ language: PHP_LANGUAGE_ID, scheme: 'file' }],
-      new IntelephenseCodeActionProvider(languageClient.outputChannel),
-      'intelephense'
-    )
-  );
-
-  // intelephense.client.autoCloseDocCommentDoSugesst feature
-  if (getConfigAutoCloseDocCommentDoSuggest()) {
-    workspace.onDidChangeTextDocument(
-      (e) => {
-        setTimeout(() => {
-          if (!e.textDocument.uri.endsWith('.php')) return;
-          if (!e.contentChanges[0]) return;
-          if (e.contentChanges[0].text === '\n') return;
-          if (e.contentChanges[0].range.start.line !== e.contentChanges[0].range.end.line) return;
-
-          let nextLine = '';
-          try {
-            nextLine = e.originalLines[e.contentChanges[0].range.start.line + 1].trim();
-          } catch (e) {
-            // noop
-          }
-
-          let currentLine = '';
-          try {
-            currentLine = e.originalLines[e.contentChanges[0].range.start.line].trim();
-          } catch (e) {
-            // noop
-          }
-
-          if (currentLine.endsWith('*/') || nextLine.endsWith('*/')) return;
-
-          if (
-            (e.contentChanges[0].text === '*' && currentLine === '/*') ||
-            // In the case of fast input, the contentChanges text character is 2 characters.
-            (e.contentChanges[0].text === '**' && currentLine === '/')
-          ) {
-            let addRangeCharacter = 0;
-            if (e.contentChanges[0].text === '*') {
-              addRangeCharacter = 1;
-            } else if (e.contentChanges[0].text === '**') {
-              addRangeCharacter = 2;
-            }
-
-            snippetManager.insertSnippet(
-              '${0} */',
-              true,
-              Range.create(
-                Position.create(
-                  e.contentChanges[0].range.start.line,
-                  e.contentChanges[0].range.start.character + addRangeCharacter
-                ),
-                Position.create(
-                  e.contentChanges[0].range.start.line,
-                  e.contentChanges[0].range.start.character + addRangeCharacter
-                )
-              )
-            );
-
-            commands.executeCommand('editor.action.triggerSuggest');
-          }
-        }, 50);
-      },
-      null,
-      context.subscriptions
-    );
-  }
+  openPHPNetCodeActionFeature.activate(context);
+  ignoreCommentCodeActionFeature.activate(context);
 }
 
 function createClient(context: ExtensionContext, clearCache: boolean) {
@@ -204,7 +112,7 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
   let module = intelephenseConfig.get('path') as string | undefined;
   if (module) {
     module = workspace.expand(module);
-    if (!existsSync(module)) {
+    if (!fs.existsSync(module)) {
       module = undefined;
     }
   }
@@ -377,16 +285,4 @@ function getConfigServerDisableDefinition() {
 
 function getConfigDiagnosticsIgnoreErrorFeature() {
   return workspace.getConfiguration('intelephense').get<boolean>('client.diagnosticsIgnoreErrorFeature', false);
-}
-
-function getConfigAutoCloseDocCommentDoSuggest() {
-  return workspace.getConfiguration('intelephense').get<boolean>('client.autoCloseDocCommentDoSuggest', true);
-}
-
-function getConfigDisableCodeLens() {
-  return workspace.getConfiguration('intelephense').get<boolean>('client.disableCodeLens', false);
-}
-
-function getConfigCodelensProvider() {
-  return workspace.getConfiguration('intelephense').get<string>('client.codelensProvider', 'phpunit');
 }

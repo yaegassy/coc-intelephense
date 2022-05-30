@@ -7,13 +7,13 @@ import {
   CompletionList,
   ExtensionContext,
   InsertTextFormat,
+  languages,
   Position,
   TextDocument,
   workspace,
 } from 'coc.nvim';
-
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
 
 type SnippetsJsonType = {
   [key: string]: {
@@ -22,6 +22,21 @@ type SnippetsJsonType = {
     body: string | string[];
   };
 };
+
+export function activate(context: ExtensionContext) {
+  if (!workspace.getConfiguration('intelephense').get('client.disableSnippetsCompletion', false)) {
+    context.subscriptions.push(
+      languages.registerCompletionItemProvider(
+        'intelephense-snippets',
+        'intelephense',
+        ['php'],
+        new SnippetsCompletionProvider(context),
+        [],
+        99
+      )
+    );
+  }
+}
 
 export class SnippetsCompletionProvider implements CompletionItemProvider {
   private _context: ExtensionContext;
