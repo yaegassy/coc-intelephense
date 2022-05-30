@@ -1,4 +1,6 @@
 import {
+  ExtensionContext,
+  languages,
   CancellationToken,
   CodeLens,
   CodeLensProvider,
@@ -9,7 +11,21 @@ import {
   Uri,
   workspace,
 } from 'coc.nvim';
-import { getMethods, getPestTestData, getTestMethods } from '../parser/unittest';
+import { getMethods, getPestTestData, getTestMethods } from '../parsers/unittest';
+
+export function activate(context: ExtensionContext) {
+  if (!workspace.getConfiguration('intelephense').get<boolean>('client.disableCodeLens', false)) {
+    const useCodelensProvider = workspace
+      .getConfiguration('intelephense')
+      .get<string>('client.codelensProvider', 'phpunit');
+
+    if (useCodelensProvider === 'pest') {
+      context.subscriptions.push(
+        languages.registerCodeLensProvider([{ language: 'php', scheme: 'file' }], new PestCodeLensProvider())
+      );
+    }
+  }
+}
 
 export class PestCodeLensProvider implements CodeLensProvider {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

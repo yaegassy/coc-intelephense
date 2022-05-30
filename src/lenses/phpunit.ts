@@ -3,14 +3,29 @@ import {
   CodeLens,
   CodeLensProvider,
   events,
+  ExtensionContext,
+  languages,
   LinesTextDocument,
   Position,
   Range,
   Uri,
   workspace,
 } from 'coc.nvim';
+import { getMethods, getTestMethods } from '../parsers/unittest';
 
-import { getMethods, getTestMethods } from '../parser/unittest';
+export function activate(context: ExtensionContext) {
+  if (!workspace.getConfiguration('intelephense').get<boolean>('client.disableCodeLens', false)) {
+    const useCodelensProvider = workspace
+      .getConfiguration('intelephense')
+      .get<string>('client.codelensProvider', 'phpunit');
+
+    if (useCodelensProvider === 'phpunit') {
+      context.subscriptions.push(
+        languages.registerCodeLensProvider([{ language: 'php', scheme: 'file' }], new PHPUnitCodeLensProvider())
+      );
+    }
+  }
+}
 
 export class PHPUnitCodeLensProvider implements CodeLensProvider {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
