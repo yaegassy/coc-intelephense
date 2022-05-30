@@ -31,7 +31,7 @@ export function activate(context: ExtensionContext) {
   const documentSelector: DocumentSelector = [{ language: 'php', scheme: 'file' }];
 
   context.subscriptions.push(
-    languages.registerCodeActionProvider(documentSelector, new GetterSetterCodeActionProvider(), 'php-tools')
+    languages.registerCodeActionProvider(documentSelector, new GetterSetterCodeActionProvider(), 'intelephense')
   );
 }
 
