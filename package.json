@@ -28,7 +28,9 @@
     "clean": "rimraf lib",
     "watch": "node esbuild.js --watch",
     "build": "node esbuild.js",
-    "prepare": "node esbuild.js"
+    "prepare": "node esbuild.js",
+    "test": "vitest run src/__tests__",
+    "test:watch": "vitest src/__tests__"
   },
   "prettier": {
     "singleQuote": true,
