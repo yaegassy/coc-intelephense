@@ -956,6 +956,11 @@
         "command": "intelephense.pest.singleTest",
         "title": "Run Pest for single (nearest) test",
         "category": "Intelephense"
+      },
+      {
+        "command": "intelephense.fixClassName",
+        "title": "Fix class name based on file name",
+        "category": "Intelephense"
       }
     ]
   },

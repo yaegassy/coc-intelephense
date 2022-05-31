@@ -155,6 +155,7 @@ For more information, please check this link.
 - `intelephense.pest.projectTest`: Run Pest for current project
 - `intelephense.pest.fileTest`: Run Pest for current file
 - `intelephense.pest.singleTest`: Run Pest for single (nearest) test
+- `intelephense.fixClassName`: Fix class name based on file name
 
 **Example of Vim command and key mapping**:
 
