@@ -230,7 +230,7 @@
         },
         "intelephense.files.maxSize": {
           "type": "number",
-          "default": 5000000,
+          "default": 1000000,
           "description": "Maximum file size in bytes.",
           "scope": "window"
         },
