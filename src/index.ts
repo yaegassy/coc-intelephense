@@ -29,6 +29,7 @@ import * as autoCloseDocCommentDoSugesstCompletionFeature from './completions/au
 import * as snippetsCompletionFeature from './completions/snippets';
 import * as pestCodeLensFeature from './lenses/pest';
 import * as phpunitCodeLensFeature from './lenses/phpunit';
+import * as fixClassNameCommandFeature from './commands/fixClassName';
 
 const PHP_LANGUAGE_ID = 'php';
 const INDEXING_STARTED_NOTIFICATION = new NotificationType('indexingStarted');
@@ -94,6 +95,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   symfonyConsoleCommandFeature.activate(context);
   phpunitCommandFeature.activate(context);
   pestCommandFeature.activate(context);
+  fixClassNameCommandFeature.activate(context);
 
   // Add code lens by "client" side
   phpunitCodeLensFeature.activate(context);
