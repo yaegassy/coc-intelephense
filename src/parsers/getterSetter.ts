@@ -84,25 +84,29 @@ export function matchVarType(docLine: string, variable?: string) {
   let varType: string | null = null;
 
   const patterns = [
-    `@var\\s+(\\S+)\\s+(\\\$${variable})\\s+.*$`,
-    `@var\\s+(\\S+)\\s+(\\\$${variable})$`,
     // @var array<int, string> $sample ...
-    `@var\\s+([\\w<,\\s\\\]+[>]+)\\s+(\\\$${variable})\\s+.*$`,
+    `@var\\s+([\\w|<,\\s\\\\]+[>]+)\\s+(\\\$${variable})\\s+.*$`,
+    // @var int $sample ...
+    `@var\\s+(\\S+)\\s+(\\\$${variable})\\s+.*$`,
     // @var array<int, string> $sample
-    `@var\\s+([\\w<,\\s\\\]+[>]+)\\s+(\\\$${variable})$`,
+    `@var\\s+([\\w|<,\\s\\\\]+[>]+)\\s+(\\\$${variable})$`,
+    // @var int $sample
+    `@var\\s+(\\S+)\\s+(\\\$${variable})$`,
     // @var array<int, string>
-    `@var\\s+([\\w<,\\s\\\]+[>]+)$`,
+    `@var\\s+([\\w|<,\\s\\\\]+[>]+)$`,
+    // @var int $sample
     `@var\\s+(\\S+)$`,
   ];
 
   if (docLine.includes('@var')) {
-    patterns.forEach((p) => {
+    for (const p of patterns) {
       const reg = new RegExp(p);
       const m = reg.exec(docLine);
       if (m) {
         varType = m[1];
+        break;
       }
-    });
+    }
   }
 
   return varType;
