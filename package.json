@@ -961,6 +961,10 @@
         "command": "intelephense.fixClassName",
         "title": "Fix class name based on file name",
         "category": "Intelephense"
+      },
+      {
+        "command": "intelephense.fixNamespace",
+        "title": "Fix namespace based on the composer configuration"
       }
     ]
   },

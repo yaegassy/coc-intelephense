@@ -18,10 +18,12 @@ import {
   workspace,
 } from 'coc.nvim';
 import fs from 'fs';
-import * as ignoreCommentCodeActionFeature from './actions/ignoreComment';
 import * as getterSetterCodeActionFeature from './actions/getterSetter';
+import * as ignoreCommentCodeActionFeature from './actions/ignoreComment';
 import * as openPHPNetCodeActionFeature from './actions/openPHPNet';
 import * as composerCommandFeature from './commands/composer';
+import * as fixClassNameCommandFeature from './commands/fixClassName';
+import * as fixNamespaceCommandFeature from './commands/fixNamespace';
 import * as pestCommandFeature from './commands/pest';
 import * as phpunitCommandFeature from './commands/phpunit';
 import * as symfonyConsoleCommandFeature from './commands/symfonyConsole';
@@ -29,7 +31,6 @@ import * as autoCloseDocCommentDoSugesstCompletionFeature from './completions/au
 import * as snippetsCompletionFeature from './completions/snippets';
 import * as pestCodeLensFeature from './lenses/pest';
 import * as phpunitCodeLensFeature from './lenses/phpunit';
-import * as fixClassNameCommandFeature from './commands/fixClassName';
 
 const PHP_LANGUAGE_ID = 'php';
 const INDEXING_STARTED_NOTIFICATION = new NotificationType('indexingStarted');
@@ -96,6 +97,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   phpunitCommandFeature.activate(context);
   pestCommandFeature.activate(context);
   fixClassNameCommandFeature.activate(context);
+  fixNamespaceCommandFeature.activate(context);
 
   // Add code lens by "client" side
   phpunitCodeLensFeature.activate(context);
