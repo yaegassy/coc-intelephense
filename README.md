@@ -53,6 +53,7 @@ For more information, please check this link.
   - This feature is a proprietary implementation of `coc-intelephense`. This feature will be removed when the dedicated feature is added in the upstream's `vscode-intelephense` or `intelephense` language server.
   - I made it an ignore comment like `phpstan`, Please refer to this page for usage. <https://phpstan.org/user-guide/ignoring-errors#ignoring-in-code-using-phpdocs>
 - `intelephense.client.autoCloseDocCommentDoSuggest`: When `/**` is entered, `*/` is automatically inserted (`/**| */`). Then, continue, automatically triggers completion of PHPDoc comments, default: `true` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/24#issuecomment-1088219510)
+- `intelephense.client.disableScaffoldCompletion`: Disable scaffold completion (client). Typing `class_scaffold`, `interface_scaffold`, `trait_scaffold` or `enum_scaffold` will output completion suggestions. This completion feature will only work on the first line of the file, default: `false` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/36#issue-1254138261)
 - `intelephense.client.disableSnippetsCompletion`: Disable snippets completion only (client), default: `false`
 - `intelephense.client.snippetsCompletionExclude`: Exclude specific prefix in snippet completion, e.g. `["class", "fun"]`, default: `[]`
 - `intelephense.client.disableCodeLens`: Disable code lens only (client), default: `false`

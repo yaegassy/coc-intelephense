@@ -28,6 +28,7 @@ import * as pestCommandFeature from './commands/pest';
 import * as phpunitCommandFeature from './commands/phpunit';
 import * as symfonyConsoleCommandFeature from './commands/symfonyConsole';
 import * as autoCloseDocCommentDoSugesstCompletionFeature from './completions/autoCloseDocCommentDoSugesst';
+import * as scaffoldCompletionFeature from './completions/scaffold';
 import * as snippetsCompletionFeature from './completions/snippets';
 import * as pestCodeLensFeature from './lenses/pest';
 import * as phpunitCodeLensFeature from './lenses/phpunit';
@@ -86,10 +87,10 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   clientDisposable = languageClient.start();
 
-  // Add snippets completion by "client" side
-  snippetsCompletionFeature.activate(context);
-  // Add auto close doc comment do sugesst completion by "client" side
+  // Add completion by "client" side
   autoCloseDocCommentDoSugesstCompletionFeature.activate(context);
+  scaffoldCompletionFeature.activate(context);
+  snippetsCompletionFeature.activate(context);
 
   // Add commands by "client" side
   composerCommandFeature.activate(context);
