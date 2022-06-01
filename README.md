@@ -45,7 +45,7 @@ For more information, please check this link.
 
 ## Configuration options
 
-**For original feature of coc-intelephese**:
+**For additional feature of coc-intelephese**:
 
 - `intelephense.enable`: Enable coc-intelephense extension, default `true`
 - `intelephense.path`: Path to intelephense module. `~` and `$HOME`, etc. can also be used. If there is no setting, the built-in module will be used. e.g. `/path/to/node_modules/intelephense`. default: `""`
@@ -78,8 +78,6 @@ For more information, please check this link.
 - `intelephense.progress.enable`: Enable progress window for indexing, If false, display with echo messages, default: `true` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/2)
 
 **Same configuration as vscode-intelephense**:
-
-> "intelephense.files.maxSize" is set to 500000 in coc-intelephense.
 
 - `intelephense.compatibility.correctForBaseClassStaticUnionTypes`: Resolves 'BaseClass|static' union types to 'static' instead of 'BaseClass', default: `true`
 - `intelephense.compatibility.correctForArrayAccessArrayAndTraversableArrayUnionTypes`: Resolves 'ArrayAccess' and 'Traversable' implementations that are unioned with a typed array to generic syntax. eg 'ArrayAccessOrTraversable|ElementType[]' => 'ArrayAccessOrTraversable<mixed, ElementType>', default: `true`
@@ -225,6 +223,7 @@ nmap <silent> gl <Plug>(coc-codelens-action)
 ```vim
 nmap <silent> ga <Plug>(coc-codeaction-line)
 xmap <silent> ga <Plug>(coc-codeaction-selected)
+nmap <silent> <leader>a <Plug>(coc-codeaction-cursor)
 nmap <silent> gA <Plug>(coc-codeaction)
 ```
 
