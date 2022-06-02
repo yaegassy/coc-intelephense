@@ -238,8 +238,9 @@ nmap <silent> gA <Plug>(coc-codeaction)
 
 **Code Actions (Server side)**:
 
-- `Add PHPDoc for 'xxxx'`
-- `use Namespace/xxx`
+- `use NAMESPACE\...\CLASS`
+- `Implement all abstract methods for '...'`
+- `Add PHPDoc for '...'`
 - and more...
   - Other code actions provided by the intelephehse language server
 
