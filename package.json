@@ -58,6 +58,7 @@
       {
         "filetype": "php",
         "patterns": [
+          "composer.json",
           "artisan"
         ]
       }
