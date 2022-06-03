@@ -57,8 +57,8 @@ class GetterSetterCodeActionProvider implements CodeActionProvider {
         return [];
       }
 
-      const propertiesFeatureItems = getterSetterParser.getPropertiesWithClassInfo(ast.children);
-      const constructorFeatureItems = getterSetterParser.getConstructorPropertiesWithClassInfo(ast.children);
+      const propertiesFeatureItems = getterSetterParser.getPropertiesWithClassDetail(ast.children);
+      const constructorFeatureItems = getterSetterParser.getConstructorPropertiesWithClassDetail(ast.children);
       const featureItems = propertiesFeatureItems.concat(constructorFeatureItems);
 
       const methods = getterSetterParser.getMethods(ast.children);

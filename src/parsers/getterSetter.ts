@@ -42,13 +42,13 @@ type PropertyType = {
   propertyDocVarType: string | null;
 };
 
-type ClassInfoType = {
+type ClassDetailType = {
   className: string;
   classStartLine: number;
   classEndLine: number;
 };
 
-type PropertyWithClassInfoType = PropertyType & ClassInfoType;
+type PropertyWithClassDetailType = PropertyType & ClassDetailType;
 
 export function getAst(code: string) {
   try {
@@ -119,9 +119,9 @@ export function getMethods(nodes: Node[]) {
     if (node.kind === 'class') {
       const classNode = node as Class;
       classNode.body.forEach((node) => {
-        const methodData = getMethod(node);
-        if (methodData) {
-          methods.push(methodData);
+        const methodDetail = getMethod(node);
+        if (methodDetail) {
+          methods.push(methodDetail);
         }
       });
     }
@@ -161,13 +161,13 @@ function getMethod(node: Node) {
       comments.push(comment.value);
     });
   }
-  const methodData: MethodType = {
+  const methodDetail: MethodType = {
     name,
     startLine,
     endLine,
     comments,
   };
-  return methodData;
+  return methodDetail;
 }
 
 export function getClassesNodes(node: Node[]) {
@@ -196,8 +196,8 @@ export function getClassesNodes(node: Node[]) {
   return classNodes;
 }
 
-export function getPropertiesWithClassInfo(nodes: Node[]) {
-  const propertiesWithClassInfo: PropertyWithClassInfoType[] = [];
+export function getPropertiesWithClassDetail(nodes: Node[]) {
+  const propertiesWithClassDetail: PropertyWithClassDetailType[] = [];
 
   const classNodes = getClassesNodes(nodes);
   classNodes.forEach((classNode) => {
@@ -207,10 +207,10 @@ export function getPropertiesWithClassInfo(nodes: Node[]) {
     const classEndLine = classNode.loc ? classNode.loc.end.line : 0;
 
     classNode.body.forEach((declaration) => {
-      const propertiesData = getProperties(declaration);
-      if (propertiesData) {
-        propertiesData.forEach((p) => {
-          propertiesWithClassInfo.push({
+      const propertiesDetails = getProperties(declaration);
+      if (propertiesDetails) {
+        propertiesDetails.forEach((p) => {
+          propertiesWithClassDetail.push({
             className: className,
             classStartLine: classStartLine,
             classEndLine: classEndLine,
@@ -221,12 +221,12 @@ export function getPropertiesWithClassInfo(nodes: Node[]) {
     });
   });
 
-  return propertiesWithClassInfo;
+  return propertiesWithClassDetail;
 }
 
 function getProperties(node: Node) {
-  const propertiesData: PropertyType[] = [];
-  if (node.kind !== 'propertystatement') return propertiesData;
+  const propertiesDetails: PropertyType[] = [];
+  if (node.kind !== 'propertystatement') return propertiesDetails;
 
   const propertyStatementNode = node as PropertyStatement;
   const parentNode = node;
@@ -286,7 +286,7 @@ function getProperties(node: Node) {
         });
       }
 
-      const propertyData: PropertyType = {
+      const propertyDetail: PropertyType = {
         propertyName: name,
         propertyNullable: nullable,
         propertyType: type,
@@ -295,15 +295,15 @@ function getProperties(node: Node) {
         propertyDocVarType: docVarType,
       };
 
-      propertiesData.push(propertyData);
+      propertiesDetails.push(propertyDetail);
     }
   });
 
-  return propertiesData;
+  return propertiesDetails;
 }
 
-export function getConstructorPropertiesWithClassInfo(nodes: Node[]) {
-  const propertiesWithClassInfo: PropertyWithClassInfoType[] = [];
+export function getConstructorPropertiesWithClassDetail(nodes: Node[]) {
+  const propertiesWithClassDetail: PropertyWithClassDetailType[] = [];
 
   function wrapper(node: Node) {
     if (node.kind === 'class') {
@@ -312,10 +312,10 @@ export function getConstructorPropertiesWithClassInfo(nodes: Node[]) {
       const className = identiferNode.name;
       const classStartLine = classNode.loc ? classNode.loc.start.line : 0;
       const classEndLine = classNode.loc ? classNode.loc.end.line : 0;
-      const propertiesData = getConstructorProperties(classNode);
+      const propertiesDetail = getConstructorProperties(classNode);
 
-      propertiesData.forEach((p) => {
-        propertiesWithClassInfo.push({
+      propertiesDetail.forEach((p) => {
+        propertiesWithClassDetail.push({
           ...p,
           className: className,
           classStartLine: classStartLine,
@@ -338,11 +338,11 @@ export function getConstructorPropertiesWithClassInfo(nodes: Node[]) {
     wrapper(node);
   });
 
-  return propertiesWithClassInfo;
+  return propertiesWithClassDetail;
 }
 
 function getConstructorProperties(classNode: Class) {
-  const propertiesData: PropertyType[] = [];
+  const propertiesDetails: PropertyType[] = [];
 
   classNode.body.forEach((declaration) => {
     if (declaration.kind === 'method') {
@@ -382,7 +382,7 @@ function getConstructorProperties(classNode: Class) {
               }
             }
 
-            const propertyData: PropertyType = {
+            const propertyDetail: PropertyType = {
               propertyName: name,
               propertyNullable: nullable,
               propertyStartLine: startLine,
@@ -391,12 +391,12 @@ function getConstructorProperties(classNode: Class) {
               propertyDocVarType: null,
             };
 
-            propertiesData.push(propertyData);
+            propertiesDetails.push(propertyDetail);
           }
         });
       }
     }
   });
 
-  return propertiesData;
+  return propertiesDetails;
 }
