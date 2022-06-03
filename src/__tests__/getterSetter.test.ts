@@ -1,4 +1,4 @@
-import { it, expect } from 'vitest';
+import { it, expect, describe } from 'vitest';
 import fs from 'fs';
 import path from 'path';
 
@@ -6,72 +6,64 @@ import * as getterSetterParser from '../parsers/getterSetter';
 
 const FIXTURES_DIR = path.join(__dirname, 'fixtures');
 
-it('getMethod | Classes contain namespaces', () => {
-  const file = fs.readFileSync(path.join(FIXTURES_DIR, 'standardNamespaceClass.php'));
-  const ast = getterSetterParser.getAst(file.toString());
-  const res = getterSetterParser.getMethods(ast.children);
-  expect(res.length).toBe(2);
+describe('getMethod', () => {
+  it('getMethod | count of methods in the normal class', () => {
+    const files = ['normal_class_with_namespace.php', 'normal_class_without_namespace.php'];
+
+    files.forEach((f) => {
+      const contents = fs.readFileSync(path.join(FIXTURES_DIR, f));
+      const ast = getterSetterParser.getAst(contents.toString());
+      const res = getterSetterParser.getMethods(ast.children);
+      expect(res.length).toBe(2);
+    });
+  });
+
+  it('getMethod | count of methods in the multiple class', () => {
+    const files = ['multiple_class_with_namespace.php', 'multiple_class_without_namespace.php'];
+
+    files.forEach((f) => {
+      const contents = fs.readFileSync(path.join(FIXTURES_DIR, f));
+      const ast = getterSetterParser.getAst(contents.toString());
+      const res = getterSetterParser.getMethods(ast.children);
+      expect(res.length).toBe(3);
+    });
+  });
 });
 
-it('getMethod | Classes not contain namespaces', () => {
-  const file = fs.readFileSync(path.join(FIXTURES_DIR, 'standardNonNamespaceClass.php'));
-  const ast = getterSetterParser.getAst(file.toString());
-  const res = getterSetterParser.getMethods(ast.children);
-  expect(res.length).toBe(2);
+describe('getClassesNodes', () => {
+  it('getClassesNodes | count of classes in the normal class', () => {
+    const files = ['normal_class_with_namespace.php', 'normal_class_without_namespace.php'];
+
+    files.forEach((f) => {
+      const contents = fs.readFileSync(path.join(FIXTURES_DIR, f));
+      const ast = getterSetterParser.getAst(contents.toString());
+      const res = getterSetterParser.getClassesNodes(ast.children);
+      expect(res.length).toBe(1);
+    });
+  });
+
+  it('getClassesNodes | count of classes in the multiple class', () => {
+    const files = ['multiple_class_with_namespace.php', 'multiple_class_without_namespace.php'];
+
+    files.forEach((f) => {
+      const contents = fs.readFileSync(path.join(FIXTURES_DIR, f));
+      const ast = getterSetterParser.getAst(contents.toString());
+      const res = getterSetterParser.getClassesNodes(ast.children);
+      expect(res.length).toBe(2);
+    });
+  });
 });
 
-it('getMethod | Multiple classes contain namespace', () => {
-  const file = fs.readFileSync(path.join(FIXTURES_DIR, 'multipleNamespaceClass.php'));
+it('getPropertiesWithClassDatail | count of properties', () => {
+  const file = fs.readFileSync(path.join(FIXTURES_DIR, 'normal_class_with_namespace.php'));
   const ast = getterSetterParser.getAst(file.toString());
-  const res = getterSetterParser.getMethods(ast.children);
-  expect(res.length).toBe(3);
-});
-
-it('getMethod | Multiple classes not contain namespace', () => {
-  const file = fs.readFileSync(path.join(FIXTURES_DIR, 'multipleNonNamespaceClass.php'));
-  const ast = getterSetterParser.getAst(file.toString());
-  const res = getterSetterParser.getMethods(ast.children);
-  expect(res.length).toBe(3);
-});
-
-it('getClassesNodes | Classes contain namespaces', () => {
-  const file = fs.readFileSync(path.join(FIXTURES_DIR, 'standardNamespaceClass.php'));
-  const ast = getterSetterParser.getAst(file.toString());
-  const res = getterSetterParser.getClassesNodes(ast.children);
-  expect(res.length).toBe(1);
-});
-
-it('getClassesNodes | Classes not contain namespaces', () => {
-  const file = fs.readFileSync(path.join(FIXTURES_DIR, 'standardNonNamespaceClass.php'));
-  const ast = getterSetterParser.getAst(file.toString());
-  const res = getterSetterParser.getClassesNodes(ast.children);
-  expect(res.length).toBe(1);
-});
-
-it('getClassesNodes | Multiple classes contain namespace', () => {
-  const file = fs.readFileSync(path.join(FIXTURES_DIR, 'multipleNamespaceClass.php'));
-  const ast = getterSetterParser.getAst(file.toString());
-  const res = getterSetterParser.getClassesNodes(ast.children);
-  expect(res.length).toBe(2);
-});
-
-it('getClassesNodes | Multiple classes not contain namespace', () => {
-  const file = fs.readFileSync(path.join(FIXTURES_DIR, 'multipleNonNamespaceClass.php'));
-  const ast = getterSetterParser.getAst(file.toString());
-  const res = getterSetterParser.getClassesNodes(ast.children);
-  expect(res.length).toBe(2);
-});
-
-it('getPropertiesWithClassInfo', () => {
-  const file = fs.readFileSync(path.join(FIXTURES_DIR, 'standardNamespaceClass.php'));
-  const ast = getterSetterParser.getAst(file.toString());
-  const res = getterSetterParser.getPropertiesWithClassInfo(ast.children);
+  const res = getterSetterParser.getPropertiesWithClassDetail(ast.children);
   expect(res.length).toBe(7);
 });
 
-it('getConstructorPropertiesWithClassInfo', () => {
-  const file = fs.readFileSync(path.join(FIXTURES_DIR, 'standardNamespaceClass.php'));
+it('getConstructorPropertiesWithClassDetail | count of properties', () => {
+  const file = fs.readFileSync(path.join(FIXTURES_DIR, 'normal_class_with_namespace.php'));
   const ast = getterSetterParser.getAst(file.toString());
-  const res = getterSetterParser.getConstructorPropertiesWithClassInfo(ast.children);
+  const res = getterSetterParser.getConstructorPropertiesWithClassDetail(ast.children);
   expect(res.length).toBe(2);
 });
