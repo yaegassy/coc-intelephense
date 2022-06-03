@@ -33,6 +33,7 @@ import * as scaffoldCompletionFeature from './completions/scaffold';
 import * as snippetsCompletionFeature from './completions/snippets';
 import * as pestCodeLensFeature from './lenses/pest';
 import * as phpunitCodeLensFeature from './lenses/phpunit';
+import * as completeConstructorCommandFeature from './commands/completeConstructor';
 
 const PHP_LANGUAGE_ID = 'php';
 const INDEXING_STARTED_NOTIFICATION = new NotificationType('indexingStarted');
@@ -100,6 +101,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   pestCommandFeature.activate(context);
   fixClassNameCommandFeature.activate(context);
   fixNamespaceCommandFeature.activate(context);
+  completeConstructorCommandFeature.activate(context);
 
   // Add code lens by "client" side
   phpunitCodeLensFeature.activate(context);

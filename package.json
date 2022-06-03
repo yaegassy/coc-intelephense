@@ -971,6 +971,10 @@
       {
         "command": "intelephense.fixNamespace",
         "title": "Fix namespace based on the composer configuration"
+      },
+      {
+        "command": "intelephense.completeConstructor",
+        "title": "Complete the assignments and add properties for an incomplete constructor"
       }
     ]
   },
