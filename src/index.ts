@@ -18,6 +18,7 @@ import {
   workspace,
 } from 'coc.nvim';
 import fs from 'fs';
+import * as changeVisibilityCodeActionFeature from './actions/changeVisibility';
 import * as getterSetterCodeActionFeature from './actions/getterSetter';
 import * as ignoreCommentCodeActionFeature from './actions/ignoreComment';
 import * as openPHPNetCodeActionFeature from './actions/openPHPNet';
@@ -105,6 +106,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   pestCodeLensFeature.activate(context);
 
   // Add code action by "client" side
+  changeVisibilityCodeActionFeature.activate(context);
   openPHPNetCodeActionFeature.activate(context);
   ignoreCommentCodeActionFeature.activate(context);
   getterSetterCodeActionFeature.activate(context);
