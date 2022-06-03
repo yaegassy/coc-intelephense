@@ -14,14 +14,14 @@ const parserEngine = new Engine({
   },
 });
 
-type MethodType = {
+type MethodDetailType = {
   name: string;
   startLine: number;
   endLine: number;
   comments: string[];
 };
 
-type PestTestDataType = {
+type PestTestDetailType = {
   name: string;
   startLine: number;
   endLine: number;
@@ -30,7 +30,7 @@ type PestTestDataType = {
 export async function getMethods(document: LinesTextDocument) {
   const code = document.getText();
 
-  const methods: MethodType[] = [];
+  const methods: MethodDetailType[] = [];
 
   try {
     const ast = parserEngine.parseEval(code.replace('<?php', '').replace('?>', ''));
@@ -43,9 +43,9 @@ export async function getMethods(document: LinesTextDocument) {
             if ('body' in node) {
               const subNode = node['body'] as Node[];
               subNode.forEach((node) => {
-                const methodData = getMethodDataByClassBodyAst(node);
-                if (methodData) {
-                  methods.push(methodData);
+                const methodDetail = getMethodDetailFromNode(node);
+                if (methodDetail) {
+                  methods.push(methodDetail);
                 }
               });
             }
@@ -55,9 +55,9 @@ export async function getMethods(document: LinesTextDocument) {
         if ('body' in node) {
           const subNode = node['body'] as Node[];
           subNode.forEach((node) => {
-            const methodData = getMethodDataByClassBodyAst(node);
-            if (methodData) {
-              methods.push(methodData);
+            const methodDetail = getMethodDetailFromNode(node);
+            if (methodDetail) {
+              methods.push(methodDetail);
             }
           });
         }
@@ -70,7 +70,7 @@ export async function getMethods(document: LinesTextDocument) {
   return methods;
 }
 
-function getMethodDataByClassBodyAst(node: Node) {
+function getMethodDetailFromNode(node: Node) {
   if (node.kind === 'method') {
     if ('loc' in node) {
       const name = node['name']['name'] as string;
@@ -83,19 +83,19 @@ function getMethodDataByClassBodyAst(node: Node) {
           comments.push(n.value);
         });
       }
-      const methodData: MethodType = {
+      const methodDetail: MethodDetailType = {
         name,
         startLine,
         endLine,
         comments,
       };
-      return methodData;
+      return methodDetail;
     }
   }
 }
 
-export function getTestMethods(methods: MethodType[]) {
-  const testMethods: MethodType[] = [];
+export function getTestMethods(methods: MethodDetailType[]) {
+  const testMethods: MethodDetailType[] = [];
 
   methods.forEach((m) => {
     let exists = false;
@@ -121,7 +121,7 @@ export function getTestMethods(methods: MethodType[]) {
   return testMethods;
 }
 
-export function getTestName(methods: MethodType[], position: Position) {
+export function getTestName(methods: MethodDetailType[], position: Position) {
   let testName = '';
 
   methods.forEach((m) => {
@@ -146,10 +146,10 @@ export function getTestName(methods: MethodType[], position: Position) {
   return testName;
 }
 
-export async function getPestTestData(document: LinesTextDocument) {
+export async function getPestTestDetail(document: LinesTextDocument) {
   const code = document.getText();
 
-  const pestTestData: PestTestDataType[] = [];
+  const pestTestDetail: PestTestDetailType[] = [];
 
   try {
     const ast = parserEngine.parseEval(code.replace('<?php', '').replace('?>', ''));
@@ -173,7 +173,7 @@ export async function getPestTestData(document: LinesTextDocument) {
                       name = call.arguments[0].kind === 'string' ? call.arguments[0]['value'] : '';
                       name = call.what.name === 'it' ? 'it ' + name : name;
 
-                      pestTestData.push({
+                      pestTestDetail.push({
                         name,
                         startLine,
                         endLine,
@@ -191,7 +191,7 @@ export async function getPestTestData(document: LinesTextDocument) {
                           name = subCall.arguments[0].kind === 'string' ? subCall.arguments[0]['value'] : '';
                           name = subCall.what.name === 'it' ? 'it ' + name : name;
 
-                          pestTestData.push({
+                          pestTestDetail.push({
                             name,
                             startLine,
                             endLine,
@@ -220,7 +220,7 @@ export async function getPestTestData(document: LinesTextDocument) {
                   name = call.arguments[0].kind === 'string' ? call.arguments[0]['value'] : '';
                   name = call.what.name === 'it' ? 'it ' + name : name;
 
-                  pestTestData.push({
+                  pestTestDetail.push({
                     name,
                     startLine,
                     endLine,
@@ -238,7 +238,7 @@ export async function getPestTestData(document: LinesTextDocument) {
                       name = subCall.arguments[0].kind === 'string' ? subCall.arguments[0]['value'] : '';
                       name = subCall.what.name === 'it' ? 'it ' + name : name;
 
-                      pestTestData.push({
+                      pestTestDetail.push({
                         name,
                         startLine,
                         endLine,
@@ -256,13 +256,13 @@ export async function getPestTestData(document: LinesTextDocument) {
     // noop
   }
 
-  return pestTestData;
+  return pestTestDetail;
 }
 
-export function getTestNameByPestTestData(pestTestData: PestTestDataType[], position: Position) {
+export function getTestNameFromPestTestDetails(pestTestDetails: PestTestDetailType[], position: Position) {
   let testName = '';
 
-  pestTestData.forEach((m) => {
+  pestTestDetails.forEach((m) => {
     if (position.line + 1 >= m.startLine && position.line + 1 <= m.endLine) {
       const name = m.name;
       testName = name;

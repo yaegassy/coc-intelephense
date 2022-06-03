@@ -11,7 +11,7 @@ import {
   Uri,
   workspace,
 } from 'coc.nvim';
-import { getMethods, getPestTestData, getTestMethods } from '../parsers/unittest';
+import { getMethods, getPestTestDetail, getTestMethods } from '../parsers/unittest';
 
 export function activate(context: ExtensionContext) {
   if (!workspace.getConfiguration('intelephense').get<boolean>('client.disableCodeLens', false)) {
@@ -64,9 +64,9 @@ export class PestCodeLensProvider implements CodeLensProvider {
     }
 
     try {
-      const pestTestData = await getPestTestData(document);
+      const pestTestDetails = await getPestTestDetail(document);
 
-      pestTestData.forEach((m) => {
+      pestTestDetails.forEach((m) => {
         if (m.startLine && m.endLine) {
           const lens: CodeLens = {
             range: Range.create(Position.create(m.startLine - 1, 0), Position.create(m.endLine, 0)),
