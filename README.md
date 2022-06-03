@@ -235,7 +235,7 @@ nmap <silent> gA <Plug>(coc-codeaction)
 - `Insert PHP Getter` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/33#issuecomment-1140683583)
 - `Insert PHP Setter` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/33#issuecomment-1140684502)
 - `Insert PHP Getter & Setter` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/33#issuecomment-1140685034)
-- `Change Visibility`
+- `Change Visibility` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/37#issue-1259334586)
 
 **Code Actions (Server side)**:
 
