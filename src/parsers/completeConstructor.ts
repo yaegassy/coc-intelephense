@@ -13,6 +13,8 @@ import {
   TypeReference,
 } from 'php-parser';
 
+import * as phpDocParser from './phpDoc';
+
 const parserEngine = new Engine({
   parser: {
     extractDoc: false,
@@ -60,56 +62,6 @@ export function getAst(code: string) {
   function stripPHPTag(code: string): string {
     return code.replace('<?php', '').replace('?>', '');
   }
-}
-
-export function isClassRegion(code: string, startLine: number, endLine: number) {
-  let flag = false;
-
-  const ast = getAst(code);
-  if (!ast) return flag;
-
-  const classNode = getClassesNodes(ast.children);
-
-  classNode.forEach((c) => {
-    if (c.loc && c.loc.start.line <= startLine && c.loc.end.line >= endLine) {
-      flag = true;
-    }
-  });
-
-  return flag;
-}
-
-// TODO: Adding Test and Simplifying
-export function matchVarType(docLine: string, variable?: string) {
-  let varType: string | null = null;
-
-  const patterns = [
-    // @var array<int, string> $sample ...
-    `@var\\s+([\\w|<,\\s\\\\]+[>]+)\\s+(\\\$${variable})\\s+.*$`,
-    // @var int $sample ...
-    `@var\\s+(\\S+)\\s+(\\\$${variable})\\s+.*$`,
-    // @var array<int, string> $sample
-    `@var\\s+([\\w|<,\\s\\\\]+[>]+)\\s+(\\\$${variable})$`,
-    // @var int $sample
-    `@var\\s+(\\S+)\\s+(\\\$${variable})$`,
-    // @var array<int, string>
-    `@var\\s+([\\w|<,\\s\\\\]+[>]+)$`,
-    // @var int $sample
-    `@var\\s+(\\S+)$`,
-  ];
-
-  if (docLine.includes('@var')) {
-    for (const p of patterns) {
-      const reg = new RegExp(p);
-      const m = reg.exec(docLine);
-      if (m) {
-        varType = m[1];
-        break;
-      }
-    }
-  }
-
-  return varType;
 }
 
 export function getClassesNodes(nodes: Node[]): Class[] {
@@ -213,8 +165,9 @@ function getProperties(node: Node) {
         comments.forEach((comment) => {
           const splitComments = comment.split('\n');
           splitComments.forEach((c) => {
-            if (!docVarType) {
-              docVarType = matchVarType(c, name);
+            const matchTypeDetail = phpDocParser.matchTypeDetailFromVarTag(c, name);
+            if (matchTypeDetail) {
+              docVarType = matchTypeDetail?.value;
             }
           });
         });
