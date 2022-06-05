@@ -13,6 +13,8 @@ import {
   TypeReference,
 } from 'php-parser';
 
+import * as phpDocParser from '../parsers/phpDoc';
+
 const parserEngine = new Engine({
   parser: {
     extractDoc: true,
@@ -77,39 +79,6 @@ export function isClassRegion(code: string, startLine: number, endLine: number) 
   });
 
   return flag;
-}
-
-// TODO: Adding Test and Simplifying
-export function matchVarType(docLine: string, variable?: string) {
-  let varType: string | null = null;
-
-  const patterns = [
-    // @var array<int, string> $sample ...
-    `@var\\s+([\\w|<,\\s\\\\]+[>]+)\\s+(\\\$${variable})\\s+.*$`,
-    // @var int $sample ...
-    `@var\\s+(\\S+)\\s+(\\\$${variable})\\s+.*$`,
-    // @var array<int, string> $sample
-    `@var\\s+([\\w|<,\\s\\\\]+[>]+)\\s+(\\\$${variable})$`,
-    // @var int $sample
-    `@var\\s+(\\S+)\\s+(\\\$${variable})$`,
-    // @var array<int, string>
-    `@var\\s+([\\w|<,\\s\\\\]+[>]+)$`,
-    // @var int $sample
-    `@var\\s+(\\S+)$`,
-  ];
-
-  if (docLine.includes('@var')) {
-    for (const p of patterns) {
-      const reg = new RegExp(p);
-      const m = reg.exec(docLine);
-      if (m) {
-        varType = m[1];
-        break;
-      }
-    }
-  }
-
-  return varType;
 }
 
 export function getMethods(nodes: Node[]) {
@@ -280,7 +249,10 @@ function getProperties(node: Node) {
           const splitComments = comment.split('\n');
           splitComments.forEach((c) => {
             if (!docVarType) {
-              docVarType = matchVarType(c, name);
+              const matchTypeDetail = phpDocParser.matchTypeDetailFromVarTag(c, name);
+              if (matchTypeDetail) {
+                docVarType = matchTypeDetail?.value;
+              }
             }
           });
         });
