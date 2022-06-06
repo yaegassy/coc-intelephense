@@ -53,7 +53,13 @@ export class ScaffoldCompletionProvider implements CompletionItemProvider {
     const scaffoldCompletionItems: CompletionItem[] = [];
 
     const composerJsonPath = path.join(workspace.root, 'composer.json');
-    const composerJsonContent = this.getComposerJsonContent(composerJsonPath);
+    let composerJsonContent: ComposerJsonContentType | null = null;
+    try {
+      composerJsonContent = JSON.parse(fs.readFileSync(composerJsonPath, 'utf8'));
+    } catch (error) {
+      composerJsonContent = null;
+    }
+
     const fileName = document.uri.split('/').slice(-1)[0].replace('.php', '');
 
     let namespace = '';
@@ -100,39 +106,27 @@ export class ScaffoldCompletionProvider implements CompletionItemProvider {
     return scaffoldCompletionItems;
   }
 
-  private getComposerJsonContent(composerJsonPath: string) {
-    let composerJsonContent: ComposerJsonContentType | null = null;
-
-    try {
-      let composerJsonString = '';
-      fs.readFile(composerJsonPath, 'utf8', (err, data) => {
-        if (!err) composerJsonString = data;
-      });
-      composerJsonContent = JSON.parse(composerJsonString);
-    } catch (error) {
-      composerJsonContent = null;
-    }
-
-    return composerJsonContent;
-  }
-
   private getProjectNamespacesFromComposerJson(composerJsonContent: ComposerJsonContentType) {
     const projectNamespaces: { [key: string]: string }[] = [];
 
-    if ('psr-4' in composerJsonContent.autoload) {
-      for (const [k, v] of Object.entries(composerJsonContent.autoload['psr-4'])) {
-        projectNamespaces.push({
-          [k]: v,
-        });
+    try {
+      if ('psr-4' in composerJsonContent.autoload) {
+        for (const [k, v] of Object.entries(composerJsonContent.autoload['psr-4'])) {
+          projectNamespaces.push({
+            [k]: v,
+          });
+        }
       }
-    }
 
-    if ('psr-4' in composerJsonContent['autoload-dev']) {
-      for (const [k, v] of Object.entries(composerJsonContent['autoload-dev']['psr-4'])) {
-        projectNamespaces.push({
-          [k]: v,
-        });
+      if ('psr-4' in composerJsonContent['autoload-dev']) {
+        for (const [k, v] of Object.entries(composerJsonContent['autoload-dev']['psr-4'])) {
+          projectNamespaces.push({
+            [k]: v,
+          });
+        }
       }
+    } catch (e) {
+      // noop...
     }
 
     return projectNamespaces;
