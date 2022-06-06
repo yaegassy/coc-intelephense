@@ -2,7 +2,7 @@ import { commands, ExtensionContext, Terminal, Uri, window, workspace } from 'co
 
 import path from 'path';
 import fs from 'fs';
-import { getMethods, getTestName } from '../parsers/unittest';
+import * as phpunitParser from '../parsers/phpunit';
 
 let terminal: Terminal | undefined;
 
@@ -108,8 +108,8 @@ export function phpunitSingleTestCommand() {
       return window.showErrorMessage('This file is not a PHP test file!');
     }
 
-    const methods = await getMethods(document);
-    const testName = getTestName(methods, position);
+    const methods = await phpunitParser.getMethods(document);
+    const testName = phpunitParser.getTestName(methods, position);
 
     if (testName) {
       runPhpUnit(filePath, testName);
