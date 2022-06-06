@@ -109,20 +109,24 @@ export class ScaffoldCompletionProvider implements CompletionItemProvider {
   private getProjectNamespacesFromComposerJson(composerJsonContent: ComposerJsonContentType) {
     const projectNamespaces: { [key: string]: string }[] = [];
 
-    if ('psr-4' in composerJsonContent.autoload) {
-      for (const [k, v] of Object.entries(composerJsonContent.autoload['psr-4'])) {
-        projectNamespaces.push({
-          [k]: v,
-        });
+    try {
+      if ('psr-4' in composerJsonContent.autoload) {
+        for (const [k, v] of Object.entries(composerJsonContent.autoload['psr-4'])) {
+          projectNamespaces.push({
+            [k]: v,
+          });
+        }
       }
-    }
 
-    if ('psr-4' in composerJsonContent['autoload-dev']) {
-      for (const [k, v] of Object.entries(composerJsonContent['autoload-dev']['psr-4'])) {
-        projectNamespaces.push({
-          [k]: v,
-        });
+      if ('psr-4' in composerJsonContent['autoload-dev']) {
+        for (const [k, v] of Object.entries(composerJsonContent['autoload-dev']['psr-4'])) {
+          projectNamespaces.push({
+            [k]: v,
+          });
+        }
       }
+    } catch (e) {
+      // noop...
     }
 
     return projectNamespaces;
