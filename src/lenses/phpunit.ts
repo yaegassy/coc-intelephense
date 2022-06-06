@@ -11,7 +11,7 @@ import {
   Uri,
   workspace,
 } from 'coc.nvim';
-import { getMethods, getTestMethods } from '../parsers/unittest';
+import * as phpunitParser from '../parsers/phpunit';
 
 export function activate(context: ExtensionContext) {
   if (!workspace.getConfiguration('intelephense').get<boolean>('client.disableCodeLens', false)) {
@@ -43,8 +43,8 @@ export class PHPUnitCodeLensProvider implements CodeLensProvider {
     if (events.insertMode) return codeLenses;
 
     try {
-      const methods = await getMethods(document);
-      const testMethods = getTestMethods(methods);
+      const methods = await phpunitParser.getMethods(document);
+      const testMethods = phpunitParser.getTestMethods(methods);
 
       testMethods.forEach((m) => {
         if (m.startLine && m.endLine) {

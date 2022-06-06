@@ -2,7 +2,7 @@ import { commands, ExtensionContext, Terminal, Uri, window, workspace } from 'co
 
 import path from 'path';
 import fs from 'fs';
-import { getPestTestDetail, getMethods, getTestName, getTestNameFromPestTestDetails } from '../parsers/unittest';
+import * as pestParser from '../parsers/pest';
 
 let terminal: Terminal | undefined;
 
@@ -111,13 +111,13 @@ export function pestSingleTestCommand() {
     }
 
     let testName = '';
-    const pestTestDetails = await getPestTestDetail(document);
-    const pestTestName = getTestNameFromPestTestDetails(pestTestDetails, position);
+    const pestTestDetails = await pestParser.getPestTestDetail(document);
+    const pestTestName = pestParser.getTestNameFromPestTestDetails(pestTestDetails, position);
     if (pestTestName) {
       testName = pestTestName;
     } else {
-      const methods = await getMethods(document);
-      const methodTestName = getTestName(methods, position);
+      const methods = await pestParser.getMethods(document);
+      const methodTestName = pestParser.getTestName(methods, position);
       if (methodTestName) testName = methodTestName;
     }
 
