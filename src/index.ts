@@ -22,6 +22,7 @@ import * as changeVisibilityCodeActionFeature from './actions/changeVisibility';
 import * as getterSetterCodeActionFeature from './actions/getterSetter';
 import * as ignoreCommentCodeActionFeature from './actions/ignoreComment';
 import * as openPHPNetCodeActionFeature from './actions/openPHPNet';
+import * as completeConstructorCommandFeature from './commands/completeConstructor';
 import * as composerCommandFeature from './commands/composer';
 import * as fixClassNameCommandFeature from './commands/fixClassName';
 import * as fixNamespaceCommandFeature from './commands/fixNamespace';
@@ -33,7 +34,6 @@ import * as scaffoldCompletionFeature from './completions/scaffold';
 import * as snippetsCompletionFeature from './completions/snippets';
 import * as pestCodeLensFeature from './lenses/pest';
 import * as phpunitCodeLensFeature from './lenses/phpunit';
-import * as completeConstructorCommandFeature from './commands/completeConstructor';
 
 const PHP_LANGUAGE_ID = 'php';
 const INDEXING_STARTED_NOTIFICATION = new NotificationType('indexingStarted');
