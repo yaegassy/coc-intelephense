@@ -17,7 +17,7 @@ import * as phpDocParser from './phpDoc';
 
 const parserEngine = new Engine({
   parser: {
-    extractDoc: false,
+    extractDoc: true,
     php7: true,
     locations: true,
     suppressErrors: true,
