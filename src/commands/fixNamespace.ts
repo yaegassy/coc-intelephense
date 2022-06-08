@@ -45,6 +45,10 @@ export function runFixNamespace() {
     const fileUriPath = document.uri;
     const relativeFilePath = fileUriPath.replace(workspaceUriPath + '/', '');
     const newNamespace = getFileNamespace(projectNamespaces, relativeFilePath);
+    if (!newNamespace) {
+      window.showErrorMessage('Cannot find namespace to use for target file');
+      return;
+    }
 
     // ---- edit namespace ----
 
@@ -88,19 +92,23 @@ export function runFixNamespace() {
 function getProjectNamespacesFromComposerJson(composerJsonContent: ComposerJsonContentType) {
   const projectNamespaces: { [key: string]: string }[] = [];
 
-  if ('psr-4' in composerJsonContent.autoload) {
-    for (const [k, v] of Object.entries(composerJsonContent.autoload['psr-4'])) {
-      projectNamespaces.push({
-        [k]: v,
-      });
+  if (composerJsonContent.autoload) {
+    if ('psr-4' in composerJsonContent.autoload) {
+      for (const [k, v] of Object.entries(composerJsonContent.autoload['psr-4'])) {
+        projectNamespaces.push({
+          [k]: v,
+        });
+      }
     }
   }
 
-  if ('psr-4' in composerJsonContent['autoload-dev']) {
-    for (const [k, v] of Object.entries(composerJsonContent['autoload-dev']['psr-4'])) {
-      projectNamespaces.push({
-        [k]: v,
-      });
+  if (composerJsonContent['autoload-dev']) {
+    if ('psr-4' in composerJsonContent['autoload-dev']) {
+      for (const [k, v] of Object.entries(composerJsonContent['autoload-dev']['psr-4'])) {
+        projectNamespaces.push({
+          [k]: v,
+        });
+      }
     }
   }
 
