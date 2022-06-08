@@ -1,4 +1,4 @@
-import { LinesTextDocument, Position } from 'coc.nvim';
+import { Position } from 'coc.nvim';
 import { Call, Comment, Engine, Expression, Node } from 'php-parser';
 
 const parserEngine = new Engine({
@@ -27,47 +27,51 @@ type PestTestDetailType = {
   endLine: number;
 };
 
-export async function getMethods(document: LinesTextDocument) {
-  const code = document.getText();
-
-  const methods: MethodDetailType[] = [];
-
+export function getAst(code: string) {
   try {
-    const ast = parserEngine.parseEval(code.replace('<?php', '').replace('?>', ''));
-
-    ast.children.forEach((node) => {
-      if ('children' in node) {
-        const subNode = node['children'] as Node[];
-        subNode.forEach((node) => {
-          if (node.kind === 'class') {
-            if ('body' in node) {
-              const subNode = node['body'] as Node[];
-              subNode.forEach((node) => {
-                const methodDetail = getMethodDetailFromNode(node);
-                if (methodDetail) {
-                  methods.push(methodDetail);
-                }
-              });
-            }
-          }
-        });
-      } else if (node.kind === 'class') {
-        if ('body' in node) {
-          const subNode = node['body'] as Node[];
-          subNode.forEach((node) => {
-            const methodDetail = getMethodDetailFromNode(node);
-            if (methodDetail) {
-              methods.push(methodDetail);
-            }
-          });
-        }
-      }
-    });
+    return parserEngine.parseEval(stripPHPTag(code));
   } catch (e) {
-    // noop
+    return undefined;
   }
 
-  return methods;
+  function stripPHPTag(code: string): string {
+    return code.replace('<?php', '').replace('?>', '');
+  }
+}
+
+export async function getMethods(nodes: Node[]) {
+  const methodDetails: MethodDetailType[] = [];
+
+  nodes.forEach((node) => {
+    if ('children' in node) {
+      const subNode = node['children'] as Node[];
+      subNode.forEach((node) => {
+        if (node.kind === 'class') {
+          if ('body' in node) {
+            const subNode = node['body'] as Node[];
+            subNode.forEach((node) => {
+              const methodDetail = getMethodDetailFromNode(node);
+              if (methodDetail) {
+                methodDetails.push(methodDetail);
+              }
+            });
+          }
+        }
+      });
+    } else if (node.kind === 'class') {
+      if ('body' in node) {
+        const subNode = node['body'] as Node[];
+        subNode.forEach((node) => {
+          const methodDetail = getMethodDetailFromNode(node);
+          if (methodDetail) {
+            methodDetails.push(methodDetail);
+          }
+        });
+      }
+    }
+  });
+
+  return methodDetails;
 }
 
 function getMethodDetailFromNode(node: Node) {
@@ -146,15 +150,11 @@ export function getTestName(methods: MethodDetailType[], position: Position) {
   return testName;
 }
 
-export async function getPestTestDetail(document: LinesTextDocument) {
-  const code = document.getText();
-
-  const pestTestDetail: PestTestDetailType[] = [];
+export async function getPestTestDetail(nodes: Node[]) {
+  const pestTestDetails: PestTestDetailType[] = [];
 
   try {
-    const ast = parserEngine.parseEval(code.replace('<?php', '').replace('?>', ''));
-
-    ast.children.forEach((node) => {
+    nodes.forEach((node) => {
       if (node.kind === 'namespace') {
         const subNode = node['children'] as Node[];
         subNode.forEach((node) => {
@@ -173,7 +173,7 @@ export async function getPestTestDetail(document: LinesTextDocument) {
                       name = call.arguments[0].kind === 'string' ? call.arguments[0]['value'] : '';
                       name = call.what.name === 'it' ? 'it ' + name : name;
 
-                      pestTestDetail.push({
+                      pestTestDetails.push({
                         name,
                         startLine,
                         endLine,
@@ -191,7 +191,7 @@ export async function getPestTestDetail(document: LinesTextDocument) {
                           name = subCall.arguments[0].kind === 'string' ? subCall.arguments[0]['value'] : '';
                           name = subCall.what.name === 'it' ? 'it ' + name : name;
 
-                          pestTestDetail.push({
+                          pestTestDetails.push({
                             name,
                             startLine,
                             endLine,
@@ -220,7 +220,7 @@ export async function getPestTestDetail(document: LinesTextDocument) {
                   name = call.arguments[0].kind === 'string' ? call.arguments[0]['value'] : '';
                   name = call.what.name === 'it' ? 'it ' + name : name;
 
-                  pestTestDetail.push({
+                  pestTestDetails.push({
                     name,
                     startLine,
                     endLine,
@@ -238,7 +238,7 @@ export async function getPestTestDetail(document: LinesTextDocument) {
                       name = subCall.arguments[0].kind === 'string' ? subCall.arguments[0]['value'] : '';
                       name = subCall.what.name === 'it' ? 'it ' + name : name;
 
-                      pestTestDetail.push({
+                      pestTestDetails.push({
                         name,
                         startLine,
                         endLine,
@@ -256,7 +256,7 @@ export async function getPestTestDetail(document: LinesTextDocument) {
     // noop
   }
 
-  return pestTestDetail;
+  return pestTestDetails;
 }
 
 export function getTestNameFromPestTestDetails(pestTestDetails: PestTestDetailType[], position: Position) {

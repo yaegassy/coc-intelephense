@@ -43,7 +43,10 @@ export class PHPUnitCodeLensProvider implements CodeLensProvider {
     if (events.insertMode) return codeLenses;
 
     try {
-      const methods = await phpunitParser.getMethods(document);
+      const ast = phpunitParser.getAst(document.getText());
+      if (!ast) return;
+
+      const methods = await phpunitParser.getMethods(ast.children);
       const testMethods = phpunitParser.getTestMethods(methods);
 
       testMethods.forEach((m) => {

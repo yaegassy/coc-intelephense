@@ -110,13 +110,16 @@ export function pestSingleTestCommand() {
       return window.showErrorMessage('This file is not a PHP test file!');
     }
 
+    const ast = pestParser.getAst(document.getText());
+    if (!ast) return;
+
     let testName = '';
-    const pestTestDetails = await pestParser.getPestTestDetail(document);
+    const pestTestDetails = await pestParser.getPestTestDetail(ast.children);
     const pestTestName = pestParser.getTestNameFromPestTestDetails(pestTestDetails, position);
     if (pestTestName) {
       testName = pestTestName;
     } else {
-      const methods = await pestParser.getMethods(document);
+      const methods = await pestParser.getMethods(ast.children);
       const methodTestName = pestParser.getTestName(methods, position);
       if (methodTestName) testName = methodTestName;
     }

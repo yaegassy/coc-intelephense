@@ -42,8 +42,12 @@ export class PestCodeLensProvider implements CodeLensProvider {
     // do not process codelens when in insert mode
     if (events.insertMode) return codeLenses;
 
+    // phpunit style
     try {
-      const methods = await pestParser.getMethods(document);
+      const ast = pestParser.getAst(document.getText());
+      if (!ast) return;
+
+      const methods = await pestParser.getMethods(ast.children);
       const testMethods = pestParser.getTestMethods(methods);
 
       testMethods.forEach((m) => {
@@ -63,8 +67,12 @@ export class PestCodeLensProvider implements CodeLensProvider {
       // noop
     }
 
+    // pest style
     try {
-      const pestTestDetails = await pestParser.getPestTestDetail(document);
+      const ast = pestParser.getAst(document.getText());
+      if (!ast) return;
+
+      const pestTestDetails = await pestParser.getPestTestDetail(ast.children);
 
       pestTestDetails.forEach((m) => {
         if (m.startLine && m.endLine) {

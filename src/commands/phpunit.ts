@@ -108,7 +108,10 @@ export function phpunitSingleTestCommand() {
       return window.showErrorMessage('This file is not a PHP test file!');
     }
 
-    const methods = await phpunitParser.getMethods(document);
+    const ast = phpunitParser.getAst(document.getText());
+    if (!ast) return;
+
+    const methods = await phpunitParser.getMethods(ast.children);
     const testName = phpunitParser.getTestName(methods, position);
 
     if (testName) {

@@ -1,4 +1,4 @@
-import { LinesTextDocument, Position } from 'coc.nvim';
+import { Position } from 'coc.nvim';
 import { Comment, Engine, Node } from 'php-parser';
 
 const parserEngine = new Engine({
@@ -21,47 +21,51 @@ type MethodDetailType = {
   comments: string[];
 };
 
-export async function getMethods(document: LinesTextDocument) {
-  const code = document.getText();
-
-  const methods: MethodDetailType[] = [];
-
+export function getAst(code: string) {
   try {
-    const ast = parserEngine.parseEval(code.replace('<?php', '').replace('?>', ''));
-
-    ast.children.forEach((node) => {
-      if ('children' in node) {
-        const subNode = node['children'] as Node[];
-        subNode.forEach((node) => {
-          if (node.kind === 'class') {
-            if ('body' in node) {
-              const subNode = node['body'] as Node[];
-              subNode.forEach((node) => {
-                const methodDetail = getMethodDetailFromNode(node);
-                if (methodDetail) {
-                  methods.push(methodDetail);
-                }
-              });
-            }
-          }
-        });
-      } else if (node.kind === 'class') {
-        if ('body' in node) {
-          const subNode = node['body'] as Node[];
-          subNode.forEach((node) => {
-            const methodDetail = getMethodDetailFromNode(node);
-            if (methodDetail) {
-              methods.push(methodDetail);
-            }
-          });
-        }
-      }
-    });
+    return parserEngine.parseEval(stripPHPTag(code));
   } catch (e) {
-    // noop
+    return undefined;
   }
 
-  return methods;
+  function stripPHPTag(code: string): string {
+    return code.replace('<?php', '').replace('?>', '');
+  }
+}
+
+export async function getMethods(nodes: Node[]) {
+  const methodDetails: MethodDetailType[] = [];
+
+  nodes.forEach((node) => {
+    if ('children' in node) {
+      const subNode = node['children'] as Node[];
+      subNode.forEach((node) => {
+        if (node.kind === 'class') {
+          if ('body' in node) {
+            const subNode = node['body'] as Node[];
+            subNode.forEach((node) => {
+              const methodDetail = getMethodDetailFromNode(node);
+              if (methodDetail) {
+                methodDetails.push(methodDetail);
+              }
+            });
+          }
+        }
+      });
+    } else if (node.kind === 'class') {
+      if ('body' in node) {
+        const subNode = node['body'] as Node[];
+        subNode.forEach((node) => {
+          const methodDetail = getMethodDetailFromNode(node);
+          if (methodDetail) {
+            methodDetails.push(methodDetail);
+          }
+        });
+      }
+    }
+  });
+
+  return methodDetails;
 }
 
 function getMethodDetailFromNode(node: Node) {
