@@ -75,7 +75,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   const module = context.asAbsolutePath('node_modules/intelephense');
   if (!fs.existsSync(module)) {
-    window.showMessage(`intelephense module doesn't exist, please reinstall coc-intelephense"`, 'error');
+    window.showErrorMessage(`intelephense module doesn't exist, please reinstall coc-intelephense"`);
     return;
   }
 
@@ -234,14 +234,14 @@ function registerNotificationListeners() {
     });
   } else {
     languageClient.onNotification(INDEXING_STARTED_NOTIFICATION.method, () => {
-      window.showMessage('intelephense indexing ...');
+      window.showInformationMessage('intelephense indexing ...');
     });
 
     languageClient.onNotification(INDEXING_ENDED_NOTIFICATION.method, () => {
       if (resolveIndexingPromise) {
         resolveIndexingPromise();
       }
-      window.showMessage('intelephense running!');
+      window.showInformationMessage('intelephense running!');
     });
   }
 }
