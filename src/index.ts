@@ -32,6 +32,7 @@ import * as symfonyConsoleCommandFeature from './commands/symfonyConsole';
 import * as autoCloseDocCommentDoSugesstCompletionFeature from './completions/autoCloseDocCommentDoSugesst';
 import * as scaffoldCompletionFeature from './completions/scaffold';
 import * as snippetsCompletionFeature from './completions/snippets';
+import * as inlineParametersInlayHintsFeature from './inlayHints/inlineParameters';
 import * as pestCodeLensFeature from './lenses/pest';
 import * as phpunitCodeLensFeature from './lenses/phpunit';
 
@@ -112,6 +113,11 @@ export async function activate(context: ExtensionContext): Promise<void> {
   openPHPNetCodeActionFeature.activate(context);
   ignoreCommentCodeActionFeature.activate(context);
   getterSetterCodeActionFeature.activate(context);
+
+  // Add inlay hints by "client" side
+  //
+  // "inlineParameterInlayHintFeature" does not operate until the Language Server is started and indexing is completed,
+  // so there is a registration process in "registerNotificationListeners".
 }
 
 function createClient(context: ExtensionContext, clearCache: boolean) {
@@ -186,7 +192,7 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
   const languageClient = new LanguageClient('intelephense', 'intelephense', serverOptions, clientOptions);
 
   languageClient.onReady().then(() => {
-    registerNotificationListeners();
+    registerNotificationListeners(context);
   });
 
   return languageClient;
@@ -208,8 +214,7 @@ function cancelIndexing() {
   window.showWarningMessage('intelephense indexing has been canceled!');
 }
 
-// MEMO: support progress window for indexing
-function registerNotificationListeners() {
+function registerNotificationListeners(context: ExtensionContext) {
   const intelephenseConfig = workspace.getConfiguration('intelephense');
   const progressEnable = intelephenseConfig.get<boolean>('progress.enable');
 
@@ -231,6 +236,8 @@ function registerNotificationListeners() {
       if (resolveIndexingPromise) {
         resolveIndexingPromise();
       }
+      // register inlayHints
+      inlineParametersInlayHintsFeature.activate(context, languageClient);
     });
   } else {
     languageClient.onNotification(INDEXING_STARTED_NOTIFICATION.method, () => {
@@ -241,6 +248,8 @@ function registerNotificationListeners() {
       if (resolveIndexingPromise) {
         resolveIndexingPromise();
       }
+      // register inlayHints
+      inlineParametersInlayHintsFeature.activate(context, languageClient);
       window.showInformationMessage('intelephense running!');
     });
   }
