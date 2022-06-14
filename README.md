@@ -252,7 +252,7 @@ nmap <silent> gA <Plug>(coc-codeaction)
 
 "Inlay Hints" does not work with "Vim8" due to `coc.nvim` specifications.
 
-- `inlineParametersInlayHintsFeature`
+- `inlineParametersInlayHintsFeature` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/41#issue-1270432446)
   - By default, this feature is disabled
   - Set `"intelephense.client.disableInlayHints"` to `false` to use the feature.
 
