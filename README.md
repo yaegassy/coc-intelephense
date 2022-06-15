@@ -277,6 +277,7 @@ For more information, check this coc.nvim's wiki.
 ## Thanks
 
 - [bmewburn/vscode-intelephense](https://github.com/bmewburn/vscode-intelephense)
+- [glayzzle/php-parser](https://github.com/glayzzle/php-parser)
 
 ## License
 
