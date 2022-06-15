@@ -106,7 +106,13 @@ class GetterSetterCodeActionProvider implements CodeActionProvider {
         }
       });
 
-      const insertLine = featureItems ? featureItems[0].classEndLine : undefined;
+      let insertLine: number | undefined;
+      if (featureItems) {
+        if (featureItems[0]) {
+          insertLine = featureItems[0].classEndLine;
+        }
+      }
+
       const getterNewText = this.generateGetterNewText(getterItems);
       const setterNewText = this.generateSetterNewText(setterItems);
 
