@@ -122,6 +122,11 @@
           "default": true,
           "description": "Disable inlay hints only (client)."
         },
+        "intelephense.client.disableAddIskeyword": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable the feature of the extension to add `iskeyword`."
+        },
         "intelephense.server.disableCompletion": {
           "type": "boolean",
           "default": false,

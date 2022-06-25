@@ -56,21 +56,23 @@ export async function activate(context: ExtensionContext): Promise<void> {
   if (!isEnable) return;
 
   // Add iskeyword
-  const { document } = await workspace.getCurrentState();
-  if (document.languageId === 'php') {
-    try {
-      await workspace.nvim.command('setlocal iskeyword+=$');
+  if (!workspace.getConfiguration('intelephense').get<boolean>('client.disableAddIskeyword', false)) {
+    const { document } = await workspace.getCurrentState();
+    if (document.languageId === 'php') {
+      try {
+        await workspace.nvim.command('setlocal iskeyword+=$');
 
-      workspace.registerAutocmd({
-        event: 'FileType',
-        pattern: 'php',
-        request: true,
-        callback: async () => {
-          await workspace.nvim.command('setlocal iskeyword+=$');
-        },
-      });
-    } catch {
-      // noop
+        workspace.registerAutocmd({
+          event: 'FileType',
+          pattern: 'php',
+          request: true,
+          callback: async () => {
+            await workspace.nvim.command('setlocal iskeyword+=$');
+          },
+        });
+      } catch {
+        // noop
+      }
     }
   }
 

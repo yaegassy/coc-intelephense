@@ -59,6 +59,7 @@ For more information, please check this link.
 - `intelephense.client.disableCodeLens`: Disable code lens only (client), default: `false`
 - `intelephense.client.codelensProvider`: Provider for CodeLens. Possible options include `phpunit` and `pest`, default: `"phpunit"`
 - `intelephense.client.disableInlayHints`: Disable inlay hints only (client), default: `true`
+- `intelephense.client.disableAddIskeyword`: Disable the feature of the extension to add `iskeyword`, default: `false`
 - `intelephense.server.disableCompletion`: Disable completion only (server), default: `false`
 - `intelephense.server.disableDefinition`: Disable definition only (server), default: `false`
 - `intelephense.composer.path`: Path to composer command. default: `composer`
