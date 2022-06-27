@@ -240,6 +240,7 @@ nmap <silent> gA <Plug>(coc-codeaction)
 - `Insert PHP Setter` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/33#issuecomment-1140684502)
 - `Insert PHP Getter & Setter` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/33#issuecomment-1140685034)
 - `Change Visibility` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/37#issue-1259334586)
+- `Remove all unused imports for "use" statetment` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/43#issue-1285689962)
 
 **Code Actions (Server side)**:
 
