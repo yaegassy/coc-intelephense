@@ -285,7 +285,11 @@ export class RemoveUnusedImportsCodeActionProvider implements CodeActionProvider
       });
 
       const newTexts: string[] = [];
-      newTexts.push(`use ${item.name}\\{${symbols.join(', ')}};`);
+      if (symbols.length === 1) {
+        newTexts.push(`use ${item.name}\\${symbols[0]};`);
+      } else {
+        newTexts.push(`use ${item.name}\\{${symbols.join(', ')}};`);
+      }
 
       // The `php-parser` loc (location) is not a range including semicolons, etc.
       // Here we use the php-parser loc. php-parser loc is not zero base.
