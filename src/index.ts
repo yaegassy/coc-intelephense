@@ -22,6 +22,7 @@ import * as changeVisibilityCodeActionFeature from './actions/changeVisibility';
 import * as getterSetterCodeActionFeature from './actions/getterSetter';
 import * as ignoreCommentCodeActionFeature from './actions/ignoreComment';
 import * as openPHPNetCodeActionFeature from './actions/openPHPNet';
+import * as removeUnusedImportsCodeActionFeature from './actions/removeUnusedImports';
 import * as completeConstructorCommandFeature from './commands/completeConstructor';
 import * as composerCommandFeature from './commands/composer';
 import * as fixClassNameCommandFeature from './commands/fixClassName';
@@ -115,6 +116,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   openPHPNetCodeActionFeature.activate(context);
   ignoreCommentCodeActionFeature.activate(context);
   getterSetterCodeActionFeature.activate(context);
+  removeUnusedImportsCodeActionFeature.activate(context);
 
   // Add inlay hints by "client" side
   //
