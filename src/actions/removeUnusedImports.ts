@@ -208,6 +208,10 @@ export class RemoveUnusedImportsCodeActionProvider implements CodeActionProvider
       // use Acme\Child\GrandChild\ClassH,
       //     Acme\Child\GrandChild\ClassI as I,
       //     Acme\Child\GrandChild\ClassJ;
+      // use function Acme\help1, Acme help2;
+      // use function Acme\{help3, help4};
+      // use const Acme\CONST1, Acme\CONST2;
+      // use const Acme\{CONST3, CONST4};
       // ---
 
       // If the target range of a line is deleted, a blank line is left.
@@ -235,6 +239,8 @@ export class RemoveUnusedImportsCodeActionProvider implements CodeActionProvider
       // use Acme\Child\GrandChild\ClassH,
       //     Acme\Child\GrandChild\ClassI as I,
       //     Acme\Child\GrandChild\ClassJ;
+      // use function Acme\help1, Acme\help2;
+      // use const Acme\CONST1, Acme\CONST2;
       // ---
 
       const symbols: string[] = [];
@@ -249,7 +255,12 @@ export class RemoveUnusedImportsCodeActionProvider implements CodeActionProvider
       });
 
       const newTexts: string[] = [];
-      newTexts.push(`use ${symbols.join(', ')};`);
+
+      if (item.type) {
+        newTexts.push(`use ${item.type} ${symbols.join(', ')};`);
+      } else {
+        newTexts.push(`use ${symbols.join(', ')};`);
+      }
 
       const startLine = item.locStartLine - 1;
       const startColumn = item.locStartColumn;
@@ -271,6 +282,8 @@ export class RemoveUnusedImportsCodeActionProvider implements CodeActionProvider
       //     ClassF as F,
       //     ClassG,
       // };
+      // use function Acme\{help3, help4};
+      // use const Acme\{CONST3, CONST4};
       // ---
 
       const symbols: string[] = [];
@@ -286,9 +299,17 @@ export class RemoveUnusedImportsCodeActionProvider implements CodeActionProvider
 
       const newTexts: string[] = [];
       if (symbols.length === 1) {
-        newTexts.push(`use ${item.name}\\${symbols[0]};`);
+        if (item.type) {
+          newTexts.push(`use ${item.type} ${item.name}\\${symbols[0]};`);
+        } else {
+          newTexts.push(`use ${item.name}\\${symbols[0]};`);
+        }
       } else {
-        newTexts.push(`use ${item.name}\\{${symbols.join(', ')}};`);
+        if (item.type) {
+          newTexts.push(`use ${item.type} ${item.name}\\{${symbols.join(', ')}};`);
+        } else {
+          newTexts.push(`use ${item.name}\\{${symbols.join(', ')}};`);
+        }
       }
 
       // The `php-parser` loc (location) is not a range including semicolons, etc.
