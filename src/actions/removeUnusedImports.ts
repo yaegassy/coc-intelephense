@@ -77,11 +77,25 @@ export class RemoveUnusedImportsCodeActionProvider implements CodeActionProvider
                     let diagSymbol: string | undefined;
                     for (const useItem of flatUseItems) {
                       if (
+                        flatUseItems.length === 1 &&
+                        d.range.start.line === u.loc.start.line - 1 &&
+                        d.range.start.character === u.loc.start.column &&
+                        d.range.end.line === u.loc.end.line - 1 &&
+                        d.range.end.character === u.loc.end.column + 1
+                      ) {
+                        // Rare case handling when there is only one symbol but
+                        // it is enclosed in {}
+                        diagSymbol = useItem.name;
+                      } else if (
                         d.range.start.line === useItem.locStartLine - 1 &&
                         d.range.start.character === useItem.locStartColumn &&
                         d.range.end.line === useItem.locEndLine - 1 &&
                         d.range.end.character === useItem.locEndColumn
                       ) {
+                        // **TIPS**:
+                        // Even if there is only one symbol, adding a comma,
+                        // such as NS\{A,}, makes it a symbol rather than a
+                        // line in intelephense diagnostics.
                         diagSymbol = useItem.name;
                       }
                     }
