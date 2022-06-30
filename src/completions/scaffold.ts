@@ -73,9 +73,10 @@ export class ScaffoldCompletionProvider implements CompletionItemProvider {
       if (fileNamespace) namespace = fileNamespace;
     }
 
-    const phpObjectTypes = ['class', 'interface', 'trait', 'enum'] as const;
+    const phpObjectTypes = ['class', 'interface', 'trait', 'enum', 'test'] as const;
     phpObjectTypes.forEach((p) => {
       const contents: string[] = [];
+
       contents.push(`<?php\n`);
       contents.push(`\n`);
       contents.push(`declare(strict_types=1);\n`);
@@ -86,10 +87,19 @@ export class ScaffoldCompletionProvider implements CompletionItemProvider {
         contents.push(`\n`);
       }
 
-      contents.push(`${p} ${fileName}\n`);
-      contents.push(`{\n`);
-      contents.push(`\t\${0:// ...code}\n`);
-      contents.push(`}\n`);
+      if (p === 'test') {
+        contents.push(`use PHPUnit\\Framework\\TestCase;\n`);
+        contents.push(`\n`);
+        contents.push(`class ${fileName} extends TestCase\n`);
+        contents.push(`{\n`);
+        contents.push(`\t\${0:// ...code}\n`);
+        contents.push(`}\n`);
+      } else {
+        contents.push(`${p} ${fileName}\n`);
+        contents.push(`{\n`);
+        contents.push(`\t\${0:// ...code}\n`);
+        contents.push(`}\n`);
+      }
 
       scaffoldCompletionItems.push({
         label: `${p}_scaffold`,

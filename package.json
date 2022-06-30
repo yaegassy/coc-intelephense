@@ -91,7 +91,7 @@
         "intelephense.client.disableScaffoldCompletion": {
           "type": "boolean",
           "default": false,
-          "description": "Disable scaffold completion (client). Typing `class_scaffold`, `interface_scaffold`, `trait_scaffold` or `enum_scaffold` will output completion suggestions. This completion feature will only work on the first line of the file."
+          "description": "Disable scaffold completion (client). Typing `class_scaffold`, `interface_scaffold`, `trait_scaffold`, `enum_scaffold` or `test_scaffold` will output completion suggestions. This completion feature will only work on the first line of the file."
         },
         "intelephense.client.disableSnippetsCompletion": {
           "type": "boolean",
