@@ -110,11 +110,9 @@ class InlineParametersInlayHintsProvider implements InlayHintsProvider {
 
           if (!parameterName) continue;
 
-          const position = Position.create(parameter.end.line - 1, parameter.end.character);
+          const position = Position.create(parameter.start.line - 1, parameter.start.character);
 
-          if (index === 0) {
-            parameterName = ': ' + parameterName;
-          }
+          parameterName = parameterName + ':';
 
           const inlayHintLabelPart: InlayHintLabelPart[] = [
             {
@@ -132,6 +130,7 @@ class InlineParametersInlayHintsProvider implements InlayHintsProvider {
             position: position,
             tooltip: tooltipValue,
             paddingLeft: true,
+            paddingRight: true,
           };
 
           inlayHints.push(inlayHint);
