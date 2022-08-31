@@ -1,11 +1,14 @@
-import { commands, ExtensionContext, Position, Range, snippetManager, workspace } from 'coc.nvim';
+import { ExtensionContext, Position, Range, snippetManager, workspace } from 'coc.nvim';
+import path from 'path';
+
+const supportFileExtensions = ['.php'];
 
 export function activate(context: ExtensionContext) {
   if (workspace.getConfiguration('intelephense').get<boolean>('client.autoCloseDocCommentDoSuggest', true)) {
     workspace.onDidChangeTextDocument(
       (e) => {
-        setTimeout(() => {
-          if (!e.textDocument.uri.endsWith('.php')) return;
+        setTimeout(async () => {
+          if (!supportFileExtensions.includes(path.extname(e.textDocument.uri))) return;
           if (!e.contentChanges[0]) return;
           if (e.contentChanges[0].text === '\n') return;
           if (e.contentChanges[0].range.start.line !== e.contentChanges[0].range.end.line) return;
@@ -38,7 +41,7 @@ export function activate(context: ExtensionContext) {
               addRangeCharacter = 2;
             }
 
-            snippetManager.insertSnippet(
+            await snippetManager.insertSnippet(
               '${0} */',
               true,
               Range.create(
@@ -53,7 +56,12 @@ export function activate(context: ExtensionContext) {
               )
             );
 
-            commands.executeCommand('editor.action.triggerSuggest');
+            // **MEMO**:
+            // It used to work as expected with 'editor.action.triggerSugges', but with the update of coc.nvim it no longer works.
+            // 'coc#start' works as expected, so I replaced the process.
+            // ---------
+            //commands.executeCommand('editor.action.triggerSuggest');
+            workspace.nvim.call('coc#start');
           }
         }, 50);
       },
