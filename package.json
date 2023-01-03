@@ -396,6 +396,7 @@
               "pspell",
               "pthreads",
               "radius",
+              "random",
               "rar",
               "rdkafka",
               "readline",
@@ -449,6 +450,7 @@
               "wordpress",
               "xcache",
               "xdebug",
+              "xdiff",
               "xhprof",
               "xlswriter",
               "xml",
@@ -518,6 +520,7 @@
             "Phar",
             "posix",
             "pspell",
+            "random",
             "readline",
             "Reflection",
             "session",
@@ -1004,7 +1007,7 @@
     ]
   },
   "dependencies": {
-    "intelephense": "^1.9.0",
+    "intelephense": "^1.9.1",
     "php-parser": "^3.1.2"
   }
 }
