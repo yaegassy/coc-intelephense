@@ -1,6 +1,6 @@
 {
   "name": "@yaegassy/coc-intelephense",
-  "version": "0.25.0",
+  "version": "0.25.1",
   "description": "intelephense (php language server) extension for coc.nvim",
   "author": "yaegassy <yosstools@gmail.com>",
   "license": "MIT",
