@@ -1482,10 +1482,10 @@ ini@^1.3.4:
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.8.tgz#a29da425b48806f34767a4efce397269af28432c"
   integrity sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==
 
-intelephense@^1.9.4:
-  version "1.9.4"
-  resolved "https://registry.yarnpkg.com/intelephense/-/intelephense-1.9.4.tgz#fb8d68867f649784b139d00c053caa94f3d050f7"
-  integrity sha512-iRYwXogGCu9NxWHN5UYqaKeAd9u+MDC8Mhvrwt+stRluSYWjyFqwQGVSuPStW0P8pFgSZ80mOthlA933wKRGKA==
+intelephense@^1.9.5:
+  version "1.9.5"
+  resolved "https://registry.yarnpkg.com/intelephense/-/intelephense-1.9.5.tgz#44281e35b8f89f0402a1514eb171ccab1633e774"
+  integrity sha512-5iU2b84SLE3JOlfGU/g6XCzioEdcflmpHRxPLKEMhEzV43DHgBwbdsTagDtXKtO50hi8osrzA85/HOCglrylKA==
   dependencies:
     "@bmewburn/js-beautify" "1.14.7"
     "@bmewburn/vscode-html-languageserver" "1.9.0"
@@ -1495,7 +1495,7 @@ intelephense@^1.9.4:
     html-to-text "~9.0.3"
     lru-cache "~7.14.1"
     micromatch "~4.0.5"
-    protobufjs "~7.1.2"
+    protobufjs "~7.2.1"
     request "~2.88.2"
     semver "~7.3.8"
     turndown "~7.1.1"
@@ -1890,10 +1890,10 @@ proto-list@~1.2.1:
   resolved "https://registry.yarnpkg.com/proto-list/-/proto-list-1.2.4.tgz#212d5bfe1318306a420f6402b8e26ff39647a849"
   integrity sha1-IS1b/hMYMGpCD2QCuOJv85ZHqEk=
 
-protobufjs@~7.1.2:
-  version "7.1.2"
-  resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-7.1.2.tgz#a0cf6aeaf82f5625bffcf5a38b7cd2a7de05890c"
-  integrity sha512-4ZPTPkXCdel3+L81yw3dG6+Kq3umdWKh7Dc7GW/CpNk4SX3hK58iPCWeCyhVTDrbkNeKrYNZ7EojM5WDaEWTLQ==
+protobufjs@~7.2.1:
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-7.2.1.tgz#939e76a8e69fd5c70b13f7dd78565d65ce20cdcb"
+  integrity sha512-L3pCItypTnPK27+CS8nuhZMYtsY+i8dqdq2vZsYHlG17CnWp1DWPQ/sos0vOKrj1fHEAzo3GBqSHLaeZyKUCDA==
   dependencies:
     "@protobufjs/aspromise" "^1.1.2"
     "@protobufjs/base64" "^1.1.2"
