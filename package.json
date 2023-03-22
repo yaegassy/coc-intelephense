@@ -1008,6 +1008,6 @@
   },
   "dependencies": {
     "intelephense": "^1.9.5",
-    "php-parser": "^3.1.2"
+    "php-parser": "^3.1.4"
   }
 }

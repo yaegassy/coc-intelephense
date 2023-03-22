@@ -1845,10 +1845,10 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
-php-parser@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/php-parser/-/php-parser-3.1.2.tgz#db704c584ea4085142fc5d3c33218b207d5f9a09"
-  integrity sha512-RRCMK/bCKYPLRhlpfMlVVVsaIesuW+X6UxRqWjm7dTAmTZk8PvD6hCmG/RVeDzse7iqYWJwLJeqEbaGLC+aHeQ==
+php-parser@^3.1.4:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/php-parser/-/php-parser-3.1.4.tgz#165a594bf9d7fb516b89d1ecf62a361083a482f8"
+  integrity sha512-WUEfH4FWsVItqgOknM67msDdcUAfgPJsHhPNl6EPXzWtX+PfdY282m4i8YIJ9ALUEhf+qGDajdmW+VYqSd7Deg==
 
 picocolors@^1.0.0:
   version "1.0.0"
