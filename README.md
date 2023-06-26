@@ -71,10 +71,12 @@ For more information, please check this link.
 - `intelephense.phpunit.path`: Path to phpunit command. If there is no setting, the vendor/bin/phpunit will be used, default: `""`
 - `intelephense.phpunit.colors`: Use colors in output (--colors), default: `false`
 - `intelephense.phpunit.debug`: Display debugging information (--debug), default: `false`
+- `intelephense.phpunit.useSail`: To run `sail phpunit` instead of `phpunit`, default: `false`
 - `intelephense.phpunit.codeLensTitle`: CodeLens title. Can be changed to any display, default: `">> [Run PHPUnit]"`
 - `intelephense.phpunit.enableSplitRight`: Use vertical belowright for phpunit terminal window, default: `false`
 - `intelephense.pest.path`: Path to Pest command. If there is no setting, the vendor/bin/pest will be used, default: `""`
 - `intelephense.pest.doNotCacheResult`: Do not write test results to cache file (--do-not-cache-result), default: `true`
+- `intelephense.pest.useSail`: To run `sail pest` instead of `pest`, default: `false`
 - `intelephense.pest.codeLensTitle`: CodeLens title. Can be changed to any display, default: `">> [Run Pest]"`
 - `intelephense.pest.enableSplitRight`: Use vertical belowright for pest terminal window, default: `false`
 - `intelephense.inlineParameters.showDollarSign`: Show the `$` character before PHP parameter names, default: `false`

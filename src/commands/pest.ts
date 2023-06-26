@@ -28,9 +28,26 @@ function getPestPath() {
   return cmdPath;
 }
 
+function getSailPath() {
+  let cmdPath = '';
+  const sailPath = workspace.getConfiguration('intelephense').get<string>('sail.path');
+  const vendorSailPath = path.join(workspace.root, 'vendor', 'bin', 'sail');
+
+  if (sailPath && fs.existsSync(sailPath)) {
+    cmdPath = sailPath;
+  } else if (fs.existsSync(vendorSailPath)) {
+    cmdPath = path.join(workspace.root, 'vendor', 'bin', 'sail');
+  }
+
+  return cmdPath;
+}
+
 async function runPest(filePath?: string, testName?: string) {
   const pestBin = getPestPath();
   const pestDoNotCacheResult = workspace.getConfiguration('intelephense').get<boolean>('pest.doNotCacheResult', true);
+
+  const sailBin = getSailPath();
+  const useSail = workspace.getConfiguration('intelephense').get<boolean>('pest.useSail', false);
 
   if (pestBin) {
     if (terminal) {
@@ -49,16 +66,36 @@ async function runPest(filePath?: string, testName?: string) {
     if (testName && filePath) {
       args.push('--filter');
       args.push(`'::${testName}$'`);
-      args.push(`${filePath}`);
-      terminal.sendText(`${pestBin} ${args.join(' ')}`);
+      if (useSail) {
+        const relativeFilePath = filePath.replace(workspace.root, '').replace(/^\//, '');
+        args.push(`${relativeFilePath}`);
+        terminal.sendText(`${sailBin} pest ${args.join(' ')}`);
+      } else {
+        args.push(`${filePath}`);
+        terminal.sendText(`${pestBin} ${args.join(' ')}`);
+      }
     } else if (filePath) {
-      args.push(`${filePath}`);
-      terminal.sendText(`${pestBin} ${args.join(' ')}`);
+      if (useSail) {
+        const relativeFilePath = filePath.replace(workspace.root, '').replace(/^\//, '');
+        args.push(`${relativeFilePath}`);
+        terminal.sendText(`${sailBin} pest ${args.join(' ')}`);
+      } else {
+        args.push(`${filePath}`);
+        terminal.sendText(`${sailBin} pest ${args.join(' ')}`);
+      }
     } else {
       if (args.length > 0) {
-        terminal.sendText(`${pestBin} ${args.join(' ')}`);
+        if (useSail) {
+          terminal.sendText(`${sailBin} pest ${args.join(' ')}`);
+        } else {
+          terminal.sendText(`${pestBin} ${args.join(' ')}`);
+        }
       } else {
-        terminal.sendText(`${pestBin}`);
+        if (useSail) {
+          terminal.sendText(`${sailBin} pest`);
+        } else {
+          terminal.sendText(`${pestBin}`);
+        }
       }
     }
 
