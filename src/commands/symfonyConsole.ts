@@ -38,10 +38,16 @@ type SymfonyConsoleListCommandsJsonType = {
 export function activate(context: ExtensionContext) {
   listManager.registerList(new SymfonyList(workspace.nvim));
   listManager.registerList(new ArtisanList(workspace.nvim));
+  listManager.registerList(new SailArtisanList(workspace.nvim));
 
   context.subscriptions.push(
     commands.registerCommand('intelephense.artisan.runCommand', () => {
       workspace.nvim.command(`CocList artisan`);
+    })
+  );
+  context.subscriptions.push(
+    commands.registerCommand('intelephense.sailArtisan.runCommand', () => {
+      workspace.nvim.command(`CocList sail`);
     })
   );
   context.subscriptions.push(
@@ -53,9 +59,16 @@ export function activate(context: ExtensionContext) {
 
 async function getSymfonyConsolePath(entryPoint: string) {
   let cmdPath = '';
-  const symfonyPath = path.join(workspace.root, entryPoint);
-  if (fs.existsSync(symfonyPath)) {
-    cmdPath = symfonyPath;
+  if (entryPoint === 'sail') {
+    const sailPath = path.join(workspace.root, 'vendor', 'bin', entryPoint);
+    if (fs.existsSync(sailPath)) {
+      cmdPath = sailPath;
+    }
+  } else {
+    const symfonyPath = path.join(workspace.root, entryPoint);
+    if (fs.existsSync(symfonyPath)) {
+      cmdPath = symfonyPath;
+    }
   }
   return cmdPath;
 }
@@ -97,7 +110,11 @@ async function runSymfonyConsole(commandName: string, entryPoint: string, baseCo
   }
 
   const args: string[] = [];
-  args.push(symfonyConsolePath);
+  if (symfonyConsolePath.endsWith('sail')) {
+    args.push(symfonyConsolePath + ' artisan');
+  } else {
+    args.push(symfonyConsolePath);
+  }
   args.push(commandName);
   if (input) args.push(input);
 
@@ -110,7 +127,11 @@ async function runSymfonyConsole(commandName: string, entryPoint: string, baseCo
   }
 
   terminal = await window.createTerminal({ name: baseCommandName, cwd: workspace.root });
-  terminal.sendText(`php ${args.join(' ')}`);
+  if (symfonyConsolePath.endsWith('sail')) {
+    terminal.sendText(`${args.join(' ')}`);
+  } else {
+    terminal.sendText(`php ${args.join(' ')}`);
+  }
 
   const enableSplitRight = workspace.getConfiguration('intelephense').get(baseCommandName + '.enableSplitRight', false);
 
@@ -138,12 +159,13 @@ export abstract class SymfonyConsoleList extends BasicList {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public async loadItems(context: ListContext): Promise<ListItem[]> {
+  public async loadItems(_context: ListContext): Promise<ListItem[]> {
     const listItems: ListItem[] = [];
-    const symfonyConsolePath = await getSymfonyConsolePath(this.entryPoint);
+    let symfonyConsolePath = await getSymfonyConsolePath(this.entryPoint);
     if (!symfonyConsolePath) {
       return listItems;
     }
+    if (symfonyConsolePath.endsWith('sail')) symfonyConsolePath = symfonyConsolePath + ' artisan';
     const commands = await getSymfonyConsoleListCommandsJson(symfonyConsolePath);
     commands.forEach((c) => listItems.push({ label: c }));
     return listItems;
@@ -154,6 +176,12 @@ export class ArtisanList extends SymfonyConsoleList {
   public readonly name = 'artisan';
   public readonly description = 'artisan for coc-intelephense';
   public readonly entryPoint = 'artisan';
+}
+
+export class SailArtisanList extends SymfonyConsoleList {
+  public readonly name = 'sail';
+  public readonly description = 'sail artisan for coc-intelephense';
+  public readonly entryPoint = 'sail';
 }
 
 export class SymfonyList extends SymfonyConsoleList {

@@ -152,6 +152,7 @@ For more information, please check this link.
   - Select and run the script defined in the "scripts section" of `composer.json`. The `pre-...` and `post-...` event scripts are excluded from the list.
   - [DEMO](https://github.com/yaegassy/coc-intelephense/pull/23#issuecomment-1085414532)
 - `intelephense.artisan.runCommand`: Run Artisan command | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/25)
+- `intelephense.sailArtisan.runCommand`: Run Sail Artisan command
 - `intelephense.symfony.runCommand`: Run Symfony command
 - `intelephense.phpunit.projectTest`: Run PHPUnit for current project
 - `intelephense.phpunit.fileTest`: Run PHPUnit for current file
