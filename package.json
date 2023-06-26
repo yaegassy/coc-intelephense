@@ -967,6 +967,11 @@
         "category": "Intelephense"
       },
       {
+        "command": "intelephense.sailArtisan.runCommand",
+        "title": "Run Sail Artisan command",
+        "category": "Intelephense"
+      },
+      {
         "command": "intelephense.symfony.runCommand",
         "title": "Run Symfony command",
         "category": "Intelephense"
