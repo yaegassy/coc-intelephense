@@ -28,10 +28,27 @@ function getPhpUnitPath() {
   return cmdPath;
 }
 
+function getSailPath() {
+  let cmdPath = '';
+  const sailPath = workspace.getConfiguration('intelephense').get<string>('sail.path');
+  const vendorSailPath = path.join(workspace.root, 'vendor', 'bin', 'sail');
+
+  if (sailPath && fs.existsSync(sailPath)) {
+    cmdPath = sailPath;
+  } else if (fs.existsSync(vendorSailPath)) {
+    cmdPath = path.join(workspace.root, 'vendor', 'bin', 'sail');
+  }
+
+  return cmdPath;
+}
+
 async function runPhpUnit(filePath?: string, testName?: string) {
   const phpunitBin = getPhpUnitPath();
   const phpunitColors = workspace.getConfiguration('intelephense').get<boolean>('phpunit.colors', false);
   const phpunitDebug = workspace.getConfiguration('intelephense').get<boolean>('phpunit.debug', false);
+
+  const sailBin = getSailPath();
+  const useSail = workspace.getConfiguration('intelephense').get<boolean>('phpunit.useSail', false);
 
   if (phpunitBin) {
     if (terminal) {
@@ -51,13 +68,30 @@ async function runPhpUnit(filePath?: string, testName?: string) {
     if (testName && filePath) {
       args.push('--filter');
       args.push(`'::${testName}$'`);
-      args.push(`${filePath}`);
-      terminal.sendText(`${phpunitBin} ${args.join(' ')}`);
+      if (useSail) {
+        const relativeFilePath = filePath.replace(workspace.root, '').replace(/^\//, '');
+        args.push(`${relativeFilePath}`);
+        terminal.sendText(`${sailBin} phpunit ${args.join(' ')}`);
+      } else {
+        args.push(`${filePath}`);
+        terminal.sendText(`${phpunitBin} ${args.join(' ')}`);
+      }
     } else if (filePath) {
-      args.push(`${filePath}`);
-      terminal.sendText(`${phpunitBin} ${args.join(' ')}`);
+      if (useSail) {
+        const relativeFilePath = filePath.replace(workspace.root, '').replace(/^\//, '');
+        args.push(`${relativeFilePath}`);
+        terminal.sendText(`${sailBin} phpunit ${args.join(' ')}`);
+      } else {
+        args.push(`${filePath}`);
+        terminal.sendText(`${phpunitBin} ${args.join(' ')}`);
+      }
     } else {
-      terminal.sendText(`${phpunitBin}`);
+      if (useSail) {
+        terminal.sendText(`${sailBin} phpunit`);
+      } else {
+        args.push(`${filePath}`);
+        terminal.sendText(`${phpunitBin}`);
+      }
     }
 
     const enableSplitRight = workspace.getConfiguration('intelephense').get('phpunit.enableSplitRight', false);

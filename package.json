@@ -193,6 +193,11 @@
           "default": false,
           "description": "Display debugging information (--debug)."
         },
+        "intelephense.phpunit.useSail": {
+          "type": "boolean",
+          "default": false,
+          "description": "To run `sail phpunit` instead of `phpunit`"
+        },
         "intelephense.phpunit.codeLensTitle": {
           "type": "string",
           "default": ">> [Run PHPUnit]",
@@ -212,6 +217,11 @@
           "type": "boolean",
           "default": true,
           "description": "Do not write test results to cache file (--do-not-cache-result)."
+        },
+        "intelephense.pest.useSail": {
+          "type": "boolean",
+          "default": false,
+          "description": "To run `sail pest` instead of `pest`"
         },
         "intelephense.pest.codeLensTitle": {
           "type": "string",
