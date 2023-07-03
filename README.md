@@ -55,7 +55,7 @@ For more information, please check this link.
 - `intelephense.client.autoCloseDocCommentDoSuggest`: When `/**` is entered, `*/` is automatically inserted (`/**| */`). Then, automatically display the completion menu of PHPDoc comments, default: `true` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/24#issuecomment-1088219510)
 - `intelephense.client.disableScaffoldCompletion`: Disable scaffold completion (client). Typing `class_scaffold`, `interface_scaffold`, `trait_scaffold`, `enum_scaffold` or `test_scaffold` will output completion suggestions. This completion feature will only work on the first line of the file, default: `false` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/36#issue-1254138261)
 - `intelephense.client.disableSnippetsCompletion`: Disable snippets completion only (client), default: `false`
-  - Snippet data used for snippet completion can be found in [data/snippets/php.code-snippets](/data/snippets/php.code-snippets).
+  - Snippet data used for snippet completion can be found in [data/snippets/extended/php.code-snippets](/data/snippets/extended/php.code-snippets).
 - `intelephense.client.snippetsCompletionExclude`: Exclude specific prefix in snippet completion, e.g. `["class", "fun"]`, default: `[]`
 - `intelephense.client.disableCodeLens`: Disable code lens only (client), default: `false`
 - `intelephense.client.codelensProvider`: Provider for CodeLens. Possible options include `phpunit` and `pest`, default: `"phpunit"`

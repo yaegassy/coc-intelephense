@@ -2,7 +2,7 @@ import fs from 'node:fs';
 
 const FEATCH_URL =
   'https://raw.githubusercontent.com/microsoft/vscode/master/extensions/php/snippets/php.code-snippets';
-const RESOURCE_FILE_PATH = new URL(`../data/snippets/php.code-snippets`, import.meta.url).pathname;
+const RESOURCE_FILE_PATH = new URL(`../data/snippets/original/php.code-snippets`, import.meta.url).pathname;
 
 await (async () => {
   const res = await fetch(FEATCH_URL);
