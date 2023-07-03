@@ -67,7 +67,9 @@ For more information, please check this link.
 - `intelephense.composer.runCommandList`: Set the subcommand of the composer you want to execute, default: `["dump-autoload", "clear-cache", "install", "update"]`
 - `intelephense.composer.runCommandPlusList`: Set the subcommand of the composer you want to execute. Additional strings can be entered and executed in the subcommand. default: `["require", "require --dev", "remove", "remove --dev", "update"]`
 - `intelephense.composer.enableSplitRight`: Use vertical belowright for composer terminal window, default: `false`
+- `intelephense.artisan.withoutArgumentsCommandList`: List of commands to quickly execute `intelephense.artisan.runCommand` or `intelephense.sailArtisan.runCommand` without prompting for arguments or options, e.g. `["route:list", "clear-compiled"]`, default: `[]`
 - `intelephense.artisan.enableSplitRight`: Use vertical belowright for artisan terminal window, default: `false`
+- `intelephense.symfony.withoutArgumentsCommandList`: List of commands to quickly execute `intelephense.symfony.runCommand` without prompting for arguments or options, default: `[]`
 - `intelephense.symfony.enableSplitRight`: Use vertical belowright for symfony terminal window, default: `false`
 - `intelephense.phpunit.path`: Path to phpunit command. If there is no setting, the vendor/bin/phpunit will be used, default: `""`
 - `intelephense.phpunit.colors`: Use colors in output (--colors), default: `false`
