@@ -99,13 +99,30 @@ async function runSymfonyConsole(commandName: string, entryPoint: string, baseCo
     return;
   }
 
+  const artisanWithoutArgumentsCommandList = workspace
+    .getConfiguration('intelephense')
+    .get<string[]>('artisan.withoutArgumentsCommandList', []);
+
+  const symfonyWithoutArgumentsCommandList = workspace
+    .getConfiguration('intelephense')
+    .get<string[]>('symfony.withoutArgumentsCommandList', []);
+
+  const withoutArgumentsCommandList: string[] = [];
+  if (entryPoint === 'artisan' || entryPoint === 'sail') {
+    withoutArgumentsCommandList.push(...artisanWithoutArgumentsCommandList);
+  } else if (entryPoint === 'bin/console') {
+    withoutArgumentsCommandList.push(...symfonyWithoutArgumentsCommandList);
+  }
+
   let input = '';
-  const isInput = await window.showPrompt(`"${commandName}" | Add args & options?`);
-  if (isInput) {
-    input = await window.requestInput(`${commandName}`);
-    if (!input) {
-      const isExec = await window.showPrompt(`Input is empty, can I run it?`);
-      if (!isExec) return;
+  if (!withoutArgumentsCommandList.includes(commandName)) {
+    const isInput = await window.showPrompt(`"${commandName}" | Add args & options?`);
+    if (isInput) {
+      input = await window.requestInput(`${commandName}`);
+      if (!input) {
+        const isExec = await window.showPrompt(`Input is empty, can I run it?`);
+        if (!isExec) return;
+      }
     }
   }
 

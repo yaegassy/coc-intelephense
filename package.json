@@ -170,10 +170,20 @@
           "default": false,
           "description": "Use vertical belowright for composer terminal window."
         },
+        "intelephense.artisan.withoutArgumentsCommandList": {
+          "type": "array",
+          "default": [],
+          "description": "List of commands to quickly execute `intelephense.artisan.runCommand` or `intelephense.sailArtisan.runCommand` without prompting for arguments or options, e.g. `[\"route:list\", \"clear-compiled\"]`."
+        },
         "intelephense.artisan.enableSplitRight": {
           "type": "boolean",
           "default": false,
           "description": "Use vertical belowright for artisan terminal window."
+        },
+        "intelephense.symfony.withoutArgumentsCommandList": {
+          "type": "array",
+          "default": [],
+          "description": "List of commands to quickly execute `intelephense.symfony.runCommand` without prompting for arguments or options."
         },
         "intelephense.symfony.enableSplitRight": {
           "type": "boolean",
