@@ -1,0 +1,50 @@
+{
+	"class function …": {
+		"prefix": "class_fun",
+		"body": [
+			"${1|public,private,protected|}${2: static} function ${3:FunctionName}(${4:${5:${6:Type} }$${7:var}${8: = ${9:null}}}$10) : ${11:Returntype}",
+			"{",
+			"\t${0:# code...}",
+			"}"
+		],
+		"description": "Function for classes, traits and enums"
+	},
+	"const": {
+		"prefix": "const",
+		"body": "${1|public,private,protected|} const ${2:NAME} = $3;",
+		"description": "Constant for classes, traits, enums"
+	},
+	"property": {
+		"prefix": "property",
+		"body": "${1|public,private,protected|} ${2|static,readonly|} ${3:Type} $${4:var}${5: = ${6:null}};$0",
+		"description": "Property"
+	},
+	"PHPDoc class …": {
+		"prefix": "doc_class",
+		"body": [
+			"/**",
+			" * ${8:undocumented class}",
+			" */",
+			"${1:${2|final,readonly|}} class ${3:${TM_FILENAME_BASE}}${4: extends ${5:AnotherClass}} ${6:implements ${7:Interface}}",
+			"{",
+			"\t$0",
+			"}",
+			""
+		],
+		"description": "Documented Class Declaration"
+	},
+	"use grouping": {
+		"prefix": "use_group",
+		"body": [
+			"use ${1|const,function|}$2 \\{",
+			"\t$0,",
+			"}"
+		],
+		"description": "Use grouping imports"
+	},
+	"use as ": {
+		"prefix": "use_as",
+		"body": "use ${1|const,function|} $2 as $3;",
+		"description": "Use as alias"
+	}
+}

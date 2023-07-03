@@ -45,7 +45,7 @@ export class SnippetsCompletionProvider implements CompletionItemProvider {
 
   constructor(context: ExtensionContext) {
     this._context = context;
-    this.snippetsFilePath = path.join(this._context.extensionPath, 'data', 'snippets', 'php.code-snippets');
+    this.snippetsFilePath = path.join(this._context.extensionPath, 'data', 'snippets', 'extended', 'php.code-snippets');
     this.excludeSnippetsKeys = workspace
       .getConfiguration('intelephense')
       .get<string[]>('client.snippetsCompletionExclude', []);
@@ -95,9 +95,9 @@ export class SnippetsCompletionProvider implements CompletionItemProvider {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     position: Position,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    token: CancellationToken,
+    _token: CancellationToken,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    context: CompletionContext
+    _context: CompletionContext
   ): Promise<CompletionItem[] | CompletionList> {
     const doc = workspace.getDocument(document.uri);
     if (!doc) return [];
