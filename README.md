@@ -43,6 +43,36 @@ For more information, please check this link.
 
 - <https://intelephense.com/faq.html>
 
+## [RECOMMENDED] Additional installation of "watchman"
+
+In the `intelephense` used by `coc-intelephense`, it utilizes the `workspace/didChangeWatchedFiles` notification to watch files within the project.
+
+In coc.nvim, it is recommended to install [watchman](https://facebook.github.io/watchman/) in order to utilize this feature.
+
+- See: <https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions>
+
+If you have difficulty installing `watchman`, you can use `coc-intelephense` without `watchman`, but you may not be able to immediately use intelephense's IntelliSense with the newly added files.
+
+In this case, please execute the command to restart the language server.
+
+- `:CocRestart`
+
+## workspaceFolders
+
+Depending on the project like mono repo or how Vim/Neovim is started, `workspaceFolders` may not be recognized correctly.
+
+To make coc.nvim recognize `workspaceFolders` correctly, you can set `b:coc_root_patterns` in .vimrc/init.vim
+
+**Example**:
+
+```vim
+  au FileType php let b:coc_root_patterns = ['.git', '.env', 'composer.json', 'artisan']
+```
+
+For more information, check this coc.nvim's wiki.
+
+- <https://github.com/neoclide/coc.nvim/wiki/Using-workspaceFolders>
+
 ## Configuration options
 
 **For additional feature of coc-intelephese**:
@@ -261,24 +291,6 @@ nmap <silent> gA <Plug>(coc-codeaction)
 - `inlineParametersInlayHintsFeature` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/41#issue-1270432446)
   - By default, this feature is disabled
   - Set `"intelephense.client.disableInlayHints"` to `false` to use the feature.
-
-## TIPS
-
-### workspaceFolders
-
-Depending on the project like mono repo or how Vim/Neovim is started, `workspaceFolders` may not be recognized correctly.
-
-To make coc.nvim recognize `workspaceFolders` correctly, you can set `b:coc_root_patterns` in .vimrc/init.vim
-
-**Example**:
-
-```vim
-  au FileType php let b:coc_root_patterns = ['.git', '.env', 'composer.json', 'artisan']
-```
-
-For more information, check this coc.nvim's wiki.
-
-- <https://github.com/neoclide/coc.nvim/wiki/Using-workspaceFolders>
 
 ## Thanks
 
