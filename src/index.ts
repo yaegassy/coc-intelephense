@@ -16,6 +16,7 @@ import {
   TransportKind,
   window,
   workspace,
+  services,
 } from 'coc.nvim';
 import fs from 'fs';
 import * as changeVisibilityCodeActionFeature from './actions/changeVisibility';
@@ -91,7 +92,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     commands.registerCommand(CANCEL_INDEXING_CMD_NAME, cancelIndexing)
   );
 
-  clientDisposable = languageClient.start();
+  clientDisposable = services.registLanguageClient(languageClient);
 
   // Add completion by "client" side
   autoCloseDocCommentDoSugesstCompletionFeature.activate(context);
@@ -209,7 +210,7 @@ function indexWorkspace() {
   languageClient.stop().then(() => {
     clientDisposable.dispose();
     languageClient = createClient(extensionContext, true);
-    clientDisposable = languageClient.start();
+    clientDisposable = services.registLanguageClient(languageClient);
   });
 }
 
