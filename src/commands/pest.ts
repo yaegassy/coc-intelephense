@@ -81,7 +81,7 @@ async function runPest(filePath?: string, testName?: string) {
         terminal.sendText(`${sailBin} pest ${args.join(' ')}`);
       } else {
         args.push(`${filePath}`);
-        terminal.sendText(`${sailBin} pest ${args.join(' ')}`);
+        terminal.sendText(`${pestBin} ${args.join(' ')}`);
       }
     } else {
       if (args.length > 0) {
