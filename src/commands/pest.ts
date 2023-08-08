@@ -65,7 +65,7 @@ async function runPest(filePath?: string, testName?: string) {
 
     if (testName && filePath) {
       args.push('--filter');
-      args.push(`'::${testName}$'`);
+      args.push(`'${testName}'`);
       if (useSail) {
         const relativeFilePath = filePath.replace(workspace.root, '').replace(/^\//, '');
         args.push(`${relativeFilePath}`);
