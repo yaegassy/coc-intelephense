@@ -1,15 +1,14 @@
 import {
   BasicList,
-  commands,
   ExtensionContext,
   ListAction,
   ListContext,
   ListItem,
-  Neovim,
   Terminal,
+  commands,
+  listManager,
   window,
   workspace,
-  listManager,
 } from 'coc.nvim';
 
 import cp from 'child_process';
@@ -36,9 +35,9 @@ type SymfonyConsoleListCommandsJsonType = {
 };
 
 export function register(context: ExtensionContext) {
-  listManager.registerList(new SymfonyList(workspace.nvim));
-  listManager.registerList(new ArtisanList(workspace.nvim));
-  listManager.registerList(new SailArtisanList(workspace.nvim));
+  listManager.registerList(new SymfonyList());
+  listManager.registerList(new ArtisanList());
+  listManager.registerList(new SailArtisanList());
 
   context.subscriptions.push(
     commands.registerCommand('intelephense.artisan.runCommand', () => {
@@ -167,8 +166,8 @@ export abstract class SymfonyConsoleList extends BasicList {
   public actions: ListAction[] = [];
   public entryPoint = 'path/to/sf_console';
 
-  constructor(nvim: Neovim) {
-    super(nvim);
+  constructor() {
+    super();
 
     this.addAction('execute', (item: ListItem) => {
       runSymfonyConsole(item.label, this.entryPoint, this.name);
