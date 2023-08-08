@@ -48,7 +48,7 @@ interface ParameterPosition {
   };
 }
 
-export async function activate(context: ExtensionContext, client: LanguageClient) {
+export async function register(context: ExtensionContext, client: LanguageClient) {
   if (!workspace.getConfiguration('intelephense').get<boolean>('client.disableInlayHints', true)) {
     await client.onReady();
 

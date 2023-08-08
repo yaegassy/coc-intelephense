@@ -14,7 +14,7 @@ import {
 import * as phpParser from '../parsers/php/parser';
 import * as phpunitCommon from '../common/phpunit';
 
-export function activate(context: ExtensionContext) {
+export function register(context: ExtensionContext) {
   if (!workspace.getConfiguration('intelephense').get<boolean>('client.disableCodeLens', false)) {
     const useCodelensProvider = workspace
       .getConfiguration('intelephense')

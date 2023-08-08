@@ -13,7 +13,7 @@ import {
   workspace,
 } from 'coc.nvim';
 
-export function activate(context: ExtensionContext) {
+export function register(context: ExtensionContext) {
   const documentSelector: DocumentSelector = [{ language: 'php', scheme: 'file' }];
 
   context.subscriptions.push(

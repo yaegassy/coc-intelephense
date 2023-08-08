@@ -35,7 +35,7 @@ type SymfonyConsoleListCommandsJsonType = {
   description: string;
 };
 
-export function activate(context: ExtensionContext) {
+export function register(context: ExtensionContext) {
   listManager.registerList(new SymfonyList(workspace.nvim));
   listManager.registerList(new ArtisanList(workspace.nvim));
   listManager.registerList(new SailArtisanList(workspace.nvim));

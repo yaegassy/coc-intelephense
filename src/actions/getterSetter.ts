@@ -27,7 +27,7 @@ type GetterSetterItemType = {
   propertyDocVarType: string | null;
 };
 
-export function activate(context: ExtensionContext) {
+export function register(context: ExtensionContext) {
   const documentSelector: DocumentSelector = [{ language: 'php', scheme: 'file' }];
 
   context.subscriptions.push(

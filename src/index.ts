@@ -95,29 +95,29 @@ export async function activate(context: ExtensionContext): Promise<void> {
   clientDisposable = services.registLanguageClient(languageClient);
 
   // Add completion by "client" side
-  autoCloseDocCommentDoSugesstCompletionFeature.activate(context);
-  scaffoldCompletionFeature.activate(context);
-  snippetsCompletionFeature.activate(context);
+  autoCloseDocCommentDoSugesstCompletionFeature.register(context);
+  scaffoldCompletionFeature.register(context);
+  snippetsCompletionFeature.register(context);
 
   // Add commands by "client" side
-  composerCommandFeature.activate(context);
-  symfonyConsoleCommandFeature.activate(context);
-  phpunitCommandFeature.activate(context);
-  pestCommandFeature.activate(context);
-  fixClassNameCommandFeature.activate(context);
-  fixNamespaceCommandFeature.activate(context);
-  completeConstructorCommandFeature.activate(context);
+  composerCommandFeature.register(context);
+  symfonyConsoleCommandFeature.register(context);
+  phpunitCommandFeature.register(context);
+  pestCommandFeature.register(context);
+  fixClassNameCommandFeature.register(context);
+  fixNamespaceCommandFeature.register(context);
+  completeConstructorCommandFeature.register(context);
 
   // Add code lens by "client" side
-  phpunitCodeLensFeature.activate(context);
-  pestCodeLensFeature.activate(context);
+  phpunitCodeLensFeature.register(context);
+  pestCodeLensFeature.register(context);
 
   // Add code action by "client" side
-  changeVisibilityCodeActionFeature.activate(context);
-  openPHPNetCodeActionFeature.activate(context);
-  ignoreCommentCodeActionFeature.activate(context);
-  getterSetterCodeActionFeature.activate(context);
-  removeUnusedImportsCodeActionFeature.activate(context);
+  changeVisibilityCodeActionFeature.register(context);
+  openPHPNetCodeActionFeature.register(context);
+  ignoreCommentCodeActionFeature.register(context);
+  getterSetterCodeActionFeature.register(context);
+  removeUnusedImportsCodeActionFeature.register(context);
 
   // Add inlay hints by "client" side
   //
@@ -242,7 +242,7 @@ function registerNotificationListeners(context: ExtensionContext) {
         resolveIndexingPromise();
       }
       // register inlayHints
-      inlineParametersInlayHintsFeature.activate(context, languageClient);
+      inlineParametersInlayHintsFeature.register(context, languageClient);
     });
   } else {
     languageClient.onNotification(INDEXING_STARTED_NOTIFICATION.method, () => {
@@ -254,7 +254,7 @@ function registerNotificationListeners(context: ExtensionContext) {
         resolveIndexingPromise();
       }
       // register inlayHints
-      inlineParametersInlayHintsFeature.activate(context, languageClient);
+      inlineParametersInlayHintsFeature.register(context, languageClient);
       window.showInformationMessage('intelephense running!');
     });
   }

@@ -15,7 +15,7 @@ import * as pestCommon from '../common/pest';
 import * as phpunitCommon from '../common/phpunit';
 import * as phpParser from '../parsers/php/parser';
 
-export function activate(context: ExtensionContext) {
+export function register(context: ExtensionContext) {
   if (!workspace.getConfiguration('intelephense').get<boolean>('client.disableCodeLens', false)) {
     const useCodelensProvider = workspace
       .getConfiguration('intelephense')

@@ -19,7 +19,7 @@ type ComposerJsonContentType = {
 
 type NamespaceType = { [key: string]: string };
 
-export function activate(context: ExtensionContext) {
+export function register(context: ExtensionContext) {
   context.subscriptions.push(commands.registerCommand('intelephense.fixNamespace', runFixNamespace()));
 }
 

@@ -13,7 +13,7 @@ import {
   workspace,
 } from 'coc.nvim';
 
-export function activate(context: ExtensionContext) {
+export function register(context: ExtensionContext) {
   if (workspace.getConfiguration('intelephense').get('client.diagnosticsIgnoreErrorFeature')) {
     context.subscriptions.push(
       languages.registerCodeActionProvider(

@@ -5,7 +5,7 @@ import * as completeConstructorParser from '../parsers/completeConstructor';
 // REF: https://www.php-fig.org/psr/psr-12/#24-indenting
 const COMPLETE_CONSTRUCTOR_INDENT_SPACE = 4;
 
-export function activate(context: ExtensionContext) {
+export function register(context: ExtensionContext) {
   context.subscriptions.push(commands.registerCommand('intelephense.completeConstructor', runCompleteConstructor()));
 }
 

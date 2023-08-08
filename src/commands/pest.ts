@@ -8,7 +8,7 @@ import * as phpParser from '../parsers/php/parser';
 
 let terminal: Terminal | undefined;
 
-export function activate(context: ExtensionContext) {
+export function register(context: ExtensionContext) {
   context.subscriptions.push(
     commands.registerCommand('intelephense.pest.projectTest', pestProjectTestCommand()),
     commands.registerCommand('intelephense.pest.fileTest', pestFileTestCommand()),

@@ -7,7 +7,7 @@ import * as phpunitCommon from '../common/phpunit';
 
 let terminal: Terminal | undefined;
 
-export function activate(context: ExtensionContext) {
+export function register(context: ExtensionContext) {
   context.subscriptions.push(
     commands.registerCommand('intelephense.phpunit.projectTest', phpunitProjectTestCommand()),
     commands.registerCommand('intelephense.phpunit.fileTest', phpunitFileTestCommand()),

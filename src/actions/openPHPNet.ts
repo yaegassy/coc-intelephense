@@ -11,7 +11,7 @@ import {
   workspace,
 } from 'coc.nvim';
 
-export function activate(context: ExtensionContext) {
+export function register(context: ExtensionContext) {
   context.subscriptions.push(
     languages.registerCodeActionProvider(
       [{ language: 'php', scheme: 'file' }],

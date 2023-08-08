@@ -2,7 +2,7 @@ import { commands, ExtensionContext, Position, Range, TextEdit, Uri, window, wor
 import path from 'path';
 import * as fixClassNameParser from '../parsers/fixClassName';
 
-export function activate(context: ExtensionContext) {
+export function register(context: ExtensionContext) {
   context.subscriptions.push(commands.registerCommand('intelephense.fixClassName', runFixClassName()));
 }
 

@@ -16,7 +16,7 @@ import {
 
 import * as removeUnusedImportsParser from '../parsers/removeUnusedImports';
 
-export function activate(context: ExtensionContext) {
+export function register(context: ExtensionContext) {
   const documentSelector: DocumentSelector = [{ language: 'php', scheme: 'file' }];
 
   context.subscriptions.push(

@@ -23,7 +23,7 @@ type SnippetsJsonType = {
   };
 };
 
-export function activate(context: ExtensionContext) {
+export function register(context: ExtensionContext) {
   if (!workspace.getConfiguration('intelephense').get('client.disableSnippetsCompletion', false)) {
     context.subscriptions.push(
       languages.registerCompletionItemProvider(

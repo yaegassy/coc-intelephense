@@ -6,7 +6,7 @@ import path from 'path';
 
 let terminal: Terminal | undefined;
 
-export function activate(context: ExtensionContext) {
+export function register(context: ExtensionContext) {
   context.subscriptions.push(
     commands.registerCommand('intelephense.composer.runCommand', runComposerCommandCommand()),
     commands.registerCommand('intelephense.composer.runCommandPlus', runComposerCommandPlusCommand()),

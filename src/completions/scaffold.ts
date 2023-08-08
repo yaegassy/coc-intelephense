@@ -35,7 +35,7 @@ type CompletionDataEntryType = {
   originalInsertText: string;
 };
 
-export function activate(context: ExtensionContext) {
+export function register(context: ExtensionContext) {
   if (!workspace.getConfiguration('intelephense').get('client.disableScaffoldCompletion', false)) {
     context.subscriptions.push(
       languages.registerCompletionItemProvider(

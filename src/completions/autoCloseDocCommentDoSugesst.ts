@@ -3,7 +3,7 @@ import path from 'path';
 
 const supportFileExtensions = ['.php'];
 
-export function activate(context: ExtensionContext) {
+export function register(context: ExtensionContext) {
   if (workspace.getConfiguration('intelephense').get<boolean>('client.autoCloseDocCommentDoSuggest', true)) {
     workspace.onDidChangeTextDocument(
       (e) => {
