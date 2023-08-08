@@ -12,6 +12,7 @@ import {
   workspace,
 } from 'coc.nvim';
 import * as pestCommon from '../common/pest';
+import * as phpunitCommon from '../common/phpunit';
 import * as phpParser from '../parsers/php/parser';
 
 export function activate(context: ExtensionContext) {
@@ -48,7 +49,7 @@ export class PestCodeLensProvider implements CodeLensProvider {
       const ast = phpParser.getAstByParseCode(document.getText());
       if (!ast) return;
 
-      const phpUnitStyleTestItems = pestCommon.getPhpUnitStyleTestItems(ast);
+      const phpUnitStyleTestItems = phpunitCommon.getPhpUnitTestItems(ast);
 
       if (phpUnitStyleTestItems.length > 0) {
         for (const t of phpUnitStyleTestItems) {

@@ -11,7 +11,8 @@ import {
   Uri,
   workspace,
 } from 'coc.nvim';
-import * as phpunitParser from '../parsers/phpunit';
+import * as phpParser from '../parsers/php/parser';
+import * as phpunitCommon from '../common/phpunit';
 
 export function activate(context: ExtensionContext) {
   if (!workspace.getConfiguration('intelephense').get<boolean>('client.disableCodeLens', false)) {
@@ -29,7 +30,7 @@ export function activate(context: ExtensionContext) {
 
 export class PHPUnitCodeLensProvider implements CodeLensProvider {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async provideCodeLenses(document: LinesTextDocument, token: CancellationToken) {
+  async provideCodeLenses(document: LinesTextDocument, _token: CancellationToken) {
     const filePath = Uri.parse(document.uri).fsPath;
 
     if (document.languageId !== 'php' || !filePath.endsWith('Test.php')) {
@@ -43,16 +44,18 @@ export class PHPUnitCodeLensProvider implements CodeLensProvider {
     if (events.insertMode) return codeLenses;
 
     try {
-      const ast = phpunitParser.getAst(document.getText());
+      const ast = phpParser.getAstByParseCode(document.getText());
       if (!ast) return;
 
-      const methods = await phpunitParser.getMethods(ast.children);
-      const testMethods = phpunitParser.getTestMethods(methods);
+      const testItems = phpunitCommon.getPhpUnitTestItems(ast);
 
-      testMethods.forEach((m) => {
-        if (m.startLine && m.endLine) {
+      if (testItems.length > 0) {
+        for (const t of testItems) {
+          const startPostion = document.positionAt(t.startOffset);
+          const endPostion = document.positionAt(t.endOffset);
+
           const lens: CodeLens = {
-            range: Range.create(Position.create(m.startLine - 1, 0), Position.create(m.endLine, 0)),
+            range: Range.create(startPostion, endPostion),
             command: {
               title: codeLensTitle,
               command: 'intelephense.phpunit.singleTest',
@@ -61,7 +64,7 @@ export class PHPUnitCodeLensProvider implements CodeLensProvider {
 
           codeLenses.push(lens);
         }
-      });
+      }
     } catch (e) {
       // noop
     }

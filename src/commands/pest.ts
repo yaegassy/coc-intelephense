@@ -3,6 +3,7 @@ import { commands, ExtensionContext, Terminal, Uri, window, workspace } from 'co
 import fs from 'fs';
 import path from 'path';
 import * as pestCommon from '../common/pest';
+import * as phpunitCommon from '../common/phpunit';
 import * as phpParser from '../parsers/php/parser';
 
 let terminal: Terminal | undefined;
@@ -160,8 +161,9 @@ export function pestSingleTestCommand() {
     if (pestTestName) {
       testName = pestTestName;
     } else {
-      const phpUnitStyleTestItems = pestCommon.getPhpUnitStyleTestItems(ast);
-      const phpUnitTestName = pestCommon.getPhpUnitTestNameAtEditorOffset(phpUnitStyleTestItems, editorOffset);
+      const phpUnitStyleTestItems = phpunitCommon.getPhpUnitTestItems(ast);
+      const phpUnitTestName = phpunitCommon.getPhpUnitTestNameAtEditorOffset(phpUnitStyleTestItems, editorOffset);
+
       if (phpUnitTestName) testName = phpUnitTestName;
     }
 

@@ -2,7 +2,8 @@ import { commands, ExtensionContext, Terminal, Uri, window, workspace } from 'co
 
 import path from 'path';
 import fs from 'fs';
-import * as phpunitParser from '../parsers/phpunit';
+import * as phpParser from '../parsers/php/parser';
+import * as phpunitCommon from '../common/phpunit';
 
 let terminal: Terminal | undefined;
 
@@ -142,11 +143,13 @@ export function phpunitSingleTestCommand() {
       return window.showErrorMessage('This file is not a PHP test file!');
     }
 
-    const ast = phpunitParser.getAst(document.getText());
+    const editorOffset = document.offsetAt(position);
+
+    const ast = phpParser.getAstByParseCode(document.getText());
     if (!ast) return;
 
-    const methods = await phpunitParser.getMethods(ast.children);
-    const testName = phpunitParser.getTestName(methods, position);
+    const testItems = phpunitCommon.getPhpUnitTestItems(ast);
+    const testName = phpunitCommon.getPhpUnitTestNameAtEditorOffset(testItems, editorOffset);
 
     if (testName) {
       runPhpUnit(filePath, testName);
