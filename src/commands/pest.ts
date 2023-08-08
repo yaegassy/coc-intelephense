@@ -1,8 +1,9 @@
 import { commands, ExtensionContext, Terminal, Uri, window, workspace } from 'coc.nvim';
 
-import path from 'path';
 import fs from 'fs';
-import * as pestParser from '../parsers/pest';
+import path from 'path';
+import * as pestCommon from '../common/pest';
+import * as phpParser from '../parsers/php/parser';
 
 let terminal: Terminal | undefined;
 
@@ -147,18 +148,21 @@ export function pestSingleTestCommand() {
       return window.showErrorMessage('This file is not a PHP test file!');
     }
 
-    const ast = pestParser.getAst(document.getText());
+    const editorOffset = document.offsetAt(position);
+
+    const ast = phpParser.getAstByParseCode(document.getText());
     if (!ast) return;
 
+    const testItems = pestCommon.getPestTestItems(ast);
+    const pestTestName = pestCommon.getPestTestDescriptionAtEditorOffset(testItems, editorOffset);
+
     let testName = '';
-    const pestTestDetails = await pestParser.getPestTestDetail(ast.children);
-    const pestTestName = pestParser.getTestNameFromPestTestDetails(pestTestDetails, position);
     if (pestTestName) {
       testName = pestTestName;
     } else {
-      const methods = await pestParser.getMethods(ast.children);
-      const methodTestName = pestParser.getTestName(methods, position);
-      if (methodTestName) testName = methodTestName;
+      const phpUnitStyleTestItems = pestCommon.getPhpUnitStyleTestItems(ast);
+      const phpUnitTestName = pestCommon.getPhpUnitTestNameAtEditorOffset(phpUnitStyleTestItems, editorOffset);
+      if (phpUnitTestName) testName = phpUnitTestName;
     }
 
     if (testName) {

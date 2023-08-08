@@ -1,17 +1,18 @@
 import {
-  ExtensionContext,
-  languages,
   CancellationToken,
   CodeLens,
   CodeLensProvider,
-  events,
+  ExtensionContext,
   LinesTextDocument,
   Position,
   Range,
   Uri,
+  events,
+  languages,
   workspace,
 } from 'coc.nvim';
-import * as pestParser from '../parsers/pest';
+import * as pestCommon from '../common/pest';
+import * as phpParser from '../parsers/php/parser';
 
 export function activate(context: ExtensionContext) {
   if (!workspace.getConfiguration('intelephense').get<boolean>('client.disableCodeLens', false)) {
@@ -29,7 +30,7 @@ export function activate(context: ExtensionContext) {
 
 export class PestCodeLensProvider implements CodeLensProvider {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async provideCodeLenses(document: LinesTextDocument, token: CancellationToken) {
+  async provideCodeLenses(document: LinesTextDocument, _token: CancellationToken) {
     const filePath = Uri.parse(document.uri).fsPath;
 
     if (document.languageId !== 'php' || !filePath.endsWith('Test.php')) {
@@ -44,16 +45,18 @@ export class PestCodeLensProvider implements CodeLensProvider {
 
     // phpunit style
     try {
-      const ast = pestParser.getAst(document.getText());
+      const ast = phpParser.getAstByParseCode(document.getText());
       if (!ast) return;
 
-      const methods = await pestParser.getMethods(ast.children);
-      const testMethods = pestParser.getTestMethods(methods);
+      const phpUnitStyleTestItems = pestCommon.getPhpUnitStyleTestItems(ast);
 
-      testMethods.forEach((m) => {
-        if (m.startLine && m.endLine) {
+      if (phpUnitStyleTestItems.length > 0) {
+        for (const t of phpUnitStyleTestItems) {
+          const startPostion = document.positionAt(t.startOffset);
+          const endPostion = document.positionAt(t.endOffset);
+
           const lens: CodeLens = {
-            range: Range.create(Position.create(m.startLine - 1, 0), Position.create(m.endLine, 0)),
+            range: Range.create(startPostion, endPostion),
             command: {
               title: codeLensTitle,
               command: 'intelephense.pest.singleTest',
@@ -62,22 +65,25 @@ export class PestCodeLensProvider implements CodeLensProvider {
 
           codeLenses.push(lens);
         }
-      });
+      }
     } catch (e) {
       // noop
     }
 
     // pest style
     try {
-      const ast = pestParser.getAst(document.getText());
+      const ast = phpParser.getAstByParseCode(document.getText());
       if (!ast) return;
 
-      const pestTestDetails = await pestParser.getPestTestDetail(ast.children);
+      const pestTestItems = pestCommon.getPestTestItems(ast);
 
-      pestTestDetails.forEach((m) => {
-        if (m.startLine && m.endLine) {
+      if (pestTestItems.length > 0) {
+        for (const t of pestTestItems) {
+          const startPostion = document.positionAt(t.startOffset);
+          const endPostion = document.positionAt(t.endOffset);
+
           const lens: CodeLens = {
-            range: Range.create(Position.create(m.startLine - 1, 0), Position.create(m.endLine, 0)),
+            range: Range.create(startPostion, endPostion),
             command: {
               title: codeLensTitle,
               command: 'intelephense.pest.singleTest',
@@ -86,7 +92,7 @@ export class PestCodeLensProvider implements CodeLensProvider {
 
           codeLenses.push(lens);
         }
-      });
+      }
     } catch (e) {
       // noop
     }
