@@ -37,6 +37,7 @@ import * as snippetsCompletionFeature from './completions/snippets';
 import * as inlineParametersInlayHintsFeature from './inlayHints/inlineParameters';
 import * as pestCodeLensFeature from './lenses/pest';
 import * as phpunitCodeLensFeature from './lenses/phpunit';
+import { VERSION } from './constant';
 
 const PHP_LANGUAGE_ID = 'php';
 const INDEXING_STARTED_NOTIFICATION = new NotificationType('indexingStarted');
@@ -84,8 +85,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     return;
   }
 
-  const clearCache = true;
-  languageClient = createClient(context, clearCache);
+  languageClient = createClient(context, false);
 
   context.subscriptions.push(
     commands.registerCommand(INDEX_WORKSPACE_CMD_NAME, indexWorkspace),
