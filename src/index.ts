@@ -1,6 +1,5 @@
 import {
   CancellationToken,
-  commands,
   Diagnostic,
   Disposable,
   ExtensionContext,
@@ -14,9 +13,10 @@ import {
   RequestType,
   ServerOptions,
   TransportKind,
+  commands,
+  services,
   window,
   workspace,
-  services,
 } from 'coc.nvim';
 import fs from 'fs';
 import * as changeVisibilityCodeActionFeature from './actions/changeVisibility';
@@ -37,7 +37,6 @@ import * as snippetsCompletionFeature from './completions/snippets';
 import * as inlineParametersInlayHintsFeature from './inlayHints/inlineParameters';
 import * as pestCodeLensFeature from './lenses/pest';
 import * as phpunitCodeLensFeature from './lenses/phpunit';
-import { VERSION } from './constant';
 
 const PHP_LANGUAGE_ID = 'php';
 const INDEXING_STARTED_NOTIFICATION = new NotificationType('indexingStarted');
