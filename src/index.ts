@@ -84,7 +84,8 @@ export async function activate(context: ExtensionContext): Promise<void> {
     return;
   }
 
-  languageClient = createClient(context, false);
+  const clearCache = true;
+  languageClient = createClient(context, clearCache);
 
   context.subscriptions.push(
     commands.registerCommand(INDEX_WORKSPACE_CMD_NAME, indexWorkspace),
