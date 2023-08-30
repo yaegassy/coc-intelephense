@@ -54,9 +54,13 @@ export async function register(context: ExtensionContext, client: LanguageClient
 
     const documentSelector: DocumentSelector = [{ language: 'php', scheme: 'file' }];
 
-    context.subscriptions.push(
-      languages.registerInlayHintsProvider(documentSelector, new InlineParametersInlayHintsProvider(context, client))
+    const disposable = languages.registerInlayHintsProvider(
+      documentSelector,
+      new InlineParametersInlayHintsProvider(context, client)
     );
+    context.subscriptions.push(disposable);
+
+    return disposable;
   }
 }
 

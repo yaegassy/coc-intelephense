@@ -48,6 +48,7 @@ const CANCEL_INDEXING_CMD_NAME = 'intelephense.cancel.indexing';
 let extensionContext: ExtensionContext;
 let clientDisposable: Disposable;
 let languageClient: LanguageClient;
+let inlineParametersInlayHintsDisposable: Disposable | undefined;
 
 export async function activate(context: ExtensionContext): Promise<void> {
   extensionContext = context;
@@ -84,7 +85,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     return;
   }
 
-  const clearCache = true;
+  const clearCache = false;
   languageClient = createClient(context, clearCache);
 
   context.subscriptions.push(
@@ -121,8 +122,10 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   // Add inlay hints by "client" side
   //
-  // "inlineParameterInlayHintFeature" does not operate until the Language Server is started and indexing is completed,
-  // so there is a registration process in "registerNotificationListeners".
+  // If an index creation event occurs, we re-register the inlay hints feature
+  // during the completion event of the creation process.
+  if (inlineParametersInlayHintsDisposable) inlineParametersInlayHintsDisposable.dispose();
+  inlineParametersInlayHintsDisposable = await inlineParametersInlayHintsFeature.register(context, languageClient);
 }
 
 function createClient(context: ExtensionContext, clearCache: boolean) {
@@ -229,7 +232,7 @@ function registerNotificationListeners(context: ExtensionContext) {
     languageClient.onNotification(INDEXING_STARTED_NOTIFICATION.method, () => {
       displayInitIndexProgress(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        new Promise<void>((resolve, reject) => {
+        new Promise<void>((resolve, _reject) => {
           resolveIndexingPromise = () => {
             resolve();
           };
@@ -237,24 +240,26 @@ function registerNotificationListeners(context: ExtensionContext) {
       );
     });
 
-    languageClient.onNotification(INDEXING_ENDED_NOTIFICATION.method, () => {
+    languageClient.onNotification(INDEXING_ENDED_NOTIFICATION.method, async () => {
       if (resolveIndexingPromise) {
         resolveIndexingPromise();
       }
       // register inlayHints
-      inlineParametersInlayHintsFeature.register(context, languageClient);
+      if (inlineParametersInlayHintsDisposable) inlineParametersInlayHintsDisposable.dispose();
+      inlineParametersInlayHintsDisposable = await inlineParametersInlayHintsFeature.register(context, languageClient);
     });
   } else {
     languageClient.onNotification(INDEXING_STARTED_NOTIFICATION.method, () => {
       window.showInformationMessage('intelephense indexing ...');
     });
 
-    languageClient.onNotification(INDEXING_ENDED_NOTIFICATION.method, () => {
+    languageClient.onNotification(INDEXING_ENDED_NOTIFICATION.method, async () => {
       if (resolveIndexingPromise) {
         resolveIndexingPromise();
       }
       // register inlayHints
-      inlineParametersInlayHintsFeature.register(context, languageClient);
+      if (inlineParametersInlayHintsDisposable) inlineParametersInlayHintsDisposable.dispose();
+      inlineParametersInlayHintsDisposable = await inlineParametersInlayHintsFeature.register(context, languageClient);
       window.showInformationMessage('intelephense running!');
     });
   }
@@ -266,7 +271,7 @@ async function displayInitIndexProgress<T = void>(promise: Promise<T>) {
       title: 'intelephense indexing ...',
       cancellable: true,
     },
-    (progress, token) => {
+    (_progress, token) => {
       // mouse option is required to cancel
       // e.g. :set mouse=n
       token.onCancellationRequested(() => {
