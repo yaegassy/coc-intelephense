@@ -250,12 +250,6 @@ If you want to use "Pest", change the `intelephense.client.codelensProvider` set
 nmap <silent> gl <Plug>(coc-codelens-action)
 ```
 
-**Misc**:
-
-"CodeLens" does not work with "Vim8" due to coc.nvim specifications.
-
-`intelephense.phpunit.singleTest` command and `intelephense.pest.singleTest` command are available, so please use them.
-
 ## Code Actions
 
 **Example key mapping (Code Action related)**:
