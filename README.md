@@ -215,7 +215,7 @@ command! -nargs=0 PHPUnitCurrent :call CocAction('runCommand', 'intelephense.php
 nnoremap <leader>te :call CocAction('runCommand', 'intelephense.phpunit.singleTest')<CR>
 ```
 
-## CodeLens (Neovim only)
+## CodeLens
 
 **Feature**:
 
@@ -286,7 +286,7 @@ nmap <silent> gA <Plug>(coc-codeaction)
 - and more...
   - Other code actions provided by the intelephehse language server
 
-## [Experimental] Inlay Hints (Client Base)
+## Inlay Hints (Client Base)
 
 - `inlineParametersInlayHintsFeature` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/41#issue-1270432446)
   - By default, this feature is disabled
