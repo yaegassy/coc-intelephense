@@ -27,6 +27,7 @@
     "snippets:generate": "node scripts/generate-snippets-extended.mjs",
     "snippets:check": "node scripts/upstream-snippets-check.mjs",
     "lint": "eslint src --ext ts",
+    "format": "prettier --write src/",
     "clean": "rimraf lib",
     "watch": "node esbuild.js --watch",
     "build": "node esbuild.js",
