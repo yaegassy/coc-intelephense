@@ -47,13 +47,13 @@ export function register(context: ExtensionContext) {
               Range.create(
                 Position.create(
                   e.contentChanges[0].range.start.line,
-                  e.contentChanges[0].range.start.character + addRangeCharacter
+                  e.contentChanges[0].range.start.character + addRangeCharacter,
                 ),
                 Position.create(
                   e.contentChanges[0].range.start.line,
-                  e.contentChanges[0].range.start.character + addRangeCharacter
-                )
-              )
+                  e.contentChanges[0].range.start.character + addRangeCharacter,
+                ),
+              ),
             );
 
             // **MEMO**:
@@ -66,7 +66,7 @@ export function register(context: ExtensionContext) {
         }, 50);
       },
       null,
-      context.subscriptions
+      context.subscriptions,
     );
   }
 }

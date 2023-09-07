@@ -44,8 +44,8 @@ export function runCompleteConstructor() {
     const constructorBodyContents = document.getText(
       Range.create(
         Position.create(constructor.body.loc.start.line - 1, constructor.body.loc.start.column),
-        Position.create(constructor.body.loc.end.line - 1, constructor.body.loc.end.column)
-      )
+        Position.create(constructor.body.loc.end.line - 1, constructor.body.loc.end.column),
+      ),
     );
     const constructorBodyLines = constructorBodyContents.split('\n');
 
@@ -87,8 +87,8 @@ export function runCompleteConstructor() {
       edits.push(
         TextEdit.insert(
           Position.create(constructor.loc.start.line - 1, constructor.loc.start.column),
-          newPropContents.join('')
-        )
+          newPropContents.join(''),
+        ),
       );
     }
 
@@ -96,8 +96,8 @@ export function runCompleteConstructor() {
       edits.push(
         TextEdit.insert(
           Position.create(constructor.body.loc.start.line - 1, constructor.body.loc.start.column + 1),
-          newBodyContents.join('')
-        )
+          newBodyContents.join(''),
+        ),
       );
     }
 

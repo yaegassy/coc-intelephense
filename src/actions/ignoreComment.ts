@@ -19,8 +19,8 @@ export function register(context: ExtensionContext) {
       languages.registerCodeActionProvider(
         [{ language: 'php', scheme: 'file' }],
         new IgnoreCommentCodeActionProvider(),
-        'intelephense'
-      )
+        'intelephense',
+      ),
     );
   }
 }
@@ -73,7 +73,7 @@ export class IgnoreCommentCodeActionProvider implements CodeActionProvider {
       if (!thisLineContent.startsWith('/**') && !thisLineContent.startsWith('*') && existsIntelephenseDiagnostics) {
         const edit = TextEdit.replace(
           range,
-          `${line} // @intelephense-ignore-line${range.start.line + 1 === range.end.line ? '\n' : ''}`
+          `${line} // @intelephense-ignore-line${range.start.line + 1 === range.end.line ? '\n' : ''}`,
         );
         codeActions.push({
           title: 'Add @intelephense-ignore-line',

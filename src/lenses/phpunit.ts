@@ -22,7 +22,7 @@ export function register(context: ExtensionContext) {
 
     if (useCodelensProvider === 'phpunit') {
       context.subscriptions.push(
-        languages.registerCodeLensProvider([{ language: 'php', scheme: 'file' }], new PHPUnitCodeLensProvider())
+        languages.registerCodeLensProvider([{ language: 'php', scheme: 'file' }], new PHPUnitCodeLensProvider()),
       );
     }
   }

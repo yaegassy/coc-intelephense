@@ -11,7 +11,7 @@ export function register(context: ExtensionContext) {
   context.subscriptions.push(
     commands.registerCommand('intelephense.phpunit.projectTest', phpunitProjectTestCommand()),
     commands.registerCommand('intelephense.phpunit.fileTest', phpunitFileTestCommand()),
-    commands.registerCommand('intelephense.phpunit.singleTest', phpunitSingleTestCommand())
+    commands.registerCommand('intelephense.phpunit.singleTest', phpunitSingleTestCommand()),
   );
 }
 

@@ -32,8 +32,8 @@ export function register(context: ExtensionContext) {
         ['php'],
         new SnippetsCompletionProvider(context),
         [],
-        99
-      )
+        99,
+      ),
     );
   }
 }
@@ -97,7 +97,7 @@ export class SnippetsCompletionProvider implements CompletionItemProvider {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _token: CancellationToken,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _context: CompletionContext
+    _context: CompletionContext,
   ): Promise<CompletionItem[] | CompletionList> {
     const doc = workspace.getDocument(document.uri);
     if (!doc) return [];

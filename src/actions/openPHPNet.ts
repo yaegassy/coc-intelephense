@@ -16,8 +16,8 @@ export function register(context: ExtensionContext) {
     languages.registerCodeActionProvider(
       [{ language: 'php', scheme: 'file' }],
       new OpenPHPNetCodeActionProvider(),
-      'intelephense'
-    )
+      'intelephense',
+    ),
   );
 }
 

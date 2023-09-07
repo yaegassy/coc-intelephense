@@ -12,7 +12,7 @@ export function register(context: ExtensionContext) {
   context.subscriptions.push(
     commands.registerCommand('intelephense.pest.projectTest', pestProjectTestCommand()),
     commands.registerCommand('intelephense.pest.fileTest', pestFileTestCommand()),
-    commands.registerCommand('intelephense.pest.singleTest', pestSingleTestCommand())
+    commands.registerCommand('intelephense.pest.singleTest', pestSingleTestCommand()),
   );
 }
 

@@ -20,7 +20,7 @@ export function register(context: ExtensionContext) {
   const documentSelector: DocumentSelector = [{ language: 'php', scheme: 'file' }];
 
   context.subscriptions.push(
-    languages.registerCodeActionProvider(documentSelector, new RemoveUnusedImportsCodeActionProvider(), 'intelephense')
+    languages.registerCodeActionProvider(documentSelector, new RemoveUnusedImportsCodeActionProvider(), 'intelephense'),
   );
 }
 
@@ -202,8 +202,8 @@ export class RemoveUnusedImportsCodeActionProvider implements CodeActionProvider
       edit = TextEdit.del(
         Range.create(
           Position.create(prevStartLine, prevStartEndColumn),
-          Position.create(item.rangeEndLine, item.rangeEndCharacter)
-        )
+          Position.create(item.rangeEndLine, item.rangeEndCharacter),
+        ),
       );
     } else if (
       (item.name !== null && item.items.length === item.diagSymbols.length) ||
@@ -242,7 +242,7 @@ export class RemoveUnusedImportsCodeActionProvider implements CodeActionProvider
       const endColmun = document.getline(endLine).length;
 
       edit = TextEdit.del(
-        Range.create(Position.create(prevStartLine, prevStartEndColumn), Position.create(endLine, endColmun))
+        Range.create(Position.create(prevStartLine, prevStartEndColumn), Position.create(endLine, endColmun)),
       );
     } else if (item.name === null && item.items.length > 1 && item.items.length !== item.diagSymbols.length) {
       // MEMO: "Partially unused"
@@ -283,7 +283,7 @@ export class RemoveUnusedImportsCodeActionProvider implements CodeActionProvider
 
       edit = TextEdit.replace(
         Range.create(Position.create(startLine, startColumn), Position.create(endLine, endColmun)),
-        newTexts.join('')
+        newTexts.join(''),
       );
     } else if (item.name !== null && item.diagSymbols.length > 0 && item.items.length !== item.diagSymbols.length) {
       // MEMO: "Partially unused"
@@ -335,7 +335,7 @@ export class RemoveUnusedImportsCodeActionProvider implements CodeActionProvider
 
       edit = TextEdit.replace(
         Range.create(Position.create(startLine, startColumn), Position.create(endLine, endColmun)),
-        newTexts.join('')
+        newTexts.join(''),
       );
     }
 

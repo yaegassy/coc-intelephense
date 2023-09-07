@@ -17,12 +17,12 @@ export function register(context: ExtensionContext) {
   const documentSelector: DocumentSelector = [{ language: 'php', scheme: 'file' }];
 
   context.subscriptions.push(
-    languages.registerCodeActionProvider(documentSelector, new ChangeVisibilityCodeActionProvider(), 'intelephense')
+    languages.registerCodeActionProvider(documentSelector, new ChangeVisibilityCodeActionProvider(), 'intelephense'),
   );
 
   // internal command
   context.subscriptions.push(
-    commands.registerCommand('intelephense.runChangeVisibility', runChangeVisibilityCommand(), null, true)
+    commands.registerCommand('intelephense.runChangeVisibility', runChangeVisibilityCommand(), null, true),
   );
 }
 

@@ -42,17 +42,17 @@ export function register(context: ExtensionContext) {
   context.subscriptions.push(
     commands.registerCommand('intelephense.artisan.runCommand', () => {
       workspace.nvim.command(`CocList artisan`);
-    })
+    }),
   );
   context.subscriptions.push(
     commands.registerCommand('intelephense.sailArtisan.runCommand', () => {
       workspace.nvim.command(`CocList sail`);
-    })
+    }),
   );
   context.subscriptions.push(
     commands.registerCommand('intelephense.symfony.runCommand', () => {
       workspace.nvim.command(`CocList symfony`);
-    })
+    }),
   );
 }
 

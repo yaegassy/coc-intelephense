@@ -36,9 +36,9 @@ export function runFixClassName() {
       TextEdit.replace(
         Range.create(
           Position.create(classNameIdentifier.loc.start.line - 1, classNameIdentifier.loc.start.column),
-          Position.create(classNameIdentifier.loc.end.line - 1, classNameIdentifier.loc.end.column)
+          Position.create(classNameIdentifier.loc.end.line - 1, classNameIdentifier.loc.end.column),
         ),
-        classNameByFilePath
+        classNameByFilePath,
       ),
     ];
 

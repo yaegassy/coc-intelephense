@@ -42,8 +42,8 @@ export function register(context: ExtensionContext) {
         'intelephense-scaffold',
         'intelephense',
         ['php'],
-        new ScaffoldCompletionProvider()
-      )
+        new ScaffoldCompletionProvider(),
+      ),
     );
   }
 }
@@ -166,7 +166,7 @@ export class ScaffoldCompletionProvider implements CompletionItemProvider {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     token: CancellationToken,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    context: CompletionContext
+    context: CompletionContext,
   ): Promise<CompletionItem[] | CompletionList> {
     const completionItems: CompletionItem[] = [];
     // skip except for the first line.

@@ -10,7 +10,7 @@ export function register(context: ExtensionContext) {
   context.subscriptions.push(
     commands.registerCommand('intelephense.composer.runCommand', runComposerCommandCommand()),
     commands.registerCommand('intelephense.composer.runCommandPlus', runComposerCommandPlusCommand()),
-    commands.registerCommand('intelephense.composer.runScriptsCommand', runComposerScriptsCommand())
+    commands.registerCommand('intelephense.composer.runScriptsCommand', runComposerScriptsCommand()),
   );
 }
 

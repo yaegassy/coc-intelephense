@@ -79,9 +79,9 @@ export function runFixNamespace() {
       TextEdit.replace(
         Range.create(
           Position.create(currentFileNsLoc.start.line - 1, currentFileNsLoc.start.column),
-          Position.create(currentFileNsLoc.start.line - 1, declarationColumn)
+          Position.create(currentFileNsLoc.start.line - 1, declarationColumn),
         ),
-        `namespace ${newNamespace};`
+        `namespace ${newNamespace};`,
       ),
     ];
 

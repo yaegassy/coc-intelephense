@@ -56,7 +56,7 @@ export async function register(context: ExtensionContext, client: LanguageClient
 
     const disposable = languages.registerInlayHintsProvider(
       documentSelector,
-      new InlineParametersInlayHintsProvider(context, client)
+      new InlineParametersInlayHintsProvider(context, client),
     );
     context.subscriptions.push(disposable);
 
@@ -78,7 +78,7 @@ class InlineParametersInlayHintsProvider implements InlayHintsProvider {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     range: Range,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    token: CancellationToken
+    token: CancellationToken,
   ) {
     const inlayHints: InlayHint[] = [];
 
@@ -149,14 +149,14 @@ class InlineParametersInlayHintsProvider implements InlayHintsProvider {
 
   async getParameterNames(
     document: TextDocument,
-    languageParameters: ParameterPosition[]
+    languageParameters: ParameterPosition[],
   ): Promise<ParameterDetails[]> {
     const firstParameter = languageParameters[0];
     let parameters: any[] = [];
 
     const position = Position.create(
       firstParameter.expression.start.line - 1,
-      firstParameter.expression.start.character
+      firstParameter.expression.start.character,
     );
 
     const params = {

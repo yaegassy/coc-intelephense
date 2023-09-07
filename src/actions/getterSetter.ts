@@ -31,7 +31,7 @@ export function register(context: ExtensionContext) {
   const documentSelector: DocumentSelector = [{ language: 'php', scheme: 'file' }];
 
   context.subscriptions.push(
-    languages.registerCodeActionProvider(documentSelector, new GetterSetterCodeActionProvider(), 'intelephense')
+    languages.registerCodeActionProvider(documentSelector, new GetterSetterCodeActionProvider(), 'intelephense'),
   );
 }
 
@@ -44,7 +44,7 @@ class GetterSetterCodeActionProvider implements CodeActionProvider {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     context: CodeActionContext,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    token: CancellationToken
+    token: CancellationToken,
   ) {
     const codeActions: CodeAction[] = [];
     const doc = workspace.getDocument(document.uri);
@@ -188,7 +188,7 @@ class GetterSetterCodeActionProvider implements CodeActionProvider {
         lines.push(
           `${indentSpace}public function ${item.methodName}(): ${item.propertyNullable ? '?' : ''}${
             item.propertyType
-          }\n`
+          }\n`,
         );
       } else {
         lines.push(`${indentSpace}public function ${item.methodName}()\n`);
@@ -224,13 +224,13 @@ class GetterSetterCodeActionProvider implements CodeActionProvider {
         lines.push(
           `${indentSpace}public function ${item.methodName}(${item.propertyNullable ? '?' : ''}${property} $${
             item.propertyName
-          })\n`
+          })\n`,
         );
       } else if (item.propertyType && typeof item.propertyType === 'string') {
         lines.push(
           `${indentSpace}public function ${item.methodName}(${item.propertyNullable ? '?' : ''}${item.propertyType} $${
             item.propertyName
-          })\n`
+          })\n`,
         );
       } else {
         lines.push(`${indentSpace}public function ${item.methodName}($${item.propertyName})\n`);

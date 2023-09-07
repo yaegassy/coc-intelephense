@@ -23,7 +23,7 @@ export function register(context: ExtensionContext) {
 
     if (useCodelensProvider === 'pest') {
       context.subscriptions.push(
-        languages.registerCodeLensProvider([{ language: 'php', scheme: 'file' }], new PestCodeLensProvider())
+        languages.registerCodeLensProvider([{ language: 'php', scheme: 'file' }], new PestCodeLensProvider()),
       );
     }
   }
