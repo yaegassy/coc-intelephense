@@ -1035,7 +1035,7 @@
     ]
   },
   "dependencies": {
-    "intelephense": "^1.9.5",
+    "intelephense": "^1.10.0",
     "php-parser": "^3.1.5"
   }
 }
