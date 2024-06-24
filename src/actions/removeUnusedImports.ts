@@ -1,6 +1,7 @@
 import {
   CodeAction,
   CodeActionContext,
+  CodeActionKind,
   CodeActionProvider,
   Diagnostic,
   Document,
@@ -55,7 +56,7 @@ export class RemoveUnusedImportsCodeActionProvider implements CodeActionProvider
     const doc = workspace.getDocument(document.uri);
 
     if (this.wholeRange(doc, range) && context.diagnostics.length > 0) {
-      if (!this.isContainTargetCodeInDiagnostics(context.diagnostics, 1003)) return codeActions;
+      if (!this.isContainTargetCodeInDiagnostics(context.diagnostics, 'P1003')) return codeActions;
 
       const ast = removeUnusedImportsParser.getAst(doc.getDocumentContent());
       if (!ast) return codeActions;
@@ -67,8 +68,8 @@ export class RemoveUnusedImportsCodeActionProvider implements CodeActionProvider
         if (u.loc) {
           if (u.loc.start && u.loc.end) {
             for (const d of context.diagnostics) {
-              if (d.code && typeof d.code === 'number') {
-                if (d.code === 1003) {
+              if (d.code && typeof d.code === 'string') {
+                if (d.code === 'P1003') {
                   if (u.loc.start.line <= d.range.start.line + 1 && u.loc.end.line >= d.range.end.line + 1) {
                     // WARNING: The key `item` of type `UseGroup.item` is actually `items`.
                     const flatUseItems = removeUnusedImportsParser.flattenUseItems(u['items']);
@@ -154,6 +155,7 @@ export class RemoveUnusedImportsCodeActionProvider implements CodeActionProvider
       if (edits.length > 0) {
         const action: CodeAction = {
           title: `Remove all unused imports for "use" statetment`,
+          kind: CodeActionKind.SourceFixAll,
           edit: {
             changes: {
               [doc.uri]: edits,
@@ -168,9 +170,9 @@ export class RemoveUnusedImportsCodeActionProvider implements CodeActionProvider
     return codeActions;
   }
 
-  private isContainTargetCodeInDiagnostics(diagnostics: Diagnostic[], code: number) {
+  private isContainTargetCodeInDiagnostics(diagnostics: Diagnostic[], code: string) {
     for (const d of diagnostics) {
-      if (d.source === 'intelephense' && typeof d.code === 'number') {
+      if (d.source === 'intelephense' && typeof d.code === 'string') {
         if (d.code === code) {
           return true;
         }
