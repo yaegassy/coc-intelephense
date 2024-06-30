@@ -119,6 +119,7 @@ For more information, check this coc.nvim's wiki.
 
 - `intelephense.compatibility.correctForBaseClassStaticUnionTypes`: Resolves 'BaseClass|static' union types to 'static' instead of 'BaseClass', default: `true`
 - `intelephense.compatibility.correctForArrayAccessArrayAndTraversableArrayUnionTypes`: Resolves 'ArrayAccess' and 'Traversable' implementations that are unioned with a typed array to generic syntax. eg 'ArrayAccessOrTraversable|ElementType[]' => 'ArrayAccessOrTraversable<mixed, ElementType>', default: `true`
+- `intelephense.compatibility.preferPsalmPhpstanPrefixedAnnotations`: Prefer `@psalm-` and `@phpstan-` prefixed `@return`, `@var`, `@param` tags when determining symbol types, default: `false`
 - `intelephense.files.maxSize`: Maximum file size in bytes, default: `5000000`
 - `intelephense.files.associations`: Configure glob patterns to make files available for language server features. Inherits from files.associations, default: `["*.php", "*.phtml"]`
 - `intelephense.files.exclude`: Configure glob patterns to exclude certain files and folders from all language server features. Inherits from files.exclude, default: `["**/.git/**", "**/.svn/**", "**/.hg/**", "**/CVS/**", "**/.DS_Store/**", "**/node_modules/**", "**/bower_components/**", "**/vendor/**/{Tests,tests}/**", "**/.history/**", "**/vendor/**/vendor/**"]`
