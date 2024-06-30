@@ -128,7 +128,6 @@ For more information, check this coc.nvim's wiki.
 - `intelephense.completion.fullyQualifyGlobalConstantsAndFunctions`: Global namespace constants and functions will be fully qualified (prefixed with a backslash), default: `false`
 - `intelephense.completion.triggerParameterHints`: Method and function completions will include parentheses and trigger parameter hints, default: `true`
 - `intelephense.completion.maxItems`: The maximum number of completion items returned per request, default: `100`
-- 
 - `intelephense.format.enable`: Enables formatting, default: `true`
 - `intelephense.format.braces`: Controls formatting style of braces, valid option `"per", "allman", "k&r"`, default: `per`
 - `intelephense.environment.documentRoot`: The directory of the entry point to the application (directory of index.php). Can be absolute or relative to the workspace folder. Used for resolving script inclusion and path suggestions, default: `null`
@@ -154,6 +153,8 @@ For more information, check this coc.nvim's wiki.
 - `intelephense.diagnostics.deprecated`: Enables deprecated diagnostics, default: `true`
 - `intelephense.diagnostics.languageConstraints`: Enables reporting of various language constraint errors, default: `true`
 - `intelephense.diagnostics.implementationErrors`: Enables reporting of problems associated with method and class implementations. For example, unimplemented methods or method signature incompatibilities, default: `true`
+- `intelephense.diagnostics.relaxedTypeCheck`: This setting makes type checking less thorough by allowing contravariant (wider) types to also satisfy a type constraint. This is useful for projects that may have incomplete or innacurate typings. Set to `false` for more thorough type checks. When this setting is `true`, the `noMixedTypeCheck` setting is ignored, default: `true`
+- `intelephense.diagnostics.noMixedTypeCheck`: This setting turns off type checking for the `mixed` type. This is useful for projects that may have incomplete or innacurate typings. Set to `false` to make type checking more thorough by not allowing `mixed` to satisy any type constraint. This setting has no effect when `relaxedTypeCheck` is `true`, default: `true`
 - `intelephense.runtime`: Path to a Node.js executable. Use this if you wish to use a different version of Node.js, default: `null`
 - `intelephense.maxMemory`: Maximum memory (in MB) that the server should use. On some systems this may only have effect when runtime has been set. Minimum 256, default: `null`
 - `intelephense.licenceKey`: DEPRECATED. Don't use this, default: `""`
