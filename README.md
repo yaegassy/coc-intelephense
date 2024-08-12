@@ -169,6 +169,11 @@ For more information, check this coc.nvim's wiki.
 - `intelephense.phpdoc.propertyTemplate`: An object that describes the format of generated property phpdoc. The following snippet variables are available: SYMBOL_NAME; SYMBOL_KIND; SYMBOL_TYPE; SYMBOL_NAMESPACE, default: See configuration in package.json
 - `intelephense.phpdoc.functionTemplate`: An object that describes the format of generated function/method phpdoc. The following snippet variables are available: SYMBOL_NAME; SYMBOL_KIND; SYMBOL_TYPE; SYMBOL_NAMESPACE, default: See configuration in package.json
 - `intelephense.phpdoc.useFullyQualifiedNames`: Fully qualified names will be used for types when true. When false short type names will be used and imported where appropriate. Overrides intelephense.completion.insertUseDeclaration, default: `true`
+- `intelephense.codeLens.references.enable`: Enable a code lens that shows a reference count and command to peek locations, default: `false`.
+- `intelephense.codeLens.implementations.enable`: Enable a code lens that shows an abstract and interface implementations count and command to peek locations, default: `false`
+- `intelephense.codeLens.usages.enable`: Enable a code lens that shows a trait usages count and command to peek locations, default: `false`
+- `intelephense.codeLens.overrides.enable`: Enable a code lens that shows method override count and command to peek locations, default: `false`
+- `intelephense.codeLens.parent.enable`: Enable a code lens that indicates if a method has a parent implementation and command to peek location, default: `false`
 - `intelephense.trace.server`: Traces the communication between VSCode and the intelephense language server, valid option `"off", "messages", "verbose"`, default: `"off"`
 
 ## Commands
