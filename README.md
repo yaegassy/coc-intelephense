@@ -145,7 +145,7 @@ For more information, check this coc.nvim's wiki.
 - `intelephense.diagnostics.undefinedConstants`: Enables undefined constant diagnostics, default: `true`
 - `intelephense.diagnostics.undefinedClassConstants`: Enables undefined class constant diagnostics, default: `true`
 - `intelephense.diagnostics.undefinedMethods`: Enables undefined method diagnostics, default: `true`
-- `intelephense.diagnostics.undefinedProperties`: Enables undefined static property diagnostics, default: `true`
+- `intelephense.diagnostics.undefinedProperties`: Enables undefined property diagnostics, default: `true`
 - `intelephense.diagnostics.unusedSymbols`: Enables unused variable, private member, and import diagnostics, default: `true`
 - `intelephense.diagnostics.unexpectedTokens`: Enables unexpected token diagnostics, default: `true`
 - `intelephense.diagnostics.duplicateSymbols`: Enables duplicate symbol diagnostics, default: `true`
