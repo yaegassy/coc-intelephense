@@ -524,6 +524,7 @@
             "fileinfo",
             "filter",
             "fpm",
+            "frankenphp",
             "ftp",
             "gd",
             "gettext",
