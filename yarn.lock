@@ -1685,10 +1685,10 @@ ini@^1.3.4:
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.8.tgz#a29da425b48806f34767a4efce397269af28432c"
   integrity sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==
 
-intelephense@^1.12.6:
-  version "1.12.6"
-  resolved "https://registry.yarnpkg.com/intelephense/-/intelephense-1.12.6.tgz#2c6ac4ec7dc0ab72ab7ad0ab180a05b3031aca22"
-  integrity sha512-/ZvZ/aI9LgISxQ32QYSfwhJN3ckFWfi7AnAN0IWPENynQCNzpFlGS6/s2TVeh7Kafarly7lCW/Pt0XI4+B/M7Q==
+intelephense@^1.13.0-beta.1:
+  version "1.13.0-beta.1"
+  resolved "https://registry.yarnpkg.com/intelephense/-/intelephense-1.13.0-beta.1.tgz#39db10c603f60338eee79781560ba783486f2da8"
+  integrity sha512-c4EKEYZv2sXnnxXj/Dp3ATLu2UUwAm4VBzM/nPR+zJdSJKipFAk/QxQ2bjr7zOJ3BMmtIYw3hZ+0hbOeyGUFXA==
   dependencies:
     "@bmewburn/js-beautify" "1.15.2"
     "@bmewburn/vscode-html-languageserver" "1.11.0"
