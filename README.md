@@ -133,7 +133,7 @@ For more information, check this coc.nvim's wiki.
 - `intelephense.format.braces`: Controls formatting style of braces, valid option `"per", "allman", "k&r"`, default: `per`
 - `intelephense.environment.documentRoot`: The directory of the entry point to the application (directory of index.php). Can be absolute or relative to the workspace folder. Used for resolving script inclusion and path suggestions, default: `null`
 - `intelephense.environment.includePaths`: include paths (as individual path items) as defined in the include_path ini setting or paths to external libraries. Can be absolute or relative to the workspace folder. Used for resolving script inclusion and/or adding external symbols to folder, default: `null`
-- `intelephense.environment.phpVersion`: A semver compatible string that represents the target PHP version. Used for providing version appropriate suggestions and diagnostics. PHP 5.3.0 and greater supported, default: `"8.3.0"`
+- `intelephense.environment.phpVersion`: A semver compatible string that represents the target PHP version. Used for providing version appropriate suggestions and diagnostics. PHP 5.3.0 and greater supported, default: `"8.4.0"`
 - `intelephense.environment.shortOpenTag`: When enabled `<?` will be parsed as a PHP open tag. Defaults to true, default: `true`
 - `intelephense.diagnostics.enable`: Enables diagnostics, default: `true`
 - `intelephense.diagnostics.run`: Controls when diagnostics are run, valid option `"onType", "onSave"`, default: `"onType"`
