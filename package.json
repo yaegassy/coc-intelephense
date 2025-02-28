@@ -524,6 +524,7 @@
             "fileinfo",
             "filter",
             "fpm",
+            "frankenphp",
             "ftp",
             "gd",
             "gettext",
@@ -650,7 +651,7 @@
         },
         "intelephense.environment.phpVersion": {
           "type": "string",
-          "default": "8.3.0",
+          "default": "8.4.0",
           "description": "A semver compatible string that represents the target PHP version. Used for providing version appropriate suggestions and diagnostics. PHP 5.3.0 and greater supported.",
           "scope": "window"
         },
@@ -792,6 +793,12 @@
           "type": "boolean",
           "default": true,
           "description": "This setting turns off type checking for the `mixed` type. This is useful for projects that may have incomplete or innacurate typings. Set to `false` to make type checking more thorough by not allowing `mixed` to satisy any type constraint. This setting has no effect when `relaxedTypeCheck` is `true`.",
+          "scope": "window"
+        },
+        "intelephense.diagnostics.memberAccess": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enables reporting of errors associated with type member access.",
           "scope": "window"
         },
         "intelephense.runtime": {
@@ -1092,7 +1099,7 @@
     ]
   },
   "dependencies": {
-    "intelephense": "^1.12.6",
+    "intelephense": "^1.13.1-beta.1",
     "php-parser": "^3.1.5"
   },
   "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
