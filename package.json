@@ -23,7 +23,7 @@
     "access": "public"
   },
   "scripts": {
-    "snippets": "curl -o data/snippets/original/php.code-snippets https://raw.githubusercontent.com/microsoft/vscode/master/extensions/php/snippets/php.code-snippets && npm run snippets:generate",
+    "snippets": "curl -o data/snippets/original/php.code-snippets https://raw.githubusercontent.com/microsoft/vscode/master/extensions/php/snippets/php.code-snippets && yarn snippets:generate",
     "snippets:generate": "node scripts/generate-snippets-extended.mjs",
     "snippets:check": "node scripts/upstream-snippets-check.mjs",
     "lint": "eslint src --ext ts",
