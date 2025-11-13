@@ -179,6 +179,7 @@ For more information, check this coc.nvim's wiki.
 - `intelephense.codeLens.usages.enable`: Enable a code lens that shows a trait usages count and command to peek locations, default: `false`
 - `intelephense.codeLens.overrides.enable`: Enable a code lens that shows method override count and command to peek locations, default: `false`
 - `intelephense.codeLens.parent.enable`: Enable a code lens that indicates if a method has a parent implementation and command to peek location, default: `false`
+- `intelephense.shortOpenEchoAutoClose`: Will auto-close short open echo tags (`<?=`). VSCode only, default: `true`
 - `intelephense.trace.server`: Traces the communication between VSCode and the intelephense language server, valid option `"off", "messages", "verbose"`, default: `"off"`
 
 ## Commands
