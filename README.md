@@ -129,7 +129,8 @@ For more information, check this coc.nvim's wiki.
 - `intelephense.completion.triggerParameterHints`: Method and function completions will include parentheses and trigger parameter hints, default: `true`
 - `intelephense.completion.maxItems`: The maximum number of completion items returned per request, default: `100`
 - `intelephense.completion.suggestObjectOperatorStaticMethods`: PHP permits the calling of static methods using the object operator eg `$obj->myStaticMethod();`. If you would prefer not to have static methods suggested in this context then set this value to `false`, default: `true`
-- `intelephense.completion.parameterCase`: The preferred font case to use when suggesting parameter names. Defaults to camel case, default: `camel`
+- `intelephense.completion.parameterCase`: The preferred font case to use when suggesting parameter names. valid option `"camel", "snake"`, default: `camel`
+- `intelephense.completion.propertyCase`: The preferred font case to use when suggesting property names Defaults to snake case, valid option `"camel", "snake"`, default: `snake`
 - `intelephense.format.enable`: Enables formatting, default: `true`
 - `intelephense.format.braces`: Controls formatting style of braces, valid option `"per", "allman", "k&r"`, default: `per`
 - `intelephense.environment.documentRoot`: The directory of the entry point to the application (directory of index.php). Can be absolute or relative to the workspace folder. Used for resolving script inclusion and path suggestions, default: `null`

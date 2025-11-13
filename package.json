@@ -627,6 +627,20 @@
           "description": "The preferred font case to use when suggesting parameter names. Defaults to camel case.",
           "scope": "window"
         },
+        "intelephense.completion.propertyCase": {
+          "type": "string",
+          "default": "snake",
+          "enum": [
+            "camel",
+            "snake"
+          ],
+          "enumDescriptions": [
+            "camelCase",
+            "snake_case"
+          ],
+          "description": "The preferred font case to use when suggesting property names. Defaults to snake case.",
+          "scope": "window"
+        },
         "intelephense.format.enable": {
           "type": "boolean",
           "default": true,
