@@ -89,7 +89,6 @@ For more information, check this coc.nvim's wiki.
 - `intelephense.client.snippetsCompletionExclude`: Exclude specific prefix in snippet completion, e.g. `["class", "fun"]`, default: `[]`
 - `intelephense.client.disableCodeLens`: Disable code lens only (client), default: `false`
 - `intelephense.client.codelensProvider`: Provider for CodeLens. Possible options include `phpunit` and `pest`, default: `"phpunit"`
-- `intelephense.client.disableInlayHints`: Disable inlay hints only (client), default: `true`
 - `intelephense.client.disableAddIskeyword`: Disable the feature of the extension to add `iskeyword`, default: `false`
 - `intelephense.server.disableCompletion`: Disable completion only (server), default: `false`
 - `intelephense.server.disableDefinition`: Disable definition only (server), default: `false`
@@ -112,7 +111,6 @@ For more information, check this coc.nvim's wiki.
 - `intelephense.pest.useSail`: To run `sail pest` instead of `pest`, default: `false`
 - `intelephense.pest.codeLensTitle`: CodeLens title. Can be changed to any display, default: `">> [Run Pest]"`
 - `intelephense.pest.enableSplitRight`: Use vertical belowright for pest terminal window, default: `false`
-- `intelephense.inlineParameters.showDollarSign`: Show the `$` character before PHP parameter names, default: `false`
 - `intelephense.progress.enable`: Enable progress window for indexing, If false, display with echo messages, default: `true` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/2)
 
 **Same configuration as vscode-intelephense**:
@@ -297,12 +295,6 @@ nmap <silent> gA <Plug>(coc-codeaction)
 - `Add PHPDoc for '...'`
 - and more...
   - Other code actions provided by the intelephehse language server
-
-## Inlay Hints (Client Base)
-
-- `inlineParametersInlayHintsFeature` | [DEMO](https://github.com/yaegassy/coc-intelephense/pull/41#issue-1270432446)
-  - By default, this feature is disabled
-  - Set `"intelephense.client.disableInlayHints"` to `false` to use the feature.
 
 ## Thanks
 

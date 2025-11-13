@@ -34,7 +34,6 @@ import * as symfonyConsoleCommandFeature from './commands/symfonyConsole';
 import * as autoCloseDocCommentDoSugesstCompletionFeature from './completions/autoCloseDocCommentDoSugesst';
 import * as scaffoldCompletionFeature from './completions/scaffold';
 import * as snippetsCompletionFeature from './completions/snippets';
-import * as inlineParametersInlayHintsFeature from './inlayHints/inlineParameters';
 import * as pestCodeLensFeature from './lenses/pest';
 import * as phpunitCodeLensFeature from './lenses/phpunit';
 
@@ -48,7 +47,6 @@ const CANCEL_INDEXING_CMD_NAME = 'intelephense.cancel.indexing';
 let extensionContext: ExtensionContext;
 let clientDisposable: Disposable;
 let languageClient: LanguageClient;
-let inlineParametersInlayHintsDisposable: Disposable | undefined;
 
 export async function activate(context: ExtensionContext): Promise<void> {
   extensionContext = context;
@@ -119,13 +117,6 @@ export async function activate(context: ExtensionContext): Promise<void> {
   ignoreCommentCodeActionFeature.register(context);
   getterSetterCodeActionFeature.register(context);
   removeUnusedImportsCodeActionFeature.register(context);
-
-  // Add inlay hints by "client" side
-  //
-  // If an index creation event occurs, we re-register the inlay hints feature
-  // during the completion event of the creation process.
-  if (inlineParametersInlayHintsDisposable) inlineParametersInlayHintsDisposable.dispose();
-  inlineParametersInlayHintsDisposable = await inlineParametersInlayHintsFeature.register(context, languageClient);
 }
 
 function createClient(context: ExtensionContext, clearCache: boolean) {
@@ -200,7 +191,7 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
   const languageClient = new LanguageClient('intelephense', 'intelephense', serverOptions, clientOptions);
 
   languageClient.onReady().then(() => {
-    registerNotificationListeners(context);
+    registerNotificationListeners();
   });
 
   return languageClient;
@@ -222,7 +213,7 @@ function cancelIndexing() {
   window.showWarningMessage('intelephense indexing has been canceled!');
 }
 
-function registerNotificationListeners(context: ExtensionContext) {
+function registerNotificationListeners() {
   const intelephenseConfig = workspace.getConfiguration('intelephense');
   const progressEnable = intelephenseConfig.get<boolean>('progress.enable');
 
@@ -244,9 +235,6 @@ function registerNotificationListeners(context: ExtensionContext) {
       if (resolveIndexingPromise) {
         resolveIndexingPromise();
       }
-      // register inlayHints
-      if (inlineParametersInlayHintsDisposable) inlineParametersInlayHintsDisposable.dispose();
-      inlineParametersInlayHintsDisposable = await inlineParametersInlayHintsFeature.register(context, languageClient);
     });
   } else {
     languageClient.onNotification(INDEXING_STARTED_NOTIFICATION.method, () => {
@@ -257,9 +245,6 @@ function registerNotificationListeners(context: ExtensionContext) {
       if (resolveIndexingPromise) {
         resolveIndexingPromise();
       }
-      // register inlayHints
-      if (inlineParametersInlayHintsDisposable) inlineParametersInlayHintsDisposable.dispose();
-      inlineParametersInlayHintsDisposable = await inlineParametersInlayHintsFeature.register(context, languageClient);
       window.showInformationMessage('intelephense running!');
     });
   }

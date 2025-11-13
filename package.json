@@ -120,11 +120,6 @@
             "pest"
           ]
         },
-        "intelephense.client.disableInlayHints": {
-          "type": "boolean",
-          "default": true,
-          "description": "Disable inlay hints only (client)."
-        },
         "intelephense.client.disableAddIskeyword": {
           "type": "boolean",
           "default": false,
@@ -245,11 +240,6 @@
           "type": "boolean",
           "default": false,
           "description": "Use vertical belowright for pest terminal window."
-        },
-        "intelephense.inlineParameters.showDollarSign": {
-          "type": "boolean",
-          "markdownDescription": "Show the $ character before PHP parameter names.",
-          "default": false
         },
         "intelephense.progress.enable": {
           "type": "boolean",
