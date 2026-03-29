@@ -131,6 +131,8 @@ For more information, check this coc.nvim's wiki.
 - `intelephense.completion.propertyCase`: The preferred font case to use when suggesting property names Defaults to snake case, valid option `"camel", "snake"`, default: `snake`
 - `intelephense.completion.suggestRelativeToPartialUseDeclaration`: Inserted text will be relative to any existing partial use declarations that may match the symbol. The value is the maximum number of namespace segments that may appear in the inserted text. Defaults to 0 (disabled), default: `0`
 - `intelephense.completion.sortText`: Controls whether suggestions will include a `sortText` property that may influence sort order, valid option `"none", "multi-factor"`, default: `multi-factor`
+- `intelephense.completion.withOverrideAttribute`: Method completions will include an `#[Override]` attribute where appropriate if targeting PHP 8.3+, default: `true`
+- `intelephense.completion.withMethodBody`: Method completions will include either a `parent` call or a `throw new Exception('Not implemented')` in the method body, default: `false`
 - `intelephense.format.enable`: Enables formatting, default: `true`
 - `intelephense.format.braces`: Controls formatting style of braces, valid option `"per", "allman", "k&r"`, default: `per`
 - `intelephense.environment.documentRoot`: The directory of the entry point to the application (directory of index.php). Can be absolute or relative to the workspace folder. Used for resolving script inclusion and path suggestions, default: `null`
