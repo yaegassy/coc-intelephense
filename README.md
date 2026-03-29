@@ -162,7 +162,7 @@ For more information, check this coc.nvim's wiki.
 - `intelephense.runtime`: Path to a Node.js executable. Use this if you wish to use a different version of Node.js, default: `null`
 - `intelephense.maxMemory`: Maximum memory (in MB) that the server should use. On some systems this may only have effect when runtime has been set. Minimum 256, default: `null`
 - `intelephense.licenceKey`: DEPRECATED. Don't use this, default: `""`
-- `intelephense.telemetry.enabled`: Anonymous usage and crash data will be sent to Azure Application Insights, default: `null`
+- `intelephense.telemetry.enabled`: When set to `true`, anonymous usage and crash data will be sent to Azure Application Insights. Defaults to `false`, default: `false`
 - `intelephense.rename.exclude`: Glob patterns to exclude files and folders from having symbols renamed. Rename operation will fail if references and/or definitions are found in excluded files/folders, default: `["**/vendor/**"]`
 - `intelephense.rename.namespaceMode`: Controls the scope of a namespace rename operation, valid option `"single", "all"`, default: `"single"`
 - `intelephense.references.exclude`: Glob patterns matching files and folders that should be excluded from references search, default: `["**/vendor/**"]`
