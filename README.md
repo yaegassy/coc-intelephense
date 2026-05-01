@@ -153,7 +153,7 @@ For more information, check this coc.nvim's wiki.
 - `intelephense.diagnostics.unusedSymbols`: Enables unused variable, private member, and import diagnostics, default: `true`
 - `intelephense.diagnostics.unexpectedTokens`: Enables unexpected token diagnostics, default: `true`
 - `intelephense.diagnostics.duplicateSymbols`: Enables duplicate symbol diagnostics, default: `true`
-- `intelephense.diagnostics.argumentCount`: Enables argument count diagnostics, default: `true`
+- `intelephense.diagnostics.argumentCount`: Enables argument count diagnostics, valid option: `"on"`, `"declared"`, `"off"`, default: `"on"`
 - `intelephense.diagnostics.typeErrors`: Enables diagnostics on type compatibility of arguments, property assignments, and return statements where types have been declared, default: `true`
 - `intelephense.diagnostics.deprecated`: Enables deprecated diagnostics, default: `true`
 - `intelephense.diagnostics.languageConstraints`: Enables reporting of various language constraint errors, default: `true`

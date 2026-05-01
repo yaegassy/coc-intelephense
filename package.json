@@ -813,10 +813,19 @@
           "scope": "window"
         },
         "intelephense.diagnostics.argumentCount": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enables argument count diagnostics.",
+          "type": "string",
+          "default": "on",
+          "enum": [
+            "on",
+            "declared",
+            "off"
+          ],
+          "markdownEnumDescriptions": [
             "Argument count diagnostics will be emitted for declared functions and methods and annotated `@method` methods.",
+            "Argument count diagnostics will be emitted for declared functions and methods only. Annotated `@method` methods will be ignored.",
+            "Argument count diagnostics will be disabled."
+          ],
+          "markdownDescription": "Enables argument count diagnostics.",
           "scope": "window"
         },
         "intelephense.diagnostics.typeErrors": {
