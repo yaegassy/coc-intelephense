@@ -13,4 +13,6 @@ yarn-error.log
 .prettierrc
 coverage
 _ref
+CLAUDE.md
 .serena
+.claude

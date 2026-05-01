@@ -143,7 +143,7 @@ For more information, check this coc.nvim's wiki.
 - `intelephense.diagnostics.run`: Controls when diagnostics are run, valid option `"onType", "onSave"`, default: `"onType"`
 - `intelephense.diagnostics.embeddedLanguages`: Enables diagnostics in embedded languages, default: `true`
 - `intelephense.diagnostics.undefinedSymbols`: DEPRECATED. Use the setting for each symbol category, default: `true`
-- `intelephense.diagnostics.undefinedVariables`: Enables undefined variable diagnostics, default: `true`
+- `intelephense.diagnostics.undefinedVariables`: Enables undefined variable diagnostics, valid option: `"on"`, `"local"`, `"off"`, default: `"on"`
 - `intelephense.diagnostics.undefinedTypes`: Enables undefined class, interface and trait diagnostics, default: `true`
 - `intelephense.diagnostics.undefinedFunctions`: Enables undefined function diagnostics, default: `true`
 - `intelephense.diagnostics.undefinedConstants`: Enables undefined constant diagnostics, default: `true`
