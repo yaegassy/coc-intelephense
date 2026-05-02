@@ -1621,10 +1621,10 @@ inherits@2:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
-intelephense@^1.18.1:
-  version "1.18.1"
-  resolved "https://registry.yarnpkg.com/intelephense/-/intelephense-1.18.1.tgz#e35c82844f8f576633e63d57d6dc7a000f836e89"
-  integrity sha512-7TxZlpb1Dzo2DEBV04ef+n26bUE/StcQdP6yAPdNzoxXktvgbEFsHEIy8G8kv52rdWjdTU77ZMGxpIxzJpPzUg==
+intelephense@^1.18.2:
+  version "1.18.2"
+  resolved "https://registry.yarnpkg.com/intelephense/-/intelephense-1.18.2.tgz#31105baca1df95fc5d2909e9a0b6dd0d23ccc53b"
+  integrity sha512-CK6KHeUDFFDpdwIvpQfNAnQkpQioYjJj/FmD5ZVtrQZ/P3P8qupIFxA/oHiuDeQYJtkzYCyADCnDSfFro+5uFQ==
   dependencies:
     "@bmewburn/js-beautify" "1.15.4"
     "@bmewburn/vscode-html-languageserver" "1.11.1"
