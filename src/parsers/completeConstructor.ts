@@ -55,7 +55,7 @@ type PropertyWithClassDetailType = PropertyType & ClassDetailType;
 export function getAst(code: string) {
   try {
     return parserEngine.parseEval(stripPHPTag(code));
-  } catch (e) {
+  } catch (_e) {
     return undefined;
   }
 

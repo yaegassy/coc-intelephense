@@ -1,17 +1,16 @@
+import cp from 'child_process';
 import {
   BasicList,
+  commands,
   ExtensionContext,
   ListAction,
   ListContext,
   ListItem,
-  Terminal,
-  commands,
   listManager,
+  Terminal,
   window,
   workspace,
 } from 'coc.nvim';
-
-import cp from 'child_process';
 import fs from 'fs';
 import path from 'path';
 
@@ -42,17 +41,17 @@ export function register(context: ExtensionContext) {
   context.subscriptions.push(
     commands.registerCommand('intelephense.artisan.runCommand', () => {
       workspace.nvim.command(`CocList artisan`);
-    }),
+    })
   );
   context.subscriptions.push(
     commands.registerCommand('intelephense.sailArtisan.runCommand', () => {
       workspace.nvim.command(`CocList sail`);
-    }),
+    })
   );
   context.subscriptions.push(
     commands.registerCommand('intelephense.symfony.runCommand', () => {
       workspace.nvim.command(`CocList symfony`);
-    }),
+    })
   );
 }
 
@@ -82,7 +81,7 @@ async function getSymfonyConsoleListCommandsJson(symfonyConsolePath: string) {
           const symfonyConsoleListJson = JSON.parse(stdout) as SymfonyConsoleListJsonType;
           const names = symfonyConsoleListJson.commands.map((c) => c.name);
           resolve(names);
-        } catch (e) {
+        } catch (_e) {
           resolve([]);
         }
       } else {

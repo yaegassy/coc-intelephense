@@ -1,4 +1,4 @@
-import { it, expect } from 'vitest';
+import { expect, it } from 'vitest';
 
 import * as removeUnusedImportsParser from '../parsers/removeUnusedImports';
 
@@ -21,7 +21,7 @@ it('removeUnusedImports | with namespace', () => {
   contents.push(`    Acme\\Child\\GrandChild\\ClassJ;\n`);
 
   const ast = removeUnusedImportsParser.getAst(contents.join('\n'));
-  const res = removeUnusedImportsParser.getUseNodes(ast.children);
+  const res = removeUnusedImportsParser.getUseNodes(ast!.children);
   expect(5).toBe(res.length);
 });
 
@@ -42,6 +42,6 @@ it('removeUnusedImports | without namespace', () => {
   contents.push(`    Acme\\Child\\GrandChild\\ClassJ;\n`);
 
   const ast = removeUnusedImportsParser.getAst(contents.join('\n'));
-  const res = removeUnusedImportsParser.getUseNodes(ast.children);
+  const res = removeUnusedImportsParser.getUseNodes(ast!.children);
   expect(5).toBe(res.length);
 });

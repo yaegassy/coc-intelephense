@@ -1,9 +1,8 @@
 import { commands, ExtensionContext, Terminal, Uri, window, workspace } from 'coc.nvim';
-
-import path from 'path';
 import fs from 'fs';
-import * as phpParser from '../parsers/php/parser';
+import path from 'path';
 import * as phpunitCommon from '../common/phpunit';
+import * as phpParser from '../parsers/php/parser';
 
 let terminal: Terminal | undefined;
 
@@ -11,7 +10,7 @@ export function register(context: ExtensionContext) {
   context.subscriptions.push(
     commands.registerCommand('intelephense.phpunit.projectTest', phpunitProjectTestCommand()),
     commands.registerCommand('intelephense.phpunit.fileTest', phpunitFileTestCommand()),
-    commands.registerCommand('intelephense.phpunit.singleTest', phpunitSingleTestCommand()),
+    commands.registerCommand('intelephense.phpunit.singleTest', phpunitSingleTestCommand())
   );
 }
 

@@ -1,0 +1,4 @@
+{
+  "prettier.disableLanguages": ["typescript", "typescriptreact", "javascript", "javascriptreact"],
+  "biome.enable": true
+}

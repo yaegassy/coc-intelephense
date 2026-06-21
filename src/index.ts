@@ -1,5 +1,6 @@
 import {
   CancellationToken,
+  commands,
   Diagnostic,
   Disposable,
   ExtensionContext,
@@ -12,9 +13,8 @@ import {
   ProvideDefinitionSignature,
   RequestType,
   ServerOptions,
-  TransportKind,
-  commands,
   services,
+  TransportKind,
   window,
   workspace,
 } from 'coc.nvim';
@@ -88,7 +88,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   context.subscriptions.push(
     commands.registerCommand(INDEX_WORKSPACE_CMD_NAME, indexWorkspace),
-    commands.registerCommand(CANCEL_INDEXING_CMD_NAME, cancelIndexing),
+    commands.registerCommand(CANCEL_INDEXING_CMD_NAME, cancelIndexing)
   );
 
   clientDisposable = services.registLanguageClient(languageClient);
@@ -179,7 +179,7 @@ function createClient(context: ExtensionContext, clearCache: boolean) {
         document: LinesTextDocument,
         position: Position,
         token: CancellationToken,
-        next: ProvideDefinitionSignature,
+        next: ProvideDefinitionSignature
       ) => {
         if (getConfigServerDisableDefinition()) return;
         return await next(document, position, token);
@@ -227,7 +227,7 @@ function registerNotificationListeners() {
           resolveIndexingPromise = () => {
             resolve();
           };
-        }),
+        })
       );
     });
 
@@ -263,7 +263,7 @@ async function displayInitIndexProgress<T = void>(promise: Promise<T>) {
         cancelIndexing();
       });
       return promise;
-    },
+    }
   );
 }
 
@@ -280,7 +280,7 @@ function handleDiagnostics(uri: string, diagnostics: Diagnostic[], next: HandleD
         const len = doc.getLines().length;
         const prevLine = len > 1 ? doc.getline(d.range.start.line - 1) : '';
         return prevLine.indexOf('@intelephense-ignore-next-line') === -1;
-      }),
+      })
   );
 }
 

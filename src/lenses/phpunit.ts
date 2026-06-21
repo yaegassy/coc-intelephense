@@ -2,17 +2,17 @@ import {
   CancellationToken,
   CodeLens,
   CodeLensProvider,
-  events,
   ExtensionContext,
-  languages,
+  events,
   LinesTextDocument,
+  languages,
   Position,
   Range,
   Uri,
   workspace,
 } from 'coc.nvim';
-import * as phpParser from '../parsers/php/parser';
 import * as phpunitCommon from '../common/phpunit';
+import * as phpParser from '../parsers/php/parser';
 
 export function register(context: ExtensionContext) {
   if (!workspace.getConfiguration('intelephense').get<boolean>('client.disableCodeLens', false)) {
@@ -22,7 +22,7 @@ export function register(context: ExtensionContext) {
 
     if (useCodelensProvider === 'phpunit') {
       context.subscriptions.push(
-        languages.registerCodeLensProvider([{ language: 'php', scheme: 'file' }], new PHPUnitCodeLensProvider()),
+        languages.registerCodeLensProvider([{ language: 'php', scheme: 'file' }], new PHPUnitCodeLensProvider())
       );
     }
   }
@@ -65,7 +65,7 @@ export class PHPUnitCodeLensProvider implements CodeLensProvider {
           codeLenses.push(lens);
         }
       }
-    } catch (e) {
+    } catch (_e) {
       // noop
     }
 

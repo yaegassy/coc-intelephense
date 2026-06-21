@@ -3,12 +3,12 @@ import {
   CodeLens,
   CodeLensProvider,
   ExtensionContext,
+  events,
   LinesTextDocument,
+  languages,
   Position,
   Range,
   Uri,
-  events,
-  languages,
   workspace,
 } from 'coc.nvim';
 import * as pestCommon from '../common/pest';
@@ -23,7 +23,7 @@ export function register(context: ExtensionContext) {
 
     if (useCodelensProvider === 'pest') {
       context.subscriptions.push(
-        languages.registerCodeLensProvider([{ language: 'php', scheme: 'file' }], new PestCodeLensProvider()),
+        languages.registerCodeLensProvider([{ language: 'php', scheme: 'file' }], new PestCodeLensProvider())
       );
     }
   }
@@ -67,7 +67,7 @@ export class PestCodeLensProvider implements CodeLensProvider {
           codeLenses.push(lens);
         }
       }
-    } catch (e) {
+    } catch (_e) {
       // noop
     }
 
@@ -94,7 +94,7 @@ export class PestCodeLensProvider implements CodeLensProvider {
           codeLenses.push(lens);
         }
       }
-    } catch (e) {
+    } catch (_e) {
       // noop
     }
 

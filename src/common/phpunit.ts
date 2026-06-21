@@ -1,6 +1,5 @@
-import * as phpParser from '../parsers/php/parser';
-
 import { Identifier, Method, Node } from 'php-parser';
+import * as phpParser from '../parsers/php/parser';
 
 export type PhpUnitTestItemType = {
   methodName: string;

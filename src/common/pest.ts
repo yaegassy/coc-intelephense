@@ -1,6 +1,5 @@
-import * as phpParser from '../parsers/php/parser';
-
 import { Call, Name as NameNode, Node, String as StringNode } from 'php-parser';
+import * as phpParser from '../parsers/php/parser';
 
 export type PestTestItemType = {
   description: string;

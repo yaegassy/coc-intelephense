@@ -1,6 +1,5 @@
-import { commands, ExtensionContext, Terminal, window, workspace } from 'coc.nvim';
-
 import cp from 'child_process';
+import { commands, ExtensionContext, Terminal, window, workspace } from 'coc.nvim';
 import fs from 'fs';
 import path from 'path';
 
@@ -10,7 +9,7 @@ export function register(context: ExtensionContext) {
   context.subscriptions.push(
     commands.registerCommand('intelephense.composer.runCommand', runComposerCommandCommand()),
     commands.registerCommand('intelephense.composer.runCommandPlus', runComposerCommandPlusCommand()),
-    commands.registerCommand('intelephense.composer.runScriptsCommand', runComposerScriptsCommand()),
+    commands.registerCommand('intelephense.composer.runScriptsCommand', runComposerScriptsCommand())
   );
 }
 

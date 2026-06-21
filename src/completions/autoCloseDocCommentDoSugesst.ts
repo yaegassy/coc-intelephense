@@ -16,14 +16,14 @@ export function register(context: ExtensionContext) {
           let nextLine = '';
           try {
             nextLine = e.originalLines[e.contentChanges[0].range.start.line + 1].trim();
-          } catch (e) {
+          } catch (_e) {
             // noop
           }
 
           let currentLine = '';
           try {
             currentLine = e.originalLines[e.contentChanges[0].range.start.line].trim();
-          } catch (e) {
+          } catch (_e) {
             // noop
           }
 
@@ -47,13 +47,13 @@ export function register(context: ExtensionContext) {
               Range.create(
                 Position.create(
                   e.contentChanges[0].range.start.line,
-                  e.contentChanges[0].range.start.character + addRangeCharacter,
+                  e.contentChanges[0].range.start.character + addRangeCharacter
                 ),
                 Position.create(
                   e.contentChanges[0].range.start.line,
-                  e.contentChanges[0].range.start.character + addRangeCharacter,
-                ),
-              ),
+                  e.contentChanges[0].range.start.character + addRangeCharacter
+                )
+              )
             );
 
             // **MEMO**:
@@ -66,7 +66,7 @@ export function register(context: ExtensionContext) {
         }, 50);
       },
       null,
-      context.subscriptions,
+      context.subscriptions
     );
   }
 }

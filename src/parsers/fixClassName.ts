@@ -1,4 +1,4 @@
-import { Class, Engine, Namespace, Node, Identifier } from 'php-parser';
+import { Class, Engine, Identifier, Namespace, Node } from 'php-parser';
 
 const parserEngine = new Engine({
   parser: {
@@ -16,7 +16,7 @@ const parserEngine = new Engine({
 export function getAst(code: string) {
   try {
     return parserEngine.parseEval(stripPHPTag(code));
-  } catch (e) {
+  } catch (_e) {
     return undefined;
   }
 

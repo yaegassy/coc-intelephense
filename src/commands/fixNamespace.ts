@@ -1,8 +1,7 @@
-import { commands, ExtensionContext, window, workspace, Uri, TextEdit, Range, Position } from 'coc.nvim';
-import * as fixNamespaceParser from '../parsers/fixNamespace';
-
+import { commands, ExtensionContext, Position, Range, TextEdit, Uri, window, workspace } from 'coc.nvim';
 import fs from 'fs';
 import path from 'path';
+import * as fixNamespaceParser from '../parsers/fixNamespace';
 
 type ComposerJsonContentType = {
   autoload: {
@@ -31,7 +30,7 @@ export function runFixNamespace() {
     let composerJsonContent: ComposerJsonContentType | null = null;
     try {
       composerJsonContent = JSON.parse(fs.readFileSync(composerJsonPath, 'utf8'));
-    } catch (error) {
+    } catch (_error) {
       composerJsonContent = null;
     }
 
@@ -79,9 +78,9 @@ export function runFixNamespace() {
       TextEdit.replace(
         Range.create(
           Position.create(currentFileNsLoc.start.line - 1, currentFileNsLoc.start.column),
-          Position.create(currentFileNsLoc.start.line - 1, declarationColumn),
+          Position.create(currentFileNsLoc.start.line - 1, declarationColumn)
         ),
-        `namespace ${newNamespace};`,
+        `namespace ${newNamespace};`
       ),
     ];
 

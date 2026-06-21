@@ -4,7 +4,7 @@ export function getAstByEvalCode(code: string) {
   try {
     const parserEngine = getParserEngine();
     return parserEngine.parseEval(stripPHPTag(code));
-  } catch (e) {
+  } catch (_e) {
     return undefined;
   }
 }
@@ -13,7 +13,7 @@ export function getAstByParseCode(code: string) {
   try {
     const parserEngine = getParserEngine();
     return parserEngine.parseCode(code, '');
-  } catch (e) {
+  } catch (_e) {
     return undefined;
   }
 }
