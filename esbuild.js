@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 async function start(watch) {
+  // biome-ignore lint/style/noCommonJs: <...>
   await require('esbuild').build({
     entryPoints: ['src/index.ts'],
     bundle: true,

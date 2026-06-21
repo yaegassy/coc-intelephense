@@ -1154,10 +1154,10 @@ import-in-the-middle@^1.8.1:
     cjs-module-lexer "^1.2.2"
     module-details-from-path "^1.0.3"
 
-intelephense@^1.18.4:
-  version "1.18.4"
-  resolved "https://registry.yarnpkg.com/intelephense/-/intelephense-1.18.4.tgz#737b954f3facbb4f97e5de7fffeae0a82b574442"
-  integrity sha512-cqOJTAO8y8DiUCr13LCCUgqAt/BgOCgRYz3WOpstBtR4H1ArWTIEIWWSiWBK4M158BNefDNBYBUMS4ULyTMbqQ==
+intelephense@^1.18.5:
+  version "1.18.5"
+  resolved "https://registry.yarnpkg.com/intelephense/-/intelephense-1.18.5.tgz#5c3dfff3d9ffc106c7464230a8168b7756dd4837"
+  integrity sha512-dqCH1YNCRlHGBLND+iUFjBJlGwM4pPimX2jm8AaP/6K2WZNM2K2+E8dOWCD3ZYMP2zC2ICBD9Soe2oxKtU9d9A==
   dependencies:
     "@bmewburn/js-beautify" "1.15.4"
     "@bmewburn/vscode-html-languageserver" "1.11.1"
